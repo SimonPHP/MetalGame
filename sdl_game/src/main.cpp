@@ -6,6 +6,7 @@
 #include "gamebase.h"
 #include "intro.h"
 #include "editor.h"
+#include "test.h"
 
 class MyGame : public Game
 {
@@ -15,7 +16,8 @@ public:
 	{
 		allStates[0] = new IntroState( *this, renderer );
 		allStates[1] = new EditorState( *this, renderer );
-		SetNextState( 0 );
+        allStates[2] = new TestState( *this, renderer );
+		SetNextState( 2 );
 	}
 
 	virtual ~MyGame()

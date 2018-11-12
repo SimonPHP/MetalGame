@@ -1,4 +1,4 @@
-# Install script for directory: /home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game-master
+# Install script for directory: /home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,7 +39,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/cmake-build-debug/cmake_install.cmake")
+  include("/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/cmake_install.cmake")
 
 endif()
 
@@ -51,5 +51,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game-master/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

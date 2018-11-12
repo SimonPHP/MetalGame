@@ -43,32 +43,32 @@ RM = /home/simon/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/182.4892.24/bin/
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game-master"
+CMAKE_SOURCE_DIR = "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game-master/cmake-build-debug"
+CMAKE_BINARY_DIR = "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/cmake-build-debug"
 
 # Include any dependencies generated for this target.
-include /home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/cmake-build-debug/CMakeFiles/sdl_oo.dir/depend.make
+include /home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/depend.make
 
 # Include the progress variables for this target.
-include /home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/cmake-build-debug/CMakeFiles/sdl_oo.dir/progress.make
+include /home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/progress.make
 
 # Include the compile flags for this target's objects.
-include /home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/cmake-build-debug/CMakeFiles/sdl_oo.dir/flags.make
+include /home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/flags.make
 
-/home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/cmake-build-debug/CMakeFiles/sdl_oo.dir/src/SDL.cpp.o: /home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/cmake-build-debug/CMakeFiles/sdl_oo.dir/flags.make
-/home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/cmake-build-debug/CMakeFiles/sdl_oo.dir/src/SDL.cpp.o: /home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/src/SDL.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game-master/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object /home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/cmake-build-debug/CMakeFiles/sdl_oo.dir/src/SDL.cpp.o"
-	cd "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/cmake-build-debug" && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sdl_oo.dir/src/SDL.cpp.o -c "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/src/SDL.cpp"
+/home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/src/SDL.cpp.o: /home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/flags.make
+/home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/src/SDL.cpp.o: /home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/src/SDL.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object /home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/src/SDL.cpp.o"
+	cd "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug" && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sdl_oo.dir/src/SDL.cpp.o -c "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo/src/SDL.cpp"
 
-/home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/cmake-build-debug/CMakeFiles/sdl_oo.dir/src/SDL.cpp.i: cmake_force
+/home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/src/SDL.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sdl_oo.dir/src/SDL.cpp.i"
-	cd "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/cmake-build-debug" && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/src/SDL.cpp" > CMakeFiles/sdl_oo.dir/src/SDL.cpp.i
+	cd "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug" && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo/src/SDL.cpp" > CMakeFiles/sdl_oo.dir/src/SDL.cpp.i
 
-/home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/cmake-build-debug/CMakeFiles/sdl_oo.dir/src/SDL.cpp.s: cmake_force
+/home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/src/SDL.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sdl_oo.dir/src/SDL.cpp.s"
-	cd "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/cmake-build-debug" && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/src/SDL.cpp" -o CMakeFiles/sdl_oo.dir/src/SDL.cpp.s
+	cd "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug" && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo/src/SDL.cpp" -o CMakeFiles/sdl_oo.dir/src/SDL.cpp.s
 
 # Object files for target sdl_oo
 sdl_oo_OBJECTS = \
@@ -77,23 +77,23 @@ sdl_oo_OBJECTS = \
 # External object files for target sdl_oo
 sdl_oo_EXTERNAL_OBJECTS =
 
-/home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/cmake-build-debug/libsdl_oo.a: /home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/cmake-build-debug/CMakeFiles/sdl_oo.dir/src/SDL.cpp.o
-/home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/cmake-build-debug/libsdl_oo.a: /home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/cmake-build-debug/CMakeFiles/sdl_oo.dir/build.make
-/home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/cmake-build-debug/libsdl_oo.a: /home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/cmake-build-debug/CMakeFiles/sdl_oo.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game-master/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libsdl_oo.a"
-	cd "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/cmake-build-debug" && $(CMAKE_COMMAND) -P CMakeFiles/sdl_oo.dir/cmake_clean_target.cmake
-	cd "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/cmake-build-debug" && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/sdl_oo.dir/link.txt --verbose=$(VERBOSE)
+/home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/libsdl_oo.a: /home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/src/SDL.cpp.o
+/home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/libsdl_oo.a: /home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/build.make
+/home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/libsdl_oo.a: /home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libsdl_oo.a"
+	cd "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug" && $(CMAKE_COMMAND) -P CMakeFiles/sdl_oo.dir/cmake_clean_target.cmake
+	cd "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug" && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/sdl_oo.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-/home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/cmake-build-debug/CMakeFiles/sdl_oo.dir/build: /home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/cmake-build-debug/libsdl_oo.a
+/home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/build: /home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/libsdl_oo.a
 
-.PHONY : /home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/cmake-build-debug/CMakeFiles/sdl_oo.dir/build
+.PHONY : /home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/build
 
-/home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/cmake-build-debug/CMakeFiles/sdl_oo.dir/clean:
-	cd "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/cmake-build-debug" && $(CMAKE_COMMAND) -P CMakeFiles/sdl_oo.dir/cmake_clean.cmake
-.PHONY : /home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/cmake-build-debug/CMakeFiles/sdl_oo.dir/clean
+/home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/clean:
+	cd "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug" && $(CMAKE_COMMAND) -P CMakeFiles/sdl_oo.dir/cmake_clean.cmake
+.PHONY : /home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/clean
 
-/home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/cmake-build-debug/CMakeFiles/sdl_oo.dir/depend:
-	cd "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game-master/cmake-build-debug" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game-master" "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo-master" "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game-master/cmake-build-debug" "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/cmake-build-debug" "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/cmake-build-debug/CMakeFiles/sdl_oo.dir/DependInfo.cmake" --color=$(COLOR)
-.PHONY : /home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/cmake-build-debug/CMakeFiles/sdl_oo.dir/depend
+/home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/depend:
+	cd "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/cmake-build-debug" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game" "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo" "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/cmake-build-debug" "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug" "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/DependInfo.cmake" --color=$(COLOR)
+.PHONY : /home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/depend
 

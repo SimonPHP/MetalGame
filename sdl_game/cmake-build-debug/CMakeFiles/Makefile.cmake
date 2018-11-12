@@ -34,7 +34,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.12.3/CMakeCCompiler.cmake"
   "CMakeFiles/3.12.3/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.12.3/CMakeSystem.cmake"
-  "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/CMakeLists.txt"
+  "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo/CMakeLists.txt"
   )
 
 # The corresponding makefile is:
@@ -46,11 +46,11 @@ set(CMAKE_MAKEFILE_OUTPUTS
 # Byproducts of CMake generate step:
 set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/CMakeDirectoryInformation.cmake"
-  "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/sdl_game.dir/DependInfo.cmake"
-  "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo-master/cmake-build-debug/CMakeFiles/sdl_oo.dir/DependInfo.cmake"
+  "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/DependInfo.cmake"
   )

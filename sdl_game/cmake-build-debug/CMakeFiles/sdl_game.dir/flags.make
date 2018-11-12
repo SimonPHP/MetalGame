@@ -6,5 +6,5 @@ CXX_FLAGS =  -Wextra -g   -std=gnu++1z
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I"/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game-master/../sdl_oo/include" -I/usr/include/SDL2 
+CXX_INCLUDES = -I"/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/../sdl_oo/include" -I/usr/include/SDL2 
 

@@ -22,6 +22,8 @@ class EditorState : public GameState
 	Array<Array<Point, 20>, 40> level;
 	Point camera;
 
+	SDL::Rect r = SDL::Rect();
+
 public:
 
 	virtual void Init() override

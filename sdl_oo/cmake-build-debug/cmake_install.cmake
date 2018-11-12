@@ -1,4 +1,4 @@
-# Install script for directory: /home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo-master
+# Install script for directory: /home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

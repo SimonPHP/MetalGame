@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game-master/src/main.cpp" "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game-master/cmake-build-debug/CMakeFiles/sdl_game.dir/src/main.cpp.o"
+  "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/main.cpp" "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/cmake-build-debug/CMakeFiles/sdl_game.dir/src/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
