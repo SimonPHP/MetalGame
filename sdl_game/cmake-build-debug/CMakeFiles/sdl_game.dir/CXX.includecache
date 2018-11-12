@@ -1,0 +1,54 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game-master/src/editor.h
+global.h
+/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game-master/src/global.h
+gamebase.h
+/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game-master/src/gamebase.h
+
+/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game-master/src/gamebase.h
+chrono
+-
+sstream
+-
+global.h
+/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game-master/src/global.h
+
+/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game-master/src/global.h
+array
+-
+algorithm
+-
+SDL.hpp
+-
+SDL_ttf.hpp
+-
+SDL_image.hpp
+-
+
+/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game-master/src/intro.h
+global.h
+/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game-master/src/global.h
+gamebase.h
+/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game-master/src/gamebase.h
+
+/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game-master/src/main.cpp
+iostream
+-
+stdio.h
+-
+global.h
+/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game-master/src/global.h
+gamebase.h
+/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game-master/src/gamebase.h
+intro.h
+/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game-master/src/intro.h
+editor.h
+/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game-master/src/editor.h
+

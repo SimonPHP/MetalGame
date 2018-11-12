@@ -1,0 +1,4 @@
+/home/simon/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/182.4892.24/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game-master"
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game-master/cmake-build-debug
