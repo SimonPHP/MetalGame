@@ -4,7 +4,7 @@ project(sdl_game)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wextra") #  -Wall -Wextra
 
-add_executable(sdl_game src/main.cpp src/object.h src/collidable.h src/test.h)
+add_executable(sdl_game src/main.cpp src/Object.h src/Collidable.h src/test.h src/tileset.h)
 
 include(FindPkgConfig)
 

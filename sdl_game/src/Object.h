@@ -8,8 +8,11 @@
 #include <SDL_rect.hpp>
 #include <SDL_render.hpp>
 #include <ostream>
+#include <vector>
 
-class object {
+#include "tileset.h"
+
+class Object {
     /*
      * Da wir wahrscheinlich nur Rechteckige Objecte haben werden können wir die Position und maße direkt aus einem
      * Rect bestimmen.
@@ -21,18 +24,25 @@ class object {
      * */
 protected:
     SDL::Rect rect;
-    SDL::Texture texture;
+    Tileset tileset;
+    std::vector<SDL::Point*> animation;
+    std::vector<SDL::Point *>::iterator it;
+    int animationMaxTime = 24;
+    int animationTimer = 1;
     //SDL::Renderer renderer; falls man das braucht
 
 public:
-    object() {}
+    Object() {
+        animation.push_back(new SDL::Point(0,0)); //erstes tile als standard
+        it = animation.begin();
+    }
 
     const SDL::Rect &getRect() {
         return rect;
     }
 
     void setRect(const SDL::Rect &rect) {
-        object::rect = rect;
+        Object::rect = rect;
     }
 
     SDL::Point getPos() {
@@ -41,24 +51,40 @@ public:
 
     void setPos(const SDL::Point &pos)
     {
-        object::rect.x = pos.x;
-        object::rect.y = pos.y;
+        Object::rect.x = pos.x;
+        Object::rect.y = pos.y;
     }
 
-    const SDL::Texture &getTexture() const {
-        return texture;
+    const Tileset &getTileset() const {
+        return tileset;
     }
 
-    void setTexture(const SDL::Texture &texture) {
-        object::texture = texture;
+    void setTileset(const Tileset &tileset) {
+        Object::tileset = tileset;
+    }
+
+    const std::vector<SDL::Point *> &getAnimation() const {
+        return animation;
+    }
+
+    void setAnimation(const std::vector<SDL::Point *> &animation) {
+        Object::animation = animation;
+        animationTimer = 1;
+        it = Object::animation.begin();
     }
 
     void draw()
     {
-        //
+        if(animationTimer%animationMaxTime == 0)
+        {
+            if(++it == animation.end()) //++it weil animation.end() auf ein element hinter dem letzten zeigt
+                it = animation.begin();
+        }
+        tileset.Draw(getPos(), **it);
+        animationTimer++;
     }
 
-    friend std::ostream &operator<<(std::ostream &os, const object &object1) {
+    friend std::ostream &operator<<(std::ostream &os, const Object &object1) {
         os << "Object rect: (" << object1.rect.x
                 << ", " << object1.rect.y
                 << ", " << object1.rect.w

@@ -17,14 +17,15 @@ CMakeFiles/sdl_game.dir/src/main.cpp.o: ../../sdl_oo/include/SDL_stdinc.hpp
 CMakeFiles/sdl_game.dir/src/main.cpp.o: ../../sdl_oo/include/SDL_surface.hpp
 CMakeFiles/sdl_game.dir/src/main.cpp.o: ../../sdl_oo/include/SDL_ttf.hpp
 CMakeFiles/sdl_game.dir/src/main.cpp.o: ../../sdl_oo/include/SDL_video.hpp
-CMakeFiles/sdl_game.dir/src/main.cpp.o: ../src/collidable.h
+CMakeFiles/sdl_game.dir/src/main.cpp.o: ../src/Collidable.h
+CMakeFiles/sdl_game.dir/src/main.cpp.o: ../src/Object.h
 CMakeFiles/sdl_game.dir/src/main.cpp.o: ../src/editor.h
 CMakeFiles/sdl_game.dir/src/main.cpp.o: ../src/gamebase.h
 CMakeFiles/sdl_game.dir/src/main.cpp.o: ../src/global.h
 CMakeFiles/sdl_game.dir/src/main.cpp.o: ../src/intro.h
 CMakeFiles/sdl_game.dir/src/main.cpp.o: ../src/main.cpp
-CMakeFiles/sdl_game.dir/src/main.cpp.o: ../src/object.h
 CMakeFiles/sdl_game.dir/src/main.cpp.o: ../src/test.h
+CMakeFiles/sdl_game.dir/src/main.cpp.o: ../src/tileset.h
 CMakeFiles/sdl_game.dir/src/main.cpp.o: /usr/include/SDL2/SDL.h
 CMakeFiles/sdl_game.dir/src/main.cpp.o: /usr/include/SDL2/SDL_assert.h
 CMakeFiles/sdl_game.dir/src/main.cpp.o: /usr/include/SDL2/SDL_atomic.h

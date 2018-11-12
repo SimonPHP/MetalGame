@@ -7,8 +7,9 @@
 
 #include "global.h"
 #include "gamebase.h"
-#include "object.h"
-#include "collidable.h"
+#include "Object.h"
+#include "Collidable.h"
+#include "tileset.h"
 
 #include <iostream>
 
@@ -20,8 +21,15 @@ class TestState : public GameState
     SDL::Texture image;
     SDL::Texture blendedText;
 
-    object ob = object();
-    collidable co = collidable();
+    Tileset tileSet;
+
+    Object ob = Object();
+    Collidable co = Collidable();
+    Collidable co2 = Collidable();
+    Collidable co3 = Collidable();
+
+    Object player = Object();
+
 
 public:
 
@@ -30,12 +38,36 @@ public:
         font = TTF::Font("../assets/fonts/RobotoSlab-Bold.ttf", 24);
         // image = IMG::LoadTexture(renderer, "../assets/graphics/background.png");
 
+        /*
         ob.setRect(SDL::Rect(0,0,100,100));
         co.setRect(SDL::Rect(20,20,40,40));
         co.setHitbox(SDL::Rect(10,10,10,10));
         co.bindHitboxToObjectRect(true);
         co.bindHitboxToObjectRect(false);
 
+        co2.setRect(SDL::Rect(10,10,30,30));
+        co2.setHitbox(SDL::Rect(10,10,30,30));
+
+        co3.setRect(SDL::Rect(100,100,30,30));
+        co3.setHitbox(SDL::Rect(100,100,30,30));
+         */
+
+        tileSet = Tileset(IMG::LoadTexture( renderer, "../assets/graphics/platformerPack_character.png" ), SDL::Point(4,2));
+        player.setRect(SDL::Rect(100,100,96,96));
+        player.setTileset(tileSet);
+
+        std::vector<SDL::Point *> anim;
+
+        anim.push_back(new SDL::Point(0,0));
+        anim.push_back(new SDL::Point(1,0));
+        anim.push_back(new SDL::Point(2,0));
+        anim.push_back(new SDL::Point(3,0));
+        anim.push_back(new SDL::Point(0,1));
+        anim.push_back(new SDL::Point(1,1));
+        anim.push_back(new SDL::Point(2,1));
+        anim.push_back(new SDL::Point(3,1));
+
+        player.setAnimation(anim);
     }
 
     virtual void Uninit() override
@@ -52,23 +84,6 @@ public:
         {
             if (game.HandleEvent(evt))
                 continue;
-
-            switch (evt.type())
-            {
-                case Event::Type::KEYDOWN:
-                {
-                    auto        kd = evt.Keyboard();
-                    SDL::Keysym what_key = kd.keysym;
-                    if (what_key.scancode() != SDL::Scancode::ESCAPE)
-                    {
-                        game.SetNextState(1); // continue to game on everything else than ESC
-                    }
-                    break;
-                }
-                case Event::Type::MOUSEBUTTONDOWN:
-                    game.SetNextState(1);
-                    break;
-            }
         }
     }
 
@@ -76,14 +91,20 @@ public:
     {
         //std::cout << ob << std::endl;
 
+        /*
         co.setRect(SDL::Rect(co.getPos().x + 1, co.getPos().y + 2, 40, 40));
         std::cout << co << std::endl;
+
+        std::cout << "co und co2 collide: " << co.checkCollision(co2) << std::endl;
+        std::cout << "co und co3 collide: " << co.checkCollision(co3) << std::endl;
+         */
     }
 
     virtual void Render(const int frame, const float deltaT) override
     {
+        renderer.ClearColor(255,255,255);
         {
-            //image.Draw(Rect(0, 0, 1024, 768));
+            image.Draw(Rect(0, 0, 1024, 768));
             blendedText.SetColorMod(Color(0, 0, 0));
             const Point p(32, 50);
             for (const Point& pd : { Point(-1, -1), Point(1, -1), Point(-1, 1), Point(1, 1), Point(0, 2), Point(2, 0), Point(0, -2), Point(-2, 0) })
@@ -91,6 +112,8 @@ public:
             blendedText.SetColorMod(Color(255, 255, 255));
             blendedText.Draw(p);
         }
+
+        player.draw();
 
         renderer.Present();
     }

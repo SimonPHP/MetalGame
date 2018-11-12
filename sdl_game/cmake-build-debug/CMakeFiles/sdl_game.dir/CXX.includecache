@@ -232,11 +232,23 @@ SDL_surface.hpp
 SDL_video.h
 -
 
-/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/collidable.h
+/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/Collidable.h
 ostream
 -
-object.h
-/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/object.h
+Object.h
+/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/Object.h
+
+/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/Object.h
+SDL_rect.hpp
+-
+SDL_render.hpp
+-
+ostream
+-
+vector
+-
+tileset.h
+/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/tileset.h
 
 /home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/editor.h
 global.h
@@ -286,23 +298,23 @@ editor.h
 test.h
 /home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/test.h
 
-/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/object.h
-SDL_rect.hpp
--
-SDL_render.hpp
--
-ostream
--
-
 /home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/test.h
 global.h
 /home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/global.h
 gamebase.h
 /home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/gamebase.h
-object.h
-/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/object.h
-collidable.h
-/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/collidable.h
+Object.h
+/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/Object.h
+Collidable.h
+/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/Collidable.h
+tileset.h
+/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/tileset.h
+iostream
+-
+
+/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/tileset.h
+SDL_render.hpp
+-
 iostream
 -
 
