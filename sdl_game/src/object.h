@@ -12,14 +12,14 @@
 
 #include "tileset.h"
 
-class Object {
+class object {
     /*
      * Da wir wahrscheinlich nur Rechteckige Objecte haben werden können wir die Position und maße direkt aus einem
      * Rect bestimmen.
-     * Jedes Object sollte malbar sein eventeull noch ne funktion fürs kurzeitige aussetzen diese objectes bereitstellen
-     * Mit den Texturen habe ich grade ein problem da wir ja alles von Tiles Rendern lassen müsste man dem Object
+     * Jedes object sollte malbar sein eventeull noch ne funktion fürs kurzeitige aussetzen diese objectes bereitstellen
+     * Mit den Texturen habe ich grade ein problem da wir ja alles von Tiles Rendern lassen müsste man dem object
      * das Tileset mitgeben und die Position der Grafik dieses Objectes.
-     * Also am besten eine Referenz auf die einmal geladene Texture so das sie nicht für jedes Object einzeln
+     * Also am besten eine Referenz auf die einmal geladene Texture so das sie nicht für jedes object einzeln
      * gespeichert wird. Und die größe und Position noch mitgeben und schaune ob es dort abweichungen geben kann.
      * */
 protected:
@@ -32,7 +32,7 @@ protected:
     //SDL::Renderer renderer; falls man das braucht
 
 public:
-    Object() {
+    object() {
         animation.push_back(new SDL::Point(0,0)); //erstes tile als standard
         it = animation.begin();
     }
@@ -42,7 +42,7 @@ public:
     }
 
     void setRect(const SDL::Rect &rect) {
-        Object::rect = rect;
+        object::rect = rect;
     }
 
     SDL::Point getPos() {
@@ -51,8 +51,8 @@ public:
 
     void setPos(const SDL::Point &pos)
     {
-        Object::rect.x = pos.x;
-        Object::rect.y = pos.y;
+        object::rect.x = pos.x;
+        object::rect.y = pos.y;
     }
 
     const Tileset &getTileset() const {
@@ -60,7 +60,7 @@ public:
     }
 
     void setTileset(const Tileset &tileset) {
-        Object::tileset = tileset;
+        object::tileset = tileset;
     }
 
     const std::vector<SDL::Point *> &getAnimation() const {
@@ -68,9 +68,9 @@ public:
     }
 
     void setAnimation(const std::vector<SDL::Point *> &animation) {
-        Object::animation = animation;
+        object::animation = animation;
         animationTimer = 1;
-        it = Object::animation.begin();
+        it = object::animation.begin();
     }
 
     void draw()
@@ -84,8 +84,8 @@ public:
         animationTimer++;
     }
 
-    friend std::ostream &operator<<(std::ostream &os, const Object &object1) {
-        os << "Object rect: (" << object1.rect.x
+    friend std::ostream &operator<<(std::ostream &os, const object &object1) {
+        os << "object rect: (" << object1.rect.x
                 << ", " << object1.rect.y
                 << ", " << object1.rect.w
                 << ", " << object1.rect.h

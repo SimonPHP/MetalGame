@@ -7,9 +7,11 @@
 
 #include "global.h"
 #include "gamebase.h"
-#include "Object.h"
-#include "Collidable.h"
+#include "object.h"
+#include "collidable.h"
 #include "tileset.h"
+#include "inputhandler.h"
+#include "inputhandlerKeyboard.h"
 
 #include <iostream>
 
@@ -23,13 +25,14 @@ class TestState : public GameState
 
     Tileset tileSet;
 
-    Object ob = Object();
-    Collidable co = Collidable();
-    Collidable co2 = Collidable();
-    Collidable co3 = Collidable();
+    object ob = object();
+    collidable co = collidable();
+    collidable co2 = collidable();
+    collidable co3 = collidable();
 
-    Object player = Object();
+    object player = object();
 
+    InputhandlerKeyboard inKey = InputhandlerKeyboard();
 
 public:
 
@@ -58,6 +61,7 @@ public:
 
         std::vector<SDL::Point *> anim;
 
+        /*
         anim.push_back(new SDL::Point(0,0));
         anim.push_back(new SDL::Point(1,0));
         anim.push_back(new SDL::Point(2,0));
@@ -66,6 +70,11 @@ public:
         anim.push_back(new SDL::Point(1,1));
         anim.push_back(new SDL::Point(2,1));
         anim.push_back(new SDL::Point(3,1));
+         */
+
+        anim.push_back(new SDL::Point(1,0));
+        anim.push_back(new SDL::Point(2,0));
+        anim.push_back(new SDL::Point(3,0));
 
         player.setAnimation(anim);
     }
@@ -82,6 +91,7 @@ public:
         Event evt;
         while (Event::Poll(evt))
         {
+            inKey.setInput(evt);
             if (game.HandleEvent(evt))
                 continue;
         }
@@ -90,7 +100,6 @@ public:
     virtual void Update(const int frame, const float deltaT) override
     {
         //std::cout << ob << std::endl;
-
         /*
         co.setRect(SDL::Rect(co.getPos().x + 1, co.getPos().y + 2, 40, 40));
         std::cout << co << std::endl;
@@ -98,6 +107,12 @@ public:
         std::cout << "co und co2 collide: " << co.checkCollision(co2) << std::endl;
         std::cout << "co und co3 collide: " << co.checkCollision(co3) << std::endl;
          */
+
+        int speed = 2;
+
+        player.setPos(SDL::Point( player.getPos().x + speed * inKey.input[Inputhandler::Type::WALK_RIGHT], player.getPos().y));
+        player.setPos(SDL::Point( player.getPos().x - speed * inKey.input[Inputhandler::Type::WALK_LEFT], player.getPos().y));
+
     }
 
     virtual void Render(const int frame, const float deltaT) override
