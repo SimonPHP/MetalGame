@@ -48,10 +48,10 @@ RM = /home/simon/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/182.4892.24/bin/
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game"
+CMAKE_SOURCE_DIR = "/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/cmake-build-debug"
+CMAKE_BINARY_DIR = "/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/cmake-build-debug"
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/cmake-build-debug/CMakeFiles" "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/cmake-build-debug/CMakeFiles/progress.marks"
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/cmake-build-debug/CMakeFiles" "/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/cmake-build-debug/CMakeFiles/progress.marks"
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/cmake-build-debug/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/cmake-build-debug/CMakeFiles" 0
 .PHONY : all
 
 # The main clean target
@@ -133,7 +133,7 @@ sdl_oo: cmake_check_build_system
 
 # fast build rule for target.
 sdl_oo/fast:
-	$(MAKE) -f "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/build.make" "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/build"
+	$(MAKE) -f "/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/build.make" "/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/build"
 .PHONY : sdl_oo/fast
 
 src/main.o: src/main.cpp.o

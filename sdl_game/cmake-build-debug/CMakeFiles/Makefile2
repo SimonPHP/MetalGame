@@ -59,10 +59,10 @@ RM = /home/simon/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/182.4892.24/bin/
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game"
+CMAKE_SOURCE_DIR = "/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/cmake-build-debug"
+CMAKE_BINARY_DIR = "/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/cmake-build-debug"
 
 #=============================================================================
 # Target rules for target CMakeFiles/sdl_game.dir
@@ -71,7 +71,7 @@ CMAKE_BINARY_DIR = "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sd
 CMakeFiles/sdl_game.dir/all:
 	$(MAKE) -f CMakeFiles/sdl_game.dir/build.make CMakeFiles/sdl_game.dir/depend
 	$(MAKE) -f CMakeFiles/sdl_game.dir/build.make CMakeFiles/sdl_game.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/cmake-build-debug/CMakeFiles" --progress-num=1,2 "Built target sdl_game"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/cmake-build-debug/CMakeFiles" --progress-num=1,2 "Built target sdl_game"
 .PHONY : CMakeFiles/sdl_game.dir/all
 
 # Include target in all.
@@ -81,9 +81,9 @@ all: CMakeFiles/sdl_game.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/sdl_game.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/cmake-build-debug/CMakeFiles" 2
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/cmake-build-debug/CMakeFiles" 2
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/sdl_game.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/cmake-build-debug/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/cmake-build-debug/CMakeFiles" 0
 .PHONY : CMakeFiles/sdl_game.dir/rule
 
 # Convenience name for target.
@@ -102,57 +102,57 @@ clean: CMakeFiles/sdl_game.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Directory level rules for directory /home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug
+# Directory level rules for directory /home/simon/Schreibtisch/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug
 
 # Convenience name for "all" pass in the directory.
-/home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/all: /home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/all
+/home/simon/Schreibtisch/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/all: /home/simon/Schreibtisch/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/all
 
-.PHONY : /home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/all
+.PHONY : /home/simon/Schreibtisch/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/all
 
 # Convenience name for "clean" pass in the directory.
-/home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/clean: /home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/clean
+/home/simon/Schreibtisch/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/clean: /home/simon/Schreibtisch/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/clean
 
-.PHONY : /home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/clean
+.PHONY : /home/simon/Schreibtisch/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/clean
 
 # Convenience name for "preinstall" pass in the directory.
-/home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/preinstall:
+/home/simon/Schreibtisch/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/preinstall:
 
-.PHONY : /home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/preinstall
+.PHONY : /home/simon/Schreibtisch/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/preinstall
 
 #=============================================================================
-# Target rules for target /home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir
+# Target rules for target /home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir
 
 # All Build rule for target.
-/home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/all:
-	$(MAKE) -f "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/build.make" "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/depend"
-	$(MAKE) -f "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/build.make" "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/build"
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/cmake-build-debug/CMakeFiles" --progress-num=3,4 "Built target sdl_oo"
-.PHONY : /home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/all
+/home/simon/Schreibtisch/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/all:
+	$(MAKE) -f "/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/build.make" "/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/depend"
+	$(MAKE) -f "/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/build.make" "/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/build"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/cmake-build-debug/CMakeFiles" --progress-num=3,4 "Built target sdl_oo"
+.PHONY : /home/simon/Schreibtisch/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/all
 
 # Include target in all.
-all: /home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/all
+all: /home/simon/Schreibtisch/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-/home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/cmake-build-debug/CMakeFiles" 2
-	$(MAKE) -f CMakeFiles/Makefile2 "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/all"
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/cmake-build-debug/CMakeFiles" 0
-.PHONY : /home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/rule
+/home/simon/Schreibtisch/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/cmake-build-debug/CMakeFiles" 2
+	$(MAKE) -f CMakeFiles/Makefile2 "/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/all"
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/cmake-build-debug/CMakeFiles" 0
+.PHONY : /home/simon/Schreibtisch/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/rule
 
 # Convenience name for target.
-sdl_oo: /home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/rule
+sdl_oo: /home/simon/Schreibtisch/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/rule
 
 .PHONY : sdl_oo
 
 # clean rule for target.
-/home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/clean:
-	$(MAKE) -f "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/build.make" "/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/clean"
-.PHONY : /home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/clean
+/home/simon/Schreibtisch/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/clean:
+	$(MAKE) -f "/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/build.make" "/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/clean"
+.PHONY : /home/simon/Schreibtisch/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/clean
 
 # clean rule for target.
-clean: /home/simon/Desktop/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/clean
+clean: /home/simon/Schreibtisch/Uni\ sortiert/Semester_5/WPP/MetalGame/sdl_oo/cmake-build-debug/CMakeFiles/sdl_oo.dir/clean
 
 .PHONY : clean
 

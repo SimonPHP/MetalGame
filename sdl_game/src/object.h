@@ -27,7 +27,7 @@ protected:
     Tileset tileset;
     std::vector<SDL::Point*> animation;
     std::vector<SDL::Point *>::iterator it;
-    int animationMaxTime = 24;
+    int animationMaxTime = 12;
     int animationTimer = 1;
     //SDL::Renderer renderer; falls man das braucht
 
@@ -69,6 +69,13 @@ public:
 
     void setAnimation(const std::vector<SDL::Point *> &animation) {
         object::animation = animation;
+        animationTimer = 1;
+        it = object::animation.begin();
+    }
+
+    void setAnimation(SDL::Point *animation) {
+        object::animation.clear();
+        object::animation.push_back(animation);
         animationTimer = 1;
         it = object::animation.begin();
     }

@@ -18,17 +18,17 @@ CMakeFiles/sdl_game.dir/src/main.cpp.o
  ../../sdl_oo/include/SDL_surface.hpp
  ../../sdl_oo/include/SDL_ttf.hpp
  ../../sdl_oo/include/SDL_video.hpp
- /home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/collidable.h
- /home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/editor.h
- /home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/gamebase.h
- /home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/global.h
- /home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/inputhandler.h
- /home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/inputhandlerKeyboard.h
- /home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/intro.h
- /home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/main.cpp
- /home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/object.h
- /home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/test.h
- /home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/tileset.h
+ /home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/collidable.h
+ /home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/editor.h
+ /home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/gamebase.h
+ /home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/global.h
+ /home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/inputhandler.h
+ /home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/inputhandlerKeyboard.h
+ /home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/intro.h
+ /home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/main.cpp
+ /home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/object.h
+ /home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/test.h
+ /home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/tileset.h
  /usr/include/SDL2/SDL.h
  /usr/include/SDL2/SDL_assert.h
  /usr/include/SDL2/SDL_atomic.h
