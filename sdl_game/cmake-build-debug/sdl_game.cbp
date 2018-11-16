@@ -138,7 +138,10 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/collidable.h">
+		<Unit filename="/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/Collidable.h">
+			<Option target="sdl_game"/>
+		</Unit>
+		<Unit filename="/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/Object.h">
 			<Option target="sdl_game"/>
 		</Unit>
 		<Unit filename="/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/inputhandler.h">
@@ -148,9 +151,6 @@
 			<Option target="sdl_game"/>
 		</Unit>
 		<Unit filename="/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/main.cpp">
-			<Option target="sdl_game"/>
-		</Unit>
-		<Unit filename="/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/object.h">
 			<Option target="sdl_game"/>
 		</Unit>
 		<Unit filename="/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/test.h">

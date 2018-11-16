@@ -6,17 +6,17 @@
 #define SDL_GAME_COLLIDABLE_H
 
 #include <ostream>
-#include "object.h"
+#include "Object.h"
 
-class collidable : public object {
+class Collidable : public Object {
     /*
-     * Wenn wir ein object haben mit dem man Kollidieren kann hat es eine Hitbox diese kann sich vom Rechteck des
+     * Wenn wir ein Object haben mit dem man Kollidieren kann hat es eine Hitbox diese kann sich vom Rechteck des
      * Objects unterscheiden. Doch im normalfall nicht deswegen sollten wir hier noch ne bind funktion einbauen
      * die hitbox auf rect weiterleitet*/
 protected:
     SDL::Rect *hitbox;
 public:
-    collidable() {
+    Collidable() {
         hitbox = new SDL::Rect(0,0,0,0); //um sigsiv zu vermeiden wenn man keine hitbox setzt
     }
 
@@ -25,10 +25,10 @@ public:
     }
 
     void setHitbox(const SDL::Rect &hitbox) {
-        *collidable::hitbox = hitbox;
+        *Collidable::hitbox = hitbox;
     }
 
-    bool checkCollision(collidable &secCol) {
+    bool checkCollision(Collidable &secCol) {
         return hitbox->CollidesWith(*secCol.hitbox);
     }
 
@@ -38,8 +38,8 @@ public:
         hitbox = rly?&rect:new SDL::Rect(*(new int(hitbox->x)), *(new int(hitbox->y)), *(new int(hitbox->w)), *(new int(hitbox->h)));
     }
 
-    friend std::ostream &operator<<(std::ostream &os, const collidable &collidable1) {
-        os << static_cast<const object &>(collidable1) << "collidable hitbox: " "rect: (" << collidable1.hitbox->x
+    friend std::ostream &operator<<(std::ostream &os, const Collidable &collidable1) {
+        os << static_cast<const Object &>(collidable1) << "collidable hitbox: " "rect: (" << collidable1.hitbox->x
                                                        << ", " << collidable1.hitbox->y
                                                        << ", " << collidable1.hitbox->w
                                                        << ", " << collidable1.hitbox->h

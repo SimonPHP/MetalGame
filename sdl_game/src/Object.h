@@ -12,14 +12,14 @@
 
 #include "tileset.h"
 
-class object {
+class Object {
     /*
      * Da wir wahrscheinlich nur Rechteckige Objecte haben werden können wir die Position und maße direkt aus einem
      * Rect bestimmen.
-     * Jedes object sollte malbar sein eventeull noch ne funktion fürs kurzeitige aussetzen diese objectes bereitstellen
-     * Mit den Texturen habe ich grade ein problem da wir ja alles von Tiles Rendern lassen müsste man dem object
+     * Jedes Object sollte malbar sein eventeull noch ne funktion fürs kurzeitige aussetzen diese objectes bereitstellen
+     * Mit den Texturen habe ich grade ein problem da wir ja alles von Tiles Rendern lassen müsste man dem Object
      * das Tileset mitgeben und die Position der Grafik dieses Objectes.
-     * Also am besten eine Referenz auf die einmal geladene Texture so das sie nicht für jedes object einzeln
+     * Also am besten eine Referenz auf die einmal geladene Texture so das sie nicht für jedes Object einzeln
      * gespeichert wird. Und die größe und Position noch mitgeben und schaune ob es dort abweichungen geben kann.
      * */
 protected:
@@ -27,12 +27,12 @@ protected:
     Tileset tileset;
     std::vector<SDL::Point*> animation;
     std::vector<SDL::Point *>::iterator it;
-    int animationMaxTime = 12;
+    int animationMaxTime = 12;  //eventuell noch mit ins animation array nehmen damit verschiedene sprites
+                                // unterschiedlich lang geladen bleiben können
     int animationTimer = 1;
-    //SDL::Renderer renderer; falls man das braucht
 
 public:
-    object() {
+    Object() {
         animation.push_back(new SDL::Point(0,0)); //erstes tile als standard
         it = animation.begin();
     }
@@ -42,7 +42,7 @@ public:
     }
 
     void setRect(const SDL::Rect &rect) {
-        object::rect = rect;
+        Object::rect = rect;
     }
 
     SDL::Point getPos() {
@@ -51,8 +51,8 @@ public:
 
     void setPos(const SDL::Point &pos)
     {
-        object::rect.x = pos.x;
-        object::rect.y = pos.y;
+        Object::rect.x = pos.x;
+        Object::rect.y = pos.y;
     }
 
     const Tileset &getTileset() const {
@@ -60,7 +60,7 @@ public:
     }
 
     void setTileset(const Tileset &tileset) {
-        object::tileset = tileset;
+        Object::tileset = tileset;
     }
 
     const std::vector<SDL::Point *> &getAnimation() const {
@@ -68,20 +68,21 @@ public:
     }
 
     void setAnimation(const std::vector<SDL::Point *> &animation) {
-        object::animation = animation;
+        Object::animation = animation;
         animationTimer = 1;
-        it = object::animation.begin();
+        it = Object::animation.begin();
     }
 
     void setAnimation(SDL::Point *animation) {
-        object::animation.clear();
-        object::animation.push_back(animation);
+        Object::animation.clear();
+        Object::animation.push_back(animation);
         animationTimer = 1;
-        it = object::animation.begin();
+        it = Object::animation.begin();
     }
 
     void draw()
     {
+        //wenn nur ein sprite dann ist das hier unten unnötig noch irgendwie umbauen
         if(animationTimer%animationMaxTime == 0)
         {
             if(++it == animation.end()) //++it weil animation.end() auf ein element hinter dem letzten zeigt
@@ -91,8 +92,8 @@ public:
         animationTimer++;
     }
 
-    friend std::ostream &operator<<(std::ostream &os, const object &object1) {
-        os << "object rect: (" << object1.rect.x
+    friend std::ostream &operator<<(std::ostream &os, const Object &object1) {
+        os << "Object rect: (" << object1.rect.x
                 << ", " << object1.rect.y
                 << ", " << object1.rect.w
                 << ", " << object1.rect.h

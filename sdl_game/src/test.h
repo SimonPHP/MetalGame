@@ -7,11 +7,13 @@
 
 #include "global.h"
 #include "gamebase.h"
-#include "object.h"
-#include "collidable.h"
+#include "Object.h"
+#include "Collidable.h"
 #include "tileset.h"
 #include "inputhandler.h"
 #include "inputhandlerKeyboard.h"
+
+#include "player.h"
 
 #include <iostream>
 
@@ -25,14 +27,14 @@ class TestState : public GameState
 
     Tileset tileSet;
 
-    object ob = object();
-    collidable co = collidable();
-    collidable co2 = collidable();
-    collidable co3 = collidable();
+    Object ob = Object();
+    Collidable co = Collidable();
+    Collidable co2 = Collidable();
+    Collidable co3 = Collidable();
 
-    object player = object();
+    Player player = Player();
 
-    InputhandlerKeyboard inKey = InputhandlerKeyboard();
+    InputhandlerKeyboard *inKey = new InputhandlerKeyboard();
 
 public:
 
@@ -56,27 +58,17 @@ public:
          */
 
         tileSet = Tileset(IMG::LoadTexture( renderer, "../assets/graphics/platformerPack_character.png" ), SDL::Point(4,2));
-        player.setRect(SDL::Rect(100,100,96,96));
+        player.setRect(SDL::Rect(100,600,96,96));
         player.setTileset(tileSet);
 
         std::vector<SDL::Point *> anim;
-
-        /*
-        anim.push_back(new SDL::Point(0,0));
-        anim.push_back(new SDL::Point(1,0));
-        anim.push_back(new SDL::Point(2,0));
-        anim.push_back(new SDL::Point(3,0));
-        anim.push_back(new SDL::Point(0,1));
-        anim.push_back(new SDL::Point(1,1));
-        anim.push_back(new SDL::Point(2,1));
-        anim.push_back(new SDL::Point(3,1));
-         */
 
         anim.push_back(new SDL::Point(1,0));
         anim.push_back(new SDL::Point(2,0));
         anim.push_back(new SDL::Point(3,0));
 
         player.setAnimation(anim);
+        player.setIh(inKey);
     }
 
     virtual void Uninit() override
@@ -89,9 +81,9 @@ public:
     {
         Event::Pump();
         Event evt;
+        player.events(evt);
         while (Event::Poll(evt))
         {
-            inKey.setInput(evt);
             if (game.HandleEvent(evt))
                 continue;
         }
@@ -107,12 +99,7 @@ public:
         std::cout << "co und co2 collide: " << co.checkCollision(co2) << std::endl;
         std::cout << "co und co3 collide: " << co.checkCollision(co3) << std::endl;
          */
-
-        int speed = 2;
-
-        player.setPos(SDL::Point( player.getPos().x + speed * inKey.input[Inputhandler::Type::WALK_RIGHT], player.getPos().y));
-        player.setPos(SDL::Point( player.getPos().x - speed * inKey.input[Inputhandler::Type::WALK_LEFT], player.getPos().y));
-
+        player.update();
     }
 
     virtual void Render(const int frame, const float deltaT) override
