@@ -73,3 +73,4 @@ So kann man das direkt mit dem speed multiplizieren.
 Die Abgeleiteten klassen wie inputhandlerkeyboard geben an wie diese states gesetzt werden.
 
 Wenn man im Player jetzt nen neuen Input haben will dann muss man das im inputhandler regeln und dann in jeder abgeleiteten klasse davon auch(das lässt sich allerdings nie verhindern denn das ist ja ne tastenzuweisung)
+Ich denke mal wir verwenden am besten den Wrapper (suck it Jan(nicht der von Ubisoft) :P).
