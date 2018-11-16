@@ -21,4 +21,4 @@ Die Waffe eines Charakters ist sein Instrument.
 ## Umsetzung
 Es wird ein 2D Sidescroller und Platformer.
 
-Ich denke mal wir verwenden am besten den Wrapper (suck it Jan :P).
+Ich denke mal wir verwenden am besten den Wrapper (suck it Jan(nicht der von Ubisoft) :P).
