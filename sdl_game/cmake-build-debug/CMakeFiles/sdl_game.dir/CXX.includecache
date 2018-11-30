@@ -232,13 +232,47 @@ SDL_surface.hpp
 SDL_video.h
 -
 
-/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/Collidable.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/Animation.h
+SDL_rect.hpp
+-
+SDL_render.hpp
+-
+ostream
+-
+vector
+-
+array
+-
+tileset.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/tileset.h
+iostream
+-
+global.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/global.h
+gamebase.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/gamebase.h
+Object.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/Object.h
+Collidable.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/Collidable.h
+tileset.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/tileset.h
+inputhandler.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/inputhandler.h
+inputhandlerKeyboard.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/inputhandlerKeyboard.h
+player.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/player.h
+editor.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/editor.h
+
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/Collidable.h
 ostream
 -
 Object.h
-/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/Object.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/Object.h
 
-/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/Object.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/Object.h
 SDL_rect.hpp
 -
 SDL_render.hpp
@@ -248,23 +282,23 @@ ostream
 vector
 -
 tileset.h
-/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/tileset.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/tileset.h
 
-/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/editor.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/editor.h
 global.h
-/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/global.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/global.h
 gamebase.h
-/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/gamebase.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/gamebase.h
 
-/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/gamebase.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/gamebase.h
 chrono
 -
 sstream
 -
 global.h
-/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/global.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/global.h
 
-/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/global.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/global.h
 array
 -
 algorithm
@@ -276,71 +310,73 @@ SDL_ttf.hpp
 SDL_image.hpp
 -
 
-/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/inputhandler.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/inputhandler.h
 SDL_events.hpp
 -
 map
 -
 
-/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/inputhandlerKeyboard.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/inputhandlerKeyboard.h
 SDL_types.h
 -
 inputhandler.h
-/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/inputhandler.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/inputhandler.h
 
-/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/intro.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/intro.h
 global.h
-/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/global.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/global.h
 gamebase.h
-/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/gamebase.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/gamebase.h
 
-/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/main.cpp
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/main.cpp
 iostream
 -
 stdio.h
 -
 global.h
-/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/global.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/global.h
 gamebase.h
-/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/gamebase.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/gamebase.h
 intro.h
-/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/intro.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/intro.h
 editor.h
-/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/editor.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/editor.h
 test.h
-/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/test.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/test.h
 
-/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/player.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/player.h
 Collidable.h
-/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/Collidable.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/Collidable.h
 inputhandler.h
-/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/inputhandler.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/inputhandler.h
 inputhandlerKeyboard.h
-/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/inputhandlerKeyboard.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/inputhandlerKeyboard.h
 SDL.hpp
-/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/SDL.hpp
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/SDL.hpp
 
-/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/test.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/test.h
 global.h
-/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/global.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/global.h
 gamebase.h
-/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/gamebase.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/gamebase.h
 Object.h
-/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/Object.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/Object.h
 Collidable.h
-/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/Collidable.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/Collidable.h
 tileset.h
-/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/tileset.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/tileset.h
 inputhandler.h
-/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/inputhandler.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/inputhandler.h
 inputhandlerKeyboard.h
-/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/inputhandlerKeyboard.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/inputhandlerKeyboard.h
+Animation.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/Animation.h
 player.h
-/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/player.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/player.h
 iostream
 -
 
-/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/tileset.h
+/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/tileset.h
 SDL_render.hpp
 -
 iostream

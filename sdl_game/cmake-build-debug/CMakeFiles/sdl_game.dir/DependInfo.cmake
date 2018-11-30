@@ -4,13 +4,14 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/src/main.cpp" "/home/simon/Schreibtisch/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/cmake-build-debug/CMakeFiles/sdl_game.dir/src/main.cpp.o"
+  "/home/michael/Dokumente/Metal/MetalGame/sdl_game/src/main.cpp" "/home/michael/Dokumente/Metal/MetalGame/sdl_game/cmake-build-debug/CMakeFiles/sdl_game.dir/src/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../../sdl_oo/include"
+  "/usr/local/include/SDL2"
   "/usr/include/SDL2"
   )
 
