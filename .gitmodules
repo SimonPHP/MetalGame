@@ -1,0 +1,3 @@
+[submodule "sdl_oo"]
+	path = sdl_oo
+	url = https://github.com/sor/sdl_oo
