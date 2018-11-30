@@ -1,0 +1,46 @@
+//
+// Created by simon on 16.11.18.
+//
+
+#ifndef SDL_GAME_PLAYER_H
+#define SDL_GAME_PLAYER_H
+
+#include "Collidable.h"
+#include "inputhandler.h"
+#include "inputhandlerKeyboard.h"
+#include "SDL.hpp"
+
+class Player : public Collidable
+{
+private:
+    Inputhandler *ih;
+    double speed = 200;
+    double jumpInitAcc = 20;
+    double currentAcc = 0;
+
+    double gravitation = -100;
+
+    bool FALL = false;
+    int maxJump = 125;
+    int maxY = 0;
+public:
+    Player();
+
+    Inputhandler *getIh() const;
+
+    void setIh(Inputhandler *ih) ;
+
+    double getSpeed() const;
+
+    void setSpeed(double speed);
+
+    int getMaxJump() const;
+
+    void setMaxJump(int maxJump);
+
+    void events(SDL::Event evt);
+
+    void update(const int frame, const float deltaT);
+};
+
+#endif //SDL_GAME_PLAYER_H

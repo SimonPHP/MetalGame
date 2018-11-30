@@ -19,17 +19,11 @@ public:
 
     std::map<Inputhandler::Type, float> input;
 
-    Inputhandler() {
-        input[Type::LEFT] = 0;
-        input[Type::RIGHT] = 0;
-        input[Type::SPACE] = 0;
-    }
+    Inputhandler();
 
     virtual void setInput(SDL::Event evt) = 0;
 
-    const std::map<Type, float> &getInput() const {
-        return input;
-    }
+    const std::map<Type, float> &getInput() const;
 };
 
 #endif //SDL_GAME_INPUTHANDLER_H

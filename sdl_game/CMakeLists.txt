@@ -4,7 +4,12 @@ project(sdl_game)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wextra") #  -Wall -Wextra
 
-add_executable(sdl_game src/main.cpp src/Object.h src/Collidable.h src/test.h src/tileset.h src/inputhandler.h src/inputhandlerKeyboard.h src/Animation.h)
+
+file(GLOB sdl_game_SRC
+        "src/*.cpp"
+        )
+
+add_executable(sdl_game ${sdl_game_SRC})
 
 include(FindPkgConfig)
 
@@ -24,7 +29,9 @@ include_directories(
         ${SDL2NET_INCLUDE_DIRS}
         ${SDL2GFX_INCLUDE_DIRS}
         ${SDL2MIXER_INCLUDE_DIRS}
-        ${SDL2IMAGE_INCLUDE_DIRS})
+        ${SDL2IMAGE_INCLUDE_DIRS}
+        include
+)
 
 target_link_libraries(
         ${PROJECT_NAME}
@@ -33,4 +40,5 @@ target_link_libraries(
         ${SDL2NET_LIBRARIES}
         ${SDL2GFX_LIBRARIES}
         ${SDL2MIXER_LIBRARIES}
-        ${SDL2IMAGE_LIBRARIES})
+        ${SDL2IMAGE_LIBRARIES}
+)

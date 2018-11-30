@@ -7,7 +7,7 @@
 
 
 class Layer {
-public:
+
 };
 
 

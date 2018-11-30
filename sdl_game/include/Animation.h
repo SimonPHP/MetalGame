@@ -27,16 +27,8 @@ private:
 
 public:
 
-    Animation(){}
+    Animation();
 
-    std::vector<SDL::Point *> StandartPlayer(std::vector<SDL::Point *> anim) {
-            anim.push_back(new SDL::Point(1, 0));
-            anim.push_back(new SDL::Point(2, 0));
-            anim.push_back(new SDL::Point(3, 0));
-
-        return anim;
-    }
-
-
+    std::vector<SDL::Point *> StandartPlayer(std::vector<SDL::Point *> anim);
 };
 #endif //SDL_GAME_ANIMATION_H
