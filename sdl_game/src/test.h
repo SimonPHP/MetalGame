@@ -12,7 +12,7 @@
 #include "tileset.h"
 #include "inputhandler.h"
 #include "inputhandlerKeyboard.h"
-
+#include "Animation.h"
 #include "player.h"
 
 #include <iostream>
@@ -31,7 +31,6 @@ class TestState : public GameState
     Collidable co = Collidable();
     Collidable co2 = Collidable();
     Collidable co3 = Collidable();
-
     Player player = Player();
 
     InputhandlerKeyboard *inKey = new InputhandlerKeyboard();
@@ -43,36 +42,18 @@ public:
         font = TTF::Font("../assets/fonts/RobotoSlab-Bold.ttf", 24);
         // image = IMG::LoadTexture(renderer, "../assets/graphics/background.png");
 
-        /*
-        ob.setRect(SDL::Rect(0,0,100,100));
-        co.setRect(SDL::Rect(20,20,40,40));
-        co.setHitbox(SDL::Rect(10,10,10,10));
-        co.bindHitboxToObjectRect(true);
-        co.bindHitboxToObjectRect(false);
-
-        co2.setRect(SDL::Rect(10,10,30,30));
-        co2.setHitbox(SDL::Rect(10,10,30,30));
-
-        co3.setRect(SDL::Rect(100,100,30,30));
-        co3.setHitbox(SDL::Rect(100,100,30,30));
-         */
+        Animation a;
 
         tileSet = Tileset(IMG::LoadTexture( renderer, "../assets/graphics/platformerPack_character.png" ), SDL::Point(4,2));
 
         player.setRect(SDL::Rect(100,600,96,96));
         player.setTileset(tileSet);
 
-        std::vector<SDL::Point *> anim;
-
-        anim.push_back(new SDL::Point(1,0));
-        anim.push_back(new SDL::Point(2,0));
-        anim.push_back(new SDL::Point(3,0));
+        std::vector<SDL::Point *> anim ;
+        anim = a.StandartPlayer(anim); // Hier wird die standart animationm festgelegt
 
         player.setAnimation(anim);
         player.setIh(inKey);
-
-
-
 
     }
 

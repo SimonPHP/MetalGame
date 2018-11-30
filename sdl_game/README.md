@@ -60,3 +60,18 @@ Klassen
 - Beispiel Implementierung von `GameState` in _editor.h_
 - Zeigt eine Palette von Tiles oben links und eine verschiebbare Karte in die die Tiles platziert werden können
 - Hier kann man sehen wie ein Kamera Offset verwendet wird
+
+#Level
+
+## Dateiformat
+x y <LEVEL>
+uInt8
+
+Für ein level mehrere Layer (Hintergrund, Vordergrund, Mitte, Eigenschaften)
+
+Eigenschaften Layer hat einfach nur die positionen von Blockierten bereichen oder andere Eigenschaften:
+- Zerstörbar
+- Brennbar
+- Blockiert
+- Tödlich
+
