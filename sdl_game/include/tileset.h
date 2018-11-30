@@ -5,6 +5,8 @@
 #ifndef SDL_GAME_TILESET_H
 #define SDL_GAME_TILESET_H
 
+#include "global.h"
+
 #include <iostream>
 #include <SDL_render.hpp>
 

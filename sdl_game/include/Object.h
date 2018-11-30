@@ -5,6 +5,8 @@
 #ifndef SDL_GAME_OBJECT_H
 #define SDL_GAME_OBJECT_H
 
+#include "global.h"
+
 #include <SDL_rect.hpp>
 #include <SDL_render.hpp>
 #include <ostream>

@@ -5,6 +5,7 @@
 #ifndef SDL_GAME_INPUTHANDLER_H
 #define SDL_GAME_INPUTHANDLER_H
 
+#include "global.h"
 
 #include <SDL_events.hpp>
 #include <map>

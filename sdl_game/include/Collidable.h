@@ -5,6 +5,8 @@
 #ifndef SDL_GAME_COLLIDABLE_H
 #define SDL_GAME_COLLIDABLE_H
 
+#include "global.h"
+
 #include <ostream>
 #include "Object.h"
 

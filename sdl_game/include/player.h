@@ -5,6 +5,8 @@
 #ifndef SDL_GAME_PLAYER_H
 #define SDL_GAME_PLAYER_H
 
+#include "global.h"
+
 #include "Collidable.h"
 #include "inputhandler.h"
 #include "inputhandlerKeyboard.h"
