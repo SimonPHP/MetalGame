@@ -41,9 +41,12 @@ public:
     }
 
     Inputhandler *ih;
-    double speed = 2;
+    double speed = 200;
+    double jumpInitAcc = 20;
+    double currentAcc = 0;
 
-    bool JUMP = false;
+    double gravitation = -100;
+
     bool FALL = false;
     int maxJump = 125;
     int maxY = 0;
@@ -53,41 +56,41 @@ public:
         ih->setInput(evt);
     }
 
-    void update()
+    void update(const int frame, const float deltaT)
     {
         if(rect.y == maxY)
         {
-            JUMP = false;
             FALL = true;
             setAnimation(new SDL::Point(2,1));
         }
 
-        if(rect.y == 600)
-            FALL = false;
-
-        if(JUMP)
-        {
-            rect.y -= 5;
-        }
         if(FALL)
         {
-            rect.y += 5;
+            currentAcc += gravitation*deltaT;
+            setY(y - (float)currentAcc);
+        }
+
+        if(rect.y > 600-rect.h && currentAcc < 0)
+        {
+            setY(600-rect.h);
+            FALL = false;
         }
 
         if(ih->input[Inputhandler::Type::RIGHT] > 0)
         {
-            rect.x += speed*ih->input[Inputhandler::Type::RIGHT];
+            setX(x += (deltaT*speed*ih->input[Inputhandler::Type::RIGHT]));
         }
         if(ih->input[Inputhandler::Type::LEFT] > 0)
         {
-            rect.x -= speed*ih->input[Inputhandler::Type::LEFT];
+            setX(x -= (deltaT*speed*ih->input[Inputhandler::Type::LEFT]));
         }
-        if(!FALL && !JUMP)
+        if(!FALL)
         {
             if(ih->input[Inputhandler::Type::SPACE] > 0 )
             {
-                JUMP = true;
+                FALL = true;
                 maxY = rect.y - maxJump;
+                currentAcc = jumpInitAcc;
                 setAnimation(new SDL::Point(1,0));
             }
         }

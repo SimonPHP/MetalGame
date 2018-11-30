@@ -58,6 +58,7 @@ public:
          */
 
         tileSet = Tileset(IMG::LoadTexture( renderer, "../assets/graphics/platformerPack_character.png" ), SDL::Point(4,2));
+
         player.setRect(SDL::Rect(100,600,96,96));
         player.setTileset(tileSet);
 
@@ -69,6 +70,10 @@ public:
 
         player.setAnimation(anim);
         player.setIh(inKey);
+
+
+
+
     }
 
     virtual void Uninit() override
@@ -99,7 +104,7 @@ public:
         std::cout << "co und co2 collide: " << co.checkCollision(co2) << std::endl;
         std::cout << "co und co3 collide: " << co.checkCollision(co3) << std::endl;
          */
-        player.update();
+        player.update(frame, deltaT);
     }
 
     virtual void Render(const int frame, const float deltaT) override
@@ -114,6 +119,9 @@ public:
             blendedText.SetColorMod(Color(255, 255, 255));
             blendedText.Draw(p);
         }
+
+        renderer.SetDrawColor(SDL::Color(0,255,255,255));
+        renderer.FillRect(SDL::Rect(0, 600, 1000, 1000));
 
         player.draw();
 

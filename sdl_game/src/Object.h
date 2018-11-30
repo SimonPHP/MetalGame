@@ -23,6 +23,7 @@ class Object {
      * gespeichert wird. Und die größe und Position noch mitgeben und schaune ob es dort abweichungen geben kann.
      * */
 protected:
+    float x, y;
     SDL::Rect rect;
     Tileset tileset;
     std::vector<SDL::Point*> animation;
@@ -43,16 +44,45 @@ public:
 
     void setRect(const SDL::Rect &rect) {
         Object::rect = rect;
+        x = rect.x;
+        y = rect.y;
     }
 
     SDL::Point getPos() {
         return SDL::Point(rect.x, rect.y);
     }
 
+    float getX() {
+        return x;
+    }
+
+    float getY() {
+        return y;
+    }
+
     void setPos(const SDL::Point &pos)
     {
         Object::rect.x = pos.x;
         Object::rect.y = pos.y;
+    }
+
+    void setPos(float _x, float _y)
+    {
+        x = _x;
+        y = _y;
+
+        Object::rect.x =(int)_x;
+        Object::rect.y = (int)_y;
+    }
+
+    void setX(float x) {
+        Object::x = x;
+        Object::rect.x = x;
+    }
+
+    void setY(float y) {
+        Object::y = y;
+        Object::rect.y = y;
     }
 
     const Tileset &getTileset() const {
@@ -93,8 +123,8 @@ public:
     }
 
     friend std::ostream &operator<<(std::ostream &os, const Object &object1) {
-        os << "Object rect: (" << object1.rect.x
-                << ", " << object1.rect.y
+        os << "Object rect: (" << object1.x
+                << ", " << object1.y
                 << ", " << object1.rect.w
                 << ", " << object1.rect.h
                 << ") ";

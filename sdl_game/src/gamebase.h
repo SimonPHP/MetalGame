@@ -81,9 +81,7 @@ public:
 			window,
 			-1,
 			SDL::Renderer::Flags::ACCELERATED |
-			(vSync
-				? SDL::Renderer::Flags::PRESENTVSYNC
-				: SDL::Renderer::Flags::NONE)
+			(SDL::Renderer::Flags::NONE)
 		);
 
 		std::fill( allStates.begin(), allStates.end(), nullptr );
