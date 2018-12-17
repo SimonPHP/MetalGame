@@ -11,7 +11,7 @@
 class Level {
 private:
     char *name;
-    uint32_t width, heigth;
+    uint32_t width, height;
 public:
     uint32_t getWidth() const;
 
