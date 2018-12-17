@@ -13,7 +13,7 @@ Level::Level(char *name) : name(name) {
 }
 
 bool Level::loadLevel(char *name) {
-    SDL::C::SDL_RWops *rw = SDL::C::SDL_RWFromFile("../assets/levels/0.map", "rb");
+    SDL::C::SDL_RWops *rw = SDL::C::SDL_RWFromFile("../assets/levels/0.map", "r+b");
     if(rw != NULL)
     {
         uint32_t buf[5] = {};
@@ -57,8 +57,8 @@ bool Level::loadLevel(char *name) {
         this->width -= 5;
         this->height -= 5;
 
-        for (uint32_t x = 0; x < this->height; x++) {
-            for (uint32_t y = 0; y < this->width; y++) {
+        for (uint32_t y = 0; y <= this->height; y++) {
+            for (uint32_t x = 0; x <= this->width; x++) {
                 SDL_RWread(rw, &this->layerBG1[x][y], sizeof(uint32_t), 1);  // BG1[x][y]
                 SDL_RWread(rw, &this->layerBG2[x][y], sizeof(uint32_t), 1);  // BG2[x][y]
                 SDL_RWread(rw, &this->layerBG3[x][y], sizeof(uint32_t), 1);  // BG3[x][y]
@@ -67,9 +67,11 @@ bool Level::loadLevel(char *name) {
                 SDL_RWread(rw, &this->layerAttributes[x][y], sizeof(uint32_t), 1);  // Attributes[x][y]
                 SDL_RWread(rw, &this->layerEntities[x][y], sizeof(uint32_t), 1);  // Entities[x][y]
 
-                std::cout << x << ":" << y << "= " << this->layerBG1[x][y] << std::endl;
+                std::cout << x << ":" << y << "= " << this->layerBG1[y][x] << std::endl;
             }
         }
+
+        std::cout << "DEBUG" << std::endl;
 
         SDL_RWclose(rw);
     }
