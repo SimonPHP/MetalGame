@@ -86,7 +86,7 @@
         //wenn nur ein sprite dann ist das hier unten unnötig noch irgendwie umbauen
         if(animationTimer%animationMaxTime == 0)
         {
-            if(++it == animation.end()) //++it weil animation.end() auf ein element hinter dem letzten zeigt
+            if(++it == animation.end()) //++pointLayerIt weil animation.end() auf ein element hinter dem letzten zeigt
                 it = animation.begin();
         }
         tileset.Draw(getPos(), **it);

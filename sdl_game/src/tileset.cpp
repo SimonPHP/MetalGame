@@ -14,3 +14,12 @@ void Tileset::Draw(SDL::Point pos, SDL::Point tile)
 {
     tileset.DrawSprite(pos, size, tile);
 }
+
+void Tileset::Draw(SDL::Point pos, int tile)
+{
+    this->Draw(pos, SDL::Point(tile%16, tile/16));
+}
+
+const Point &Tileset::getSize() const {
+    return size;
+}

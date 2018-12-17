@@ -27,6 +27,7 @@ class TestState : public GameState
     SDL::Texture blendedText;
 
     Tileset tileSet;
+    Tileset tileSetMap;
 
     Object ob = Object();
     Collidable co = Collidable();
@@ -38,8 +39,22 @@ class TestState : public GameState
 
     Level *lev;
 
-public:
+    SDL::Point camera = SDL::Point(0,0);
 
+    bool isLayerBG1 = true;
+    bool isLayerBG2 = true;
+    bool isLayerBG3 = true;
+
+    bool isLayerFG1 = true;
+    bool isLayerFG2 = true;
+
+    bool isLayerAttribute = true;
+    bool isLayerEntity = true;
+    bool isGrid = true;
+
+    bool isShowHelp = true;
+
+public:
     virtual void Init() override;
 
 
