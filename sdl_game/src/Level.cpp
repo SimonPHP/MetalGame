@@ -26,33 +26,33 @@ bool Level::loadLevel(char *name) {
         this->width += 5; //überlauf vermeidungs test
         this->height += 5;
 
-        this->layerBG1 = new uint32_t*[this->height];
-        for(uint32_t i = 0; i <= this->height; ++i)
-            this->layerBG1[i] = new uint32_t(this->width);
+        this->layerBG1 = new uint32_t*[this->width];
+        for(uint32_t i = 0; i <= this->width; ++i)
+            this->layerBG1[i] = new uint32_t[this->height];
 
-        this->layerBG2 = new uint32_t*[this->height];
-        for(uint32_t i = 0; i <= this->height; ++i)
-            this->layerBG2[i] = new uint32_t(this->width);
+        this->layerBG2 = new uint32_t*[this->width];
+        for(uint32_t i = 0; i <= this->width; ++i)
+            this->layerBG2[i] = new uint32_t[this->height];
 
-        this->layerBG3 = new uint32_t*[this->height];
-        for(uint32_t i = 0; i <= this->height; ++i)
-            this->layerBG3[i] = new uint32_t(this->width);
+        this->layerBG3 = new uint32_t*[this->width];
+        for(uint32_t i = 0; i <= this->width; ++i)
+            this->layerBG3[i] = new uint32_t[this->height];
 
-        this->layerFG1 = new uint32_t*[this->height];
-        for(uint32_t i = 0; i <= this->height; ++i)
-            this->layerFG1[i] = new uint32_t(this->width);
+        this->layerFG1 = new uint32_t*[this->width];
+        for(uint32_t i = 0; i <= this->width; ++i)
+            this->layerFG1[i] = new uint32_t[this->height];
 
-        this->layerFG2 = new uint32_t*[this->height];
-        for(uint32_t i = 0; i <= this->height; ++i)
-            this->layerFG2[i] = new uint32_t(this->width);
+        this->layerFG2 = new uint32_t*[this->width];
+        for(uint32_t i = 0; i <= this->width; ++i)
+            this->layerFG2[i] = new uint32_t[this->height];
 
-        this->layerAttributes = new uint32_t*[this->height];
-        for(uint32_t i = 0; i <= this->height; ++i)
-            this->layerAttributes[i] = new uint32_t(this->width);
+        this->layerAttributes = new uint32_t*[this->width];
+        for(uint32_t i = 0; i <= this->width; ++i)
+            this->layerAttributes[i] = new uint32_t[this->height];
 
-        this->layerEntities = new uint32_t*[this->height];
-        for(uint32_t i = 0; i <= this->height; ++i)
-            this->layerEntities[i] = new uint32_t(this->width);
+        this->layerEntities = new uint32_t*[this->width];
+        for(uint32_t i = 0; i <= this->width; ++i)
+            this->layerEntities[i] = new uint32_t[this->height];
 
         this->width -= 5;
         this->height -= 5;
