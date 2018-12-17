@@ -75,6 +75,7 @@ void TestState::Render(const int frame, const float deltaT)
     renderer.FillRect(SDL::Rect(0, 600, 1000, 1000));
 
     //draw map
+    /*
     for(uint32_t x = 0; x < lev->getWidth(); x++)
     {
         for(uint32_t y = 0; y < lev->getHeigth(); y++)
@@ -86,7 +87,7 @@ void TestState::Render(const int frame, const float deltaT)
 
             renderer.FillRect(SDL::Rect(y*16, x*16, 16, 16));
         }
-    }
+    }*/
 
 
     player.draw();
