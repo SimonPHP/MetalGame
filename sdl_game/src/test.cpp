@@ -4,6 +4,8 @@
 
 #include "test.h"
 
+#include "Level.h"
+
 void TestState::Init()
 {
     font = TTF::Font("../assets/fonts/RobotoSlab-Bold.ttf", 24);
@@ -22,6 +24,7 @@ void TestState::Init()
     player.setAnimation(anim);
     player.setIh(inKey);
 
+    lev = new Level("0.map");
 }
 
 void TestState::Uninit()
@@ -70,6 +73,21 @@ void TestState::Render(const int frame, const float deltaT)
 
     renderer.SetDrawColor(SDL::Color(0,255,255,255));
     renderer.FillRect(SDL::Rect(0, 600, 1000, 1000));
+
+    //draw map
+    for(uint32_t x = 0; x < lev->getWidth(); x++)
+    {
+        for(uint32_t y = 0; y < lev->getHeigth(); y++)
+        {
+            if(lev->layerAttributes[x][y] != 65535)
+                renderer.SetDrawColor(SDL::Color(255,0,128));
+            else
+                renderer.SetDrawColor(SDL::Color(255,255,255));
+
+            renderer.FillRect(SDL::Rect(y*16, x*16, 16, 16));
+        }
+    }
+
 
     player.draw();
 

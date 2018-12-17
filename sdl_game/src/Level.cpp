@@ -3,3 +3,83 @@
 //
 
 #include "Level.h"
+
+#include "global.h"
+
+#include <SDL_types.h>
+
+Level::Level(char *name) : name(name) {
+    loadLevel(name);
+}
+
+bool Level::loadLevel(char *name) {
+    SDL::C::SDL_RWops *rw = SDL::C::SDL_RWFromFile("../assets/levels/0.map", "rb");
+    if(rw != NULL)
+    {
+        uint32_t buf[5] = {};
+
+        SDL_RWread(rw, buf, sizeof(SDL::C::Uint32), 5);
+
+        this->width = buf[3];
+        this->heigth = buf[4];
+
+        this->width += 5; //überlauf vermeidungs test
+        this->heigth += 5;
+
+        this->layerBG1 = new uint32_t*[this->heigth];
+        for(uint32_t i = 0; i <= this->heigth; ++i)
+            this->layerBG1[i] = new uint32_t(this->width);
+
+        this->layerBG2 = new uint32_t*[this->heigth];
+        for(uint32_t i = 0; i <= this->heigth; ++i)
+            this->layerBG2[i] = new uint32_t(this->width);
+
+        this->layerBG3 = new uint32_t*[this->heigth];
+        for(uint32_t i = 0; i <= this->heigth; ++i)
+            this->layerBG3[i] = new uint32_t(this->width);
+
+        this->layerFG1 = new uint32_t*[this->heigth];
+        for(uint32_t i = 0; i <= this->heigth; ++i)
+            this->layerFG1[i] = new uint32_t(this->width);
+
+        this->layerFG2 = new uint32_t*[this->heigth];
+        for(uint32_t i = 0; i <= this->heigth; ++i)
+            this->layerFG2[i] = new uint32_t(this->width);
+
+        this->layerAttributes = new uint32_t*[this->heigth];
+        for(uint32_t i = 0; i <= this->heigth; ++i)
+            this->layerAttributes[i] = new uint32_t(this->width);
+
+        this->layerEntities = new uint32_t*[this->heigth];
+        for(uint32_t i = 0; i <= this->heigth; ++i)
+            this->layerEntities[i] = new uint32_t(this->width);
+
+        this->width -= 5;
+        this->heigth -= 5;
+
+        for (uint32_t x = 0; x < this->heigth; x++) {
+            for (uint32_t y = 0; y < this->width; y++) {
+                SDL_RWread(rw, &this->layerBG1[x][y], sizeof(uint32_t), 1);  // BG1[x][y]
+                SDL_RWread(rw, &this->layerBG2[x][y], sizeof(uint32_t), 1);  // BG2[x][y]
+                SDL_RWread(rw, &this->layerBG3[x][y], sizeof(uint32_t), 1);  // BG3[x][y]
+                SDL_RWread(rw, &this->layerFG1[x][y], sizeof(uint32_t), 1);  // FG1[x][y]
+                SDL_RWread(rw, &this->layerFG2[x][y], sizeof(uint32_t), 1);  // FG2[x][y]
+                SDL_RWread(rw, &this->layerAttributes[x][y], sizeof(uint32_t), 1);  // Attributes[x][y]
+                SDL_RWread(rw, &this->layerEntities[x][y], sizeof(uint32_t), 1);  // Entities[x][y]
+
+                std::cout << x << ":" << y << "= " << this->layerBG1[x][y] << std::endl;
+            }
+        }
+
+        SDL_RWclose(rw);
+    }
+    return true;
+}
+
+uint32_t Level::getWidth() const {
+    return width;
+}
+
+uint32_t Level::getHeigth() const {
+    return heigth;
+};

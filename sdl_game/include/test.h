@@ -14,6 +14,7 @@
 #include "inputhandlerKeyboard.h"
 #include "Animation.h"
 #include "player.h"
+#include "Level.h"
 
 #include <iostream>
 
@@ -34,6 +35,8 @@ class TestState : public GameState
     Player player = Player();
 
     InputhandlerKeyboard *inKey = new InputhandlerKeyboard();
+
+    Level *lev;
 
 public:
 
