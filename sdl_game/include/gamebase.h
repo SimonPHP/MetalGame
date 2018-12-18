@@ -84,6 +84,8 @@ public:
 			(SDL::Renderer::Flags::NONE)
 		);
 
+		renderer.SetDrawBlendMode(SDL::BlendMode::BLEND); // transparentz
+
 		std::fill( allStates.begin(), allStates.end(), nullptr );
 	}
 

@@ -14,10 +14,13 @@ class Tileset {
 private:
     SDL::Texture tileset;
     SDL::Point size;
+
 public:
     Tileset();
     Tileset(const SDL::Texture &tileset, const SDL::Point &size);
     void Draw(SDL::Point pos, SDL::Point tile);
+    void Draw(SDL::Point pos, int tile);
+    const Point &getSize() const;
 };
 
 #endif //SDL_GAME_TILESET_H

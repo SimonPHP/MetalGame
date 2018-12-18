@@ -14,6 +14,7 @@
 #include "inputhandlerKeyboard.h"
 #include "Animation.h"
 #include "player.h"
+#include "Level.h"
 
 #include <iostream>
 
@@ -26,6 +27,7 @@ class TestState : public GameState
     SDL::Texture blendedText;
 
     Tileset tileSet;
+    Tileset tileSetMap;
 
     Object ob = Object();
     Collidable co = Collidable();
@@ -35,8 +37,24 @@ class TestState : public GameState
 
     InputhandlerKeyboard *inKey = new InputhandlerKeyboard();
 
-public:
+    Level *lev;
 
+    SDL::Point camera = SDL::Point(0,0);
+
+    bool isLayerBG1 = true;
+    bool isLayerBG2 = true;
+    bool isLayerBG3 = true;
+
+    bool isLayerFG1 = true;
+    bool isLayerFG2 = true;
+
+    bool isLayerAttribute = true;
+    bool isLayerEntity = true;
+    bool isGrid = true;
+
+    bool isShowHelp = true;
+
+public:
     virtual void Init() override;
 
 

@@ -25,6 +25,11 @@ private:
     bool FALL = false;
     int maxJump = 125;
     int maxY = 0;
+
+    SDL::Point camera;
+public:
+    const Point &getCamera() const;
+
 public:
     Player();
 

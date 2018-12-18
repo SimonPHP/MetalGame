@@ -44,7 +44,7 @@ public:
 
 	virtual void Uninit() override
 	{
-		// for example, do not unload, just keep it loaded
+		// for example, do not unload, just keep pointLayerIt loaded
 	}
 
 	virtual void Events(const int frame, const float deltaT) override

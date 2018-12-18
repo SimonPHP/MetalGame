@@ -8,32 +8,6 @@ Player::Player() {
     ih = new InputhandlerKeyboard();
 }
 
-
-Inputhandler *Player::getIh() const {
-    return ih;
-}
-
-void Player::setIh(Inputhandler *ih) {
-    Player::ih = ih;
-}
-
-double Player::getSpeed() const {
-    return speed;
-}
-
-void Player::setSpeed(double speed) {
-    Player::speed = speed;
-}
-
-int Player::getMaxJump() const {
-    return maxJump;
-}
-
-void Player::setMaxJump(int maxJump) {
-    Player::maxJump = maxJump;
-}
-
-
 void Player::events(SDL::Event evt) {
     ih->setInput(evt);
 }
@@ -41,7 +15,6 @@ void Player::events(SDL::Event evt) {
 void Player::update(const int frame, const float deltaT) {
     if (rect.y == maxY) {
         FALL = true;
-        setAnimation(new SDL::Point(2, 1));
     }
 
     if (FALL) {
@@ -73,7 +46,34 @@ void Player::update(const int frame, const float deltaT) {
             FALL = true;
             maxY = rect.y - maxJump;
             currentAcc = jumpInitAcc;
-            setAnimation(new SDL::Point(1, 0));
         }
     }
+}
+
+Inputhandler *Player::getIh() const {
+    return ih;
+}
+
+void Player::setIh(Inputhandler *ih) {
+    Player::ih = ih;
+}
+
+double Player::getSpeed() const {
+    return speed;
+}
+
+void Player::setSpeed(double speed) {
+    Player::speed = speed;
+}
+
+int Player::getMaxJump() const {
+    return maxJump;
+}
+
+void Player::setMaxJump(int maxJump) {
+    Player::maxJump = maxJump;
+}
+
+const Point &Player::getCamera() const {
+    return camera;
 }
