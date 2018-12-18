@@ -52,6 +52,14 @@ void Player::update(const int frame, const float deltaT) {
     if (rect.y > 600 - rect.h && currentAcc < 0) {
         setY(600 - rect.h);
         FALL = false;
+
+        //dev env
+        std::vector<SDL::Point *> anim;
+        anim.push_back(new SDL::Point(1, 0));
+        anim.push_back(new SDL::Point(2, 0));
+        anim.push_back(new SDL::Point(3, 0));
+        setAnimation(anim);
+        //dev env end
     }
 
     if (ih->input[Inputhandler::Type::RIGHT] > 0) {

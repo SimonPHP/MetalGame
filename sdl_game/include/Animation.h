@@ -5,6 +5,7 @@
 #ifndef SDL_GAME_ANIMATION_H
 #define SDL_GAME_ANIMATION_H
 
+#include "global.h"
 #include <SDL_rect.hpp>
 #include <SDL_render.hpp>
 #include <ostream>
@@ -12,7 +13,6 @@
 #include <array>
 #include "tileset.h"
 #include <iostream>
-#include "global.h"
 #include "gamebase.h"
 #include "Object.h"
 #include "Collidable.h"
