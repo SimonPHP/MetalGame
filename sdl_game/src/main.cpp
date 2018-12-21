@@ -12,7 +12,7 @@ class MyGame : public Game
 {
 public:
 	MyGame()
-		: Game( Rect( 1024, 768 ), false )
+		: Game( Rect( 1920, 1080 ), false )
 	{
 		allStates[0] = new IntroState( *this, renderer );
 		allStates[1] = new EditorState( *this, renderer );

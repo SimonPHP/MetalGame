@@ -51,6 +51,12 @@ protected:
 
 public:
 	bool IsRunning() const { return isRunning; }
+	Point getWindowSize()
+	{
+		Point p;
+		SDL::C::SDL_GetWindowSize(window, &p.x, &p.y);
+		return p;
+	}
 
 	Game(SDL::Rect windowSize = SDL::Rect(1024, 768), bool vSync = true)
 	{

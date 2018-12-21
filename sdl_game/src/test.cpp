@@ -234,22 +234,25 @@ void TestState::Render(const int frame, const float deltaT)
         }
     }
 
-    /*
+
+    Point windowSize = game.getWindowSize();
+    windowSize.x /= 16;
+    windowSize.y /= 16;
+
     //draw map
-    for(uint32_t y = camera.y; y < lev->getHeigth(); y++)
+
+    renderer.SetDrawColor(SDL::Color(255,0,255));
+
+    for(uint32_t y = camera.y/16; y < camera.y/16 + windowSize.y && y < lev->getHeigth(); y++)
     {
-        for(uint32_t x = camera.x; x < lev->getWidth(); x++)
+        for(uint32_t x = camera.x/16; x < camera.x/16 + windowSize.x && y < lev->getWidth(); x++)
         {
-            if(lev->layerAttributes[x][y] == 65535)
-                renderer.SetDrawColor(SDL::Color(255,0,128));
-            else
+            if(lev->ppointLayerBG1[x][y].x < 65535)
             {
-                //renderer.SetDrawColor(SDL::Color(255,255,0));
-                tileSetMap.Draw(SDL::Point(x*16 + camera.x, y*16 + camera.y), lev->layerAttributes[x][y]);
+                tileSetMap.Draw(SDL::Point(x*16 - camera.x, y*16 - camera.y), lev->ppointLayerBG1[x][y]);
             }
-            //renderer.FillRect(SDL::Rect(x*16 + camera.x, y*16 + camera.y, 16, 16));
-            renderer.DrawRect(SDL::Rect(x*16 + camera.x, y*16 + camera.y, 16, 16));
         }
-    }*/
+    }
+
     renderer.Present();
 }

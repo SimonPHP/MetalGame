@@ -28,6 +28,12 @@ public:
     uint32_t **layerAttributes;
     uint32_t **layerEntities;
 
+    SDL::Point **ppointLayerBG1;
+    SDL::Point **ppointLayerBG2;
+    SDL::Point **ppointLayerBG3;
+    SDL::Point **ppointLayerFG1;
+    SDL::Point **ppointLayerFG2;
+
     std::map<SDL::Point, SDL::Point> pointLayerBG1;
     std::map<SDL::Point, SDL::Point> pointLayerBG2;
     std::map<SDL::Point, SDL::Point> pointLayerBG3;

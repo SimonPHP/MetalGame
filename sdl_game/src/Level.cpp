@@ -80,6 +80,93 @@ bool Level::loadLevel(char *name) {
 
 void Level::processLevelwithTileset(Tileset set) {
 
+    this->ppointLayerBG1 = new SDL::Point*[this->width];
+    for(uint32_t i = 0; i < this->width; ++i)
+        this->ppointLayerBG1[i] = new SDL::Point[this->height];
+
+    this->ppointLayerBG2 = new SDL::Point*[this->width];
+    for(uint32_t i = 0; i < this->width; ++i)
+        this->ppointLayerBG2[i] = new SDL::Point[this->height];
+
+    this->ppointLayerBG3 = new SDL::Point*[this->width];
+    for(uint32_t i = 0; i < this->width; ++i)
+        this->ppointLayerBG3[i] = new SDL::Point[this->height];
+
+    this->ppointLayerFG1 = new SDL::Point*[this->width];
+    for(uint32_t i = 0; i < this->width; ++i)
+        this->ppointLayerFG1[i] = new SDL::Point[this->height];
+
+    this->ppointLayerFG2 = new SDL::Point*[this->width];
+    for(uint32_t i = 0; i < this->width; ++i)
+        this->ppointLayerFG2[i] = new SDL::Point[this->height];
+
+
+    for (uint32_t y = 0; y < this->height; y++) {
+        for (uint32_t x = 0; x < this->width; x++) {
+            if (this->layerBG1[x][y] < 65535)
+            {
+                this->ppointLayerBG1[x][y] = SDL::Point(layerBG1[x][y] % set.getSize().x, layerBG1[x][y] / set.getSize().y);
+            }
+            else
+            {
+                this->ppointLayerBG1[x][y] = SDL::Point(65535, 65535);
+            }
+        }
+    }
+
+    for (uint32_t y = 0; y < this->height; y++) {
+        for (uint32_t x = 0; x < this->width; x++) {
+            if (this->layerBG1[x][y] < 65535)
+            {
+                this->ppointLayerBG2[x][y] = SDL::Point(layerBG2[x][y] % set.getSize().x, layerBG2[x][y] / set.getSize().y);
+            }
+            else
+            {
+                this->ppointLayerBG2[x][y] = SDL::Point(65535, 65535);
+            }
+        }
+    }
+
+    for (uint32_t y = 0; y < this->height; y++) {
+        for (uint32_t x = 0; x < this->width; x++) {
+            if (this->layerBG3[x][y] < 65535)
+            {
+                this->ppointLayerBG3[x][y] = SDL::Point(layerBG3[x][y] % set.getSize().x, layerBG3[x][y] / set.getSize().y);
+            }
+            else
+            {
+                this->ppointLayerBG3[x][y] = SDL::Point(65535, 65535);
+            }
+        }
+    }
+
+    for (uint32_t y = 0; y < this->height; y++) {
+        for (uint32_t x = 0; x < this->width; x++) {
+            if (this->layerFG1[x][y] < 65535)
+            {
+                this->ppointLayerFG1[x][y] = SDL::Point(layerFG1[x][y] % set.getSize().x, layerFG1[x][y] / set.getSize().y);
+            }
+            else
+            {
+                this->ppointLayerFG1[x][y] = SDL::Point(65535, 65535);
+            }
+        }
+    }
+
+    for (uint32_t y = 0; y < this->height; y++) {
+        for (uint32_t x = 0; x < this->width; x++) {
+            if (this->layerFG2[x][y] < 65535)
+            {
+                this->ppointLayerFG2[x][y] = SDL::Point(layerFG2[x][y] % set.getSize().x, layerFG2[x][y] / set.getSize().y);
+            }
+            else
+            {
+                this->ppointLayerFG2[x][y] = SDL::Point(65535, 65535);
+            }
+        }
+    }
+
+
     for (uint32_t y = 0; y < this->height; y++) {
         for (uint32_t x = 0; x < this->width; x++) {
             if (this->layerBG1[x][y] < 65535)
