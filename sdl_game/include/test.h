@@ -29,10 +29,6 @@ class TestState : public GameState
     Tileset tileSet;
     Tileset tileSetMap;
 
-    Object ob = Object();
-    Collidable co = Collidable();
-    Collidable co2 = Collidable();
-    Collidable co3 = Collidable();
     Player player = Player();
 
     InputhandlerKeyboard *inKey = new InputhandlerKeyboard();
@@ -41,12 +37,8 @@ class TestState : public GameState
 
     SDL::Point camera = SDL::Point(0,0);
 
-    bool isLayerBG1 = true;
-    bool isLayerBG2 = true;
-    bool isLayerBG3 = true;
-
-    bool isLayerFG1 = true;
-    bool isLayerFG2 = true;
+    bool isLayerBG = true;
+    bool isLayerFG = true;
 
     bool isLayerAttribute = true;
     bool isLayerEntity = true;

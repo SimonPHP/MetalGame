@@ -34,15 +34,10 @@ public:
     SDL::Point **ppointLayerFG1;
     SDL::Point **ppointLayerFG2;
 
-    std::map<SDL::Point, SDL::Point> pointLayerBG1;
-    std::map<SDL::Point, SDL::Point> pointLayerBG2;
-    std::map<SDL::Point, SDL::Point> pointLayerBG3;
-    std::map<SDL::Point, SDL::Point> pointLayerFG1;
-    std::map<SDL::Point, SDL::Point> pointLayerFG2;
-    std::map<SDL::Point, SDL::Point>::iterator pointLayerIt;
+    int **ppointLayerAttributes;
+    int **ppointLayerEntities;
 
     std::map<SDL::Point, int> pointLayerAttributes;
-    std::map<SDL::Point, int>::iterator pointLayerAttributesIt;
 
     //TODO: entitis layer und iter
 

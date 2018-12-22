@@ -26,8 +26,11 @@ class Object {
      * */
 protected:
     float x, y;
+    SDL::Rect *tiles;
     SDL::Rect rect;
     Tileset tileset;
+
+    //animation überarbeiten
     std::vector<SDL::Point*> animation;
     std::vector<SDL::Point *>::iterator it;
     int animationMaxTime = 12;  //eventuell noch mit ins animation array nehmen damit verschiedene sprites

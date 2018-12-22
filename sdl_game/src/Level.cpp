@@ -64,16 +64,7 @@ bool Level::loadLevel(char *name) {
             }
         }
 
-/*        for (uint32_t y = 0; y < this->height; y++) {
-            for (uint32_t x = 0; x < this->width; x++) {
-                std::cout << this->layerAttributes[x][y] << " ";
-            }
-            std::cout << std::endl;
-        }
-
-        std::cout << "DEBUG" << std::endl;*/
-
-        SDL_RWclose(rw); //gibt manchmal *** Error in `/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/cmake-build-debug/sdl_game': corrupted size vs. prev_size: 0x000000000280f440 ***
+        SDL_RWclose(rw);
     }
     return true;
 }
@@ -99,6 +90,14 @@ void Level::processLevelwithTileset(Tileset set) {
     this->ppointLayerFG2 = new SDL::Point*[this->width];
     for(uint32_t i = 0; i < this->width; ++i)
         this->ppointLayerFG2[i] = new SDL::Point[this->height];
+
+    this->ppointLayerAttributes = new int*[this->width];
+    for(uint32_t i = 0; i < this->width; ++i)
+        this->ppointLayerAttributes[i] = new int[this->height];
+
+    this->ppointLayerEntities = new int*[this->width];
+    for(uint32_t i = 0; i < this->width; ++i)
+        this->ppointLayerEntities[i] = new int[this->height];
 
 
     for (uint32_t y = 0; y < this->height; y++) {
@@ -166,49 +165,28 @@ void Level::processLevelwithTileset(Tileset set) {
         }
     }
 
-
     for (uint32_t y = 0; y < this->height; y++) {
         for (uint32_t x = 0; x < this->width; x++) {
-            if (this->layerBG1[x][y] < 65535)
+            if (this->layerFG2[x][y] < 65535)
             {
-                this->pointLayerBG1[SDL::Point(x, y)] = SDL::Point(layerBG1[x][y] % set.getSize().x, layerBG1[x][y] / set.getSize().y);
+                this->ppointLayerFG2[x][y] = SDL::Point(layerFG2[x][y] % set.getSize().x, layerFG2[x][y] / set.getSize().y);
+            }
+            else
+            {
+                this->ppointLayerFG2[x][y] = SDL::Point(65535, 65535);
             }
         }
     }
 
     for (uint32_t y = 0; y < this->height; y++) {
         for (uint32_t x = 0; x < this->width; x++) {
-            if (this->layerBG2[x][y] < 65535)
-                this->pointLayerBG2[SDL::Point(x, y)] = SDL::Point(layerBG2[x][y] % set.getSize().x, layerBG2[x][y] / set.getSize().y);
+            ppointLayerAttributes[x][y] = this->layerAttributes[x][y];
         }
     }
 
     for (uint32_t y = 0; y < this->height; y++) {
         for (uint32_t x = 0; x < this->width; x++) {
-            if (this->layerBG3[x][y] < 65535)
-                this->pointLayerBG3[SDL::Point(x, y)] = SDL::Point(layerBG3[x][y] % set.getSize().x, layerBG3[x][y] / set.getSize().y);
-        }
-    }
-
-    for (uint32_t y = 0; y < this->height; y++) {
-        for (uint32_t x = 0; x < this->width; x++) {
-            if (this->layerFG1[x][y] < 65535)
-                this->pointLayerFG1[SDL::Point(x, y)] = SDL::Point(layerFG1[x][y] % set.getSize().x, layerFG1[x][y] / set.getSize().y);
-        }
-    }
-
-    for (uint32_t y = 0; y < this->height; y++) {
-        for (uint32_t x = 0; x < this->width; x++) {
-            if (this->layerFG2[x][y] < 65535)
-                this->pointLayerFG2[SDL::Point(x, y)] = SDL::Point(layerFG2[x][y] % set.getSize().x, layerFG2[x][y] / set.getSize().y);
-        }
-    }
-
-    //attributeLayer
-    for (uint32_t y = 0; y < this->height; y++) {
-        for (uint32_t x = 0; x < this->width; x++) {
-            if (this->layerAttributes[x][y] < 65535)
-                this->pointLayerAttributes[SDL::Point(x, y)] = this->layerAttributes[x][y];
+            ppointLayerEntities[x][y] = this->layerEntities[x][y];
         }
     }
 }
