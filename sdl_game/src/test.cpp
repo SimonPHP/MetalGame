@@ -80,14 +80,14 @@ void TestState::Events(const int frame, const float deltaT)
 
         //camera movement experimental only debug
         if(state[SDL::C::SDL_SCANCODE_LEFT])
-            camera.x += speed;
-        if(state[SDL::C::SDL_SCANCODE_RIGHT])
             camera.x -= speed;
+        if(state[SDL::C::SDL_SCANCODE_RIGHT])
+            camera.x += speed;
 
         if(state[SDL::C::SDL_SCANCODE_UP])
-            camera.y += speed;
-        if(state[SDL::C::SDL_SCANCODE_DOWN])
             camera.y -= speed;
+        if(state[SDL::C::SDL_SCANCODE_DOWN])
+            camera.y += speed;
     }
 }
 
@@ -117,53 +117,10 @@ void TestState::Render(const int frame, const float deltaT)
         blendedText.Draw(p);
     }
 
-    //layer 1
-    if(isLayerBG1)
-    {
-        for(lev->pointLayerIt = lev->pointLayerBG1.begin(); lev->pointLayerIt != lev->pointLayerBG1.end(); lev->pointLayerIt++)
-        {
-            tileSetMap.Draw(SDL::Point(lev->pointLayerIt->first.x*16 + camera.x, lev->pointLayerIt->first.y*16 + camera.y), lev->pointLayerIt->second);
-        }
-    }
-
-    //layer2
-    if(isLayerBG2)
-    {
-        for(lev->pointLayerIt = lev->pointLayerBG2.begin(); lev->pointLayerIt != lev->pointLayerBG2.end(); lev->pointLayerIt++)
-        {
-            tileSetMap.Draw(SDL::Point(lev->pointLayerIt->first.x*16 + camera.x, lev->pointLayerIt->first.y*16 + camera.y), lev->pointLayerIt->second);
-        }
-    }
-
-    //layer3
-    if(isLayerBG3)
-    {
-        for(lev->pointLayerIt = lev->pointLayerBG3.begin(); lev->pointLayerIt != lev->pointLayerBG3.end(); lev->pointLayerIt++)
-        {
-            tileSetMap.Draw(SDL::Point(lev->pointLayerIt->first.x*16 + camera.x, lev->pointLayerIt->first.y*16 + camera.y), lev->pointLayerIt->second);
-        }
-    }
 
     player.draw();
 
-    //forgroundlayer1
-    if(isLayerFG1)
-    {
-        for(lev->pointLayerIt = lev->pointLayerFG1.begin(); lev->pointLayerIt != lev->pointLayerFG1.end(); lev->pointLayerIt++)
-        {
-            tileSetMap.Draw(SDL::Point(lev->pointLayerIt->first.x*16 + camera.x, lev->pointLayerIt->first.y*16 + camera.y), lev->pointLayerIt->second);
-        }
-    }
-
-    //forgroundlayer2
-    if(isLayerFG2)
-    {
-        for(lev->pointLayerIt = lev->pointLayerFG2.begin(); lev->pointLayerIt != lev->pointLayerFG2.end(); lev->pointLayerIt++)
-        {
-            tileSetMap.Draw(SDL::Point(lev->pointLayerIt->first.x*16 + camera.x, lev->pointLayerIt->first.y*16 + camera.y), lev->pointLayerIt->second);
-        }
-    }
-
+    /*
     if(isLayerAttribute)
     {
         int transp = 255/2;
@@ -184,7 +141,7 @@ void TestState::Render(const int frame, const float deltaT)
             }
             renderer.FillRect(SDL::Rect(lev->pointLayerAttributesIt->first.x*16 + camera.x, lev->pointLayerAttributesIt->first.y*16 + camera.y, 16, 16));
         }
-    }
+    }*/
 
     if(isGrid)
     {
@@ -243,9 +200,9 @@ void TestState::Render(const int frame, const float deltaT)
 
     renderer.SetDrawColor(SDL::Color(255,0,255));
 
-    for(uint32_t y = camera.y/16; y < camera.y/16 + windowSize.y && y < lev->getHeigth(); y++)
+    for(uint32_t y = std::max(0, camera.y/16); y < camera.y/16 + windowSize.y && y < lev->getHeigth(); y++)
     {
-        for(uint32_t x = camera.x/16; x < camera.x/16 + windowSize.x && y < lev->getWidth(); x++)
+        for(uint32_t x = std::max(0, camera.x/16); x < camera.x/16 + windowSize.x && y < lev->getWidth(); x++)
         {
             if(lev->ppointLayerBG1[x][y].x < 65535)
             {
