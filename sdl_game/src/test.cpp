@@ -2,9 +2,12 @@
 // Created by simon on 30.11.18.
 //
 
+#include <Entity.h>
 #include "test.h"
 
 #include "Level.h"
+
+#define TILESIZE 16
 
 void TestState::Init()
 {
@@ -23,9 +26,24 @@ void TestState::Init()
         for(uint32_t x = 0; x < lev->getWidth(); x++)
         {
             if (lev->ppointLayerAttributes[x][y] == 1)
-                spawn = SDL::Point(x*16, y*16);
+                spawn = SDL::Point(x, y);
         }
     }
+
+    player.setX((spawn.x+1) * TILESIZE);
+    player.setY((spawn.y+1) * TILESIZE);
+    player.setH(TILESIZE);
+    player.setW(TILESIZE);
+
+    //player.addBoundarie(SDL::Rect(0,0,16,32));
+    //player.addBoundarie(SDL::Rect(16,0,16,16));
+    //player.addBoundarie(SDL::Rect(16,16,64,16));
+
+    player.addHitbox(SDL::Rect(0,0,32,32));
+    player.addHitbox(SDL::Rect(0,128,32,32));
+
+    camera.y = 2500;
+
 }
 
 void TestState::Uninit()
@@ -38,7 +56,7 @@ void TestState::Events(const int frame, const float deltaT)
 {
     Event::Pump();
     Event evt;
-    //player.events(evt);
+    player.events(evt);
 
     const SDL::Uint8 *state = SDL::C::SDL_GetKeyboardState(NULL);
 
@@ -48,6 +66,12 @@ void TestState::Events(const int frame, const float deltaT)
     {
         if (game.HandleEvent(evt))
             continue;
+
+        if(evt.type() == Event::Type::MOUSEMOTION)
+        {
+            mouseX = evt.MouseMotion().x + camera.x;
+            mouseY = evt.MouseMotion().y + camera.y;
+        }
 
         if(state[SDL::C::SDL_SCANCODE_F1])
             isLayerBG = !isLayerBG;
@@ -78,19 +102,24 @@ void TestState::Events(const int frame, const float deltaT)
         if(state[SDL::C::SDL_SCANCODE_DOWN])
             camera.y += speed;
     }
+
+    player.checkCollision(*lev);
+
 }
 
 void TestState::Update(const int frame, const float deltaT)
 {
-    //std::cout << ob << std::endl;
-    /*
-    co.setRect(SDL::Rect(co.getPos().x + 1, co.getPos().y + 2, 40, 40));
-    std::cout << co << std::endl;
 
-    std::cout << "co und co2 collide: " << co.checkCollision(co2) << std::endl;
-    std::cout << "co und co3 collide: " << co.checkCollision(co3) << std::endl;
-     */
-    player.update(frame, deltaT);
+    player.setX(mouseX);
+    player.setY(mouseY);
+
+    int playerX = (int)player.getX()/TILESIZE;
+    int playerY = (int)player.getY()/TILESIZE;
+
+    if(lev->ppointLayerAttributes[std::max(0,playerX)][std::max(0,playerY+1)] == 0)
+        player.setCollisionDown();
+
+    player.update(deltaT);
 }
 
 void TestState::Render(const int frame, const float deltaT)
@@ -107,8 +136,8 @@ void TestState::Render(const int frame, const float deltaT)
     }
 
     Point windowSize = game.getWindowSize();
-    windowSize.x /= 16;
-    windowSize.y /= 16;
+    windowSize.x /= TILESIZE;
+    windowSize.y /= TILESIZE;
 
     //draw map
 
@@ -116,42 +145,41 @@ void TestState::Render(const int frame, const float deltaT)
 
     if(isLayerBG)
     {
-        for(uint32_t y = std::max(0, camera.y/16); y < camera.y/16 + windowSize.y && y < lev->getHeigth(); y++)
+        for(uint32_t y = std::max(0, camera.y/TILESIZE); y < camera.y/TILESIZE + windowSize.y && y < lev->getHeigth(); y++)
         {
-            for(uint32_t x = std::max(0, camera.x/16); x < camera.x/16 + windowSize.x && x < lev->getWidth(); x++)
+            for(uint32_t x = std::max(0, camera.x/TILESIZE); x < camera.x/TILESIZE + windowSize.x && x < lev->getWidth(); x++)
             {
                 if(lev->ppointLayerBG1[x][y].x < 65535)
                 {
-                    tileSetMap.Draw(SDL::Point(x*16 - camera.x, y*16 - camera.y), lev->ppointLayerBG1[x][y]);
+                    tileSetMap.Draw(SDL::Point(x*TILESIZE - camera.x, y*TILESIZE - camera.y), lev->ppointLayerBG1[x][y]);
                 }
                 if(lev->ppointLayerBG2[x][y].x < 65535)
                 {
-                    tileSetMap.Draw(SDL::Point(x*16 - camera.x, y*16 - camera.y), lev->ppointLayerBG2[x][y]);
+                    tileSetMap.Draw(SDL::Point(x*TILESIZE - camera.x, y*TILESIZE - camera.y), lev->ppointLayerBG2[x][y]);
                 }
                 if(lev->ppointLayerBG3[x][y].x < 65535)
                 {
-                    tileSetMap.Draw(SDL::Point(x*16 - camera.x, y*16 - camera.y), lev->ppointLayerBG3[x][y]);
+                    tileSetMap.Draw(SDL::Point(x*TILESIZE - camera.x, y*TILESIZE - camera.y), lev->ppointLayerBG3[x][y]);
                 }
             }
         }
     }
 
-    player.draw();
-
+    player.render(renderer, camera);
 
     if(isLayerFG)
     {
-        for(uint32_t y = std::max(0, camera.y/16); y < camera.y/16 + windowSize.y && y < lev->getHeigth(); y++)
+        for(uint32_t y = std::max(0, camera.y/TILESIZE); y < camera.y/TILESIZE + windowSize.y && y < lev->getHeigth(); y++)
         {
-            for(uint32_t x = std::max(0, camera.x/16); x < camera.x/16 + windowSize.x && x < lev->getWidth(); x++)
+            for(uint32_t x = std::max(0, camera.x/TILESIZE); x < camera.x/TILESIZE + windowSize.x && x < lev->getWidth(); x++)
             {
                 if(lev->ppointLayerFG1[x][y].x < 65535)
                 {
-                    tileSetMap.Draw(SDL::Point(x*16 - camera.x, y*16 - camera.y), lev->ppointLayerFG1[x][y]);
+                    tileSetMap.Draw(SDL::Point(x*TILESIZE - camera.x, y*TILESIZE - camera.y), lev->ppointLayerFG1[x][y]);
                 }
                 if(lev->ppointLayerFG2[x][y].x < 65535)
                 {
-                    tileSetMap.Draw(SDL::Point(x*16 - camera.x, y*16 - camera.y), lev->ppointLayerFG2[x][y]);
+                    tileSetMap.Draw(SDL::Point(x*TILESIZE - camera.x, y*TILESIZE - camera.y), lev->ppointLayerFG2[x][y]);
                 }
             }
         }
@@ -161,9 +189,9 @@ void TestState::Render(const int frame, const float deltaT)
     {
         int transp = 255/2;
 
-        for(uint32_t y = std::max(0, camera.y/16); y < camera.y/16 + windowSize.y && y < lev->getHeigth(); y++)
+        for(uint32_t y = std::max(0, camera.y/TILESIZE); y < camera.y/TILESIZE + windowSize.y && y < lev->getHeigth(); y++)
         {
-            for(uint32_t x = std::max(0, camera.x/16); x < camera.x/16 + windowSize.x && x < lev->getWidth(); x++)
+            for(uint32_t x = std::max(0, camera.x/TILESIZE); x < camera.x/TILESIZE + windowSize.x && x < lev->getWidth(); x++)
             {
                 bool drawAttr = true;
                 switch(lev->ppointLayerAttributes[x][y])
@@ -184,7 +212,7 @@ void TestState::Render(const int frame, const float deltaT)
                     }
                 }
                 if(drawAttr)
-                    renderer.FillRect(SDL::Rect(x*16 - camera.x, y*16 - camera.y, 16, 16));
+                    renderer.FillRect(SDL::Rect(x*TILESIZE - camera.x, y*TILESIZE - camera.y, 16, 16));
             }
         }
     }
@@ -192,21 +220,20 @@ void TestState::Render(const int frame, const float deltaT)
     if(isGrid)
     {
         windowSize = game.getWindowSize();
-        int TILESIZE = 16;
         renderer.SetDrawColor(255,0,0);
         for(int i = 0; i < lev->getHeigth()+1; i++)
         {
             SDL::Point points[2];
-            points[0] = SDL::Point(0, i*16)-camera;
-            points[1] = SDL::Point(lev->getWidth()*16, i*16)-camera;
+            points[0] = SDL::Point(0, i*TILESIZE)-camera;
+            points[1] = SDL::Point(lev->getWidth()*TILESIZE, i*TILESIZE)-camera;
             renderer.DrawLines(points, 2);
         }
 
         for(int i = 0; i < lev->getWidth()+1; i++)
         {
             SDL::Point points[2];
-            points[0] = SDL::Point(i*16, 0)-camera;
-            points[1] = SDL::Point(i*16, lev->getHeigth()*16)-camera;
+            points[0] = SDL::Point(i*TILESIZE, 0)-camera;
+            points[1] = SDL::Point(i*TILESIZE, lev->getHeigth()*TILESIZE)-camera;
             renderer.DrawLines(points, 2);
         }
     }

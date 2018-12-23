@@ -19,7 +19,7 @@
 #include "tileset.h"
 #include "inputhandler.h"
 #include "inputhandlerKeyboard.h"
-#include "player.h"
+#include "Player.h"
 #include "editor.h"
 
 class Animation {

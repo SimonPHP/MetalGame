@@ -2,9 +2,8 @@
 // Created by simon on 30.11.18.
 //
 
-#include "Level.h"
-
 #include "global.h"
+#include "Level.h"
 
 #include <SDL_types.h>
 

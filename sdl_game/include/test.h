@@ -7,16 +7,15 @@
 
 #include "global.h"
 #include "gamebase.h"
-#include "Object.h"
-#include "Collidable.h"
 #include "tileset.h"
 #include "inputhandler.h"
 #include "inputhandlerKeyboard.h"
 #include "Animation.h"
-#include "player.h"
+#include "Player.h"
 #include "Level.h"
 
 #include <iostream>
+#include <SDL_types.h>
 
 class TestState : public GameState
 {
@@ -45,6 +44,9 @@ class TestState : public GameState
     bool isGrid = true;
 
     bool isShowHelp = true;
+
+    SDL::C::Sint32 mouseX;
+    SDL::C::Sint32 mouseY;
 
 public:
     virtual void Init() override;

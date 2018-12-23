@@ -7,7 +7,6 @@
 
 #include <map>
 #include "global.h"
-#include "Layer.h"
 #include "tileset.h"
 
 class Level {
