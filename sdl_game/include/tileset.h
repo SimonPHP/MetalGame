@@ -14,6 +14,9 @@ class Tileset {
 private:
     SDL::Texture tileset;
     SDL::Point size;
+    SDL::Point realSize;
+public:
+    const Point &getRealSize() const;
 
 public:
     Tileset();

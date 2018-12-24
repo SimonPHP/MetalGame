@@ -7,17 +7,19 @@
 #include "intro.h"
 #include "editor.h"
 #include "test.h"
+#include "EntityEditorState.h"
 
 class MyGame : public Game
 {
 public:
 	MyGame()
-		: Game( Rect( 1920, 1080 ), false )
+		: Game( Rect( 1600, 900 ), false )
 	{
 		allStates[0] = new IntroState( *this, renderer );
 		allStates[1] = new EditorState( *this, renderer );
         allStates[2] = new TestState( *this, renderer );
-		SetNextState( 2 );
+		allStates[3] = new EntityEditorState( *this, renderer );
+		SetNextState( 3 );
 	}
 
 	virtual ~MyGame()

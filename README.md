@@ -23,31 +23,24 @@ Es wird ein 2D Sidescroller und Platformer.
 
 Ich denke mal wir verwenden am besten den Wrapper (suck it Jan :P).
 
-### Object
-Es gibt eine Abtractes Object welches folgende Attribute beinhaltet
+### Entity
 
-* SDL::Rect rect;
-* Tileset tileset;
-* std::vector<SDL::Point*> animation;
-* std::vector<SDL::Point *>::iterator it;
-* int animationMaxTime = 12; 
-* int animationTimer = 1;
+Eine Entity enthält verschiedene Komponenten.
+- Position Float(x, y)
+- Size Int/Float?(x, y) //eventuell auch in EntityState?
+- vector<EntityStates> //enthält alle States die die Entity haben kann
+- accState EntityState
 
-Man kann in animation einfach eine Reihe von Punkten geben und so eine Animation von diesem Object erstellen.
-Wenn man nur eine Statische grafik hat dann gibt man nur einen Punkt mit (ist überladen muss kein vector mit nur einem punkt übergeben werden)
+???collisionState??? mit anderen Entitys unwichtig für Umgebungs Kollision
 
-Die animationMaxTime bestimmt nach wie vielen frames die animation sich ändert.
+- levelCollisionPoints std::vector<SDL::Points> //hitboxen Position relativ von der Position geteilt durch die TileSize
 
-Das tileset object wrappt nur die drawsprite methode damit die einfacher zu nutzen ist.
++ render()
 
-### Kollision
-Es gibt eine Collidable Klasse welche von Object erbt und noch zusätzlich eine hitbox enthält
-
-* SDL::Rect *hitbox;
-
-Die Hitbox kann mit bindHitboxToObjectRect(true) ans rect von Object gebudnen werden(pointer magie)
-
-mit bool checkCollision(Collidable &secCol) kann man eine Kollision zwischen zwei collidables ermittlen.
+### EntityState
+- hitboxes[] SDL::Rect
+- Size Int/Float?(x, y) //eventuell auch in EntityState?
+- vector<Animation> //Aniamtion hällt Tileset/Animationstime/Animationen
 
 ### Player
 Hier fängt das undurchdachte Problem an denn wie können wir den Input richtig handlen von einem Spieler?

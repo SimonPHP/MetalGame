@@ -8,7 +8,9 @@
 
 Tileset::Tileset() {}
 
-Tileset::Tileset(const SDL::Texture &tileset, const SDL::Point &size) : tileset(tileset), size(size) {}
+Tileset::Tileset(const SDL::Texture &tileset, const SDL::Point &size) : tileset(tileset), size(size) {
+    this->realSize = SDL::Point(tileset.w/size.x, tileset.h/size.y);
+}
 
 void Tileset::Draw(SDL::Point pos, SDL::Point tile)
 {
@@ -22,4 +24,8 @@ void Tileset::Draw(SDL::Point pos, int tile)
 
 const Point &Tileset::getSize() const {
     return size;
+}
+
+const Point &Tileset::getRealSize() const {
+    return realSize;
 }
