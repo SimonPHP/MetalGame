@@ -120,7 +120,7 @@ void EntityEditorState::Init()
     bNew = new Button(renderer, SDL::Rect(0,0,100,25), "New", Color(102, 102, 102), std::bind(openDialog)); //position relativ from panel
     bOpen = new Button(renderer, SDL::Rect(105,0,100,25), "Open", Color(102, 102, 102), std::bind(openDialog));
     bSave = new Button(renderer, SDL::Rect(210,0,100,25), "Save", Color(102, 102, 102), std::bind(save));
-    bSaveAt = new Button(renderer, SDL::Rect(315,0,100,25), "Save at", Color(102, 102, 102), std::bind(save));
+    bSaveAt = new Button(renderer, SDL::Rect(315,0,100,25), "Save as", Color(102, 102, 102), std::bind(save));
 
     mainMenuPanelLeft->addGuiElement(bNew);
     mainMenuPanelLeft->addGuiElement(bOpen);
@@ -180,7 +180,7 @@ void EntityEditorState::Render(const int frame, const float deltaT)
         {
             for(int y = 0; y < playerTileSet.getSize().y; y++)
             {
-                this->playerTileSet.Draw(SDL::Point(100 + x* playerTileSet.getRealSize().x , 100 + y*playerTileSet.getRealSize().y), SDL::Point(x, y));
+                this->playerTileSet.Draw(SDL::Point(tileSetSelectionPanel->getRect().x + x* playerTileSet.getRealSize().x , tileSetSelectionPanel->getRect().y + y*playerTileSet.getRealSize().y), SDL::Point(x, y));
             }
         }
     }
