@@ -11,6 +11,7 @@
 #include <string>
 #include <SDL_render.hpp>
 #include <functional>
+#include "tileset.h"
 
 class GuiElement;
 
@@ -28,9 +29,14 @@ public:
 class GuiElement {
 protected:
     SDL::Rect rect;
+    SDL::Point realPos;
+    GuiElement *parent = nullptr;
+
+    void calcRealPos();
+    SDL::Point getParentPos();
+
 public:
     const Rect &getRect() const;
-
     void setRect(const Rect &rect);
 
 protected:
@@ -38,6 +44,7 @@ protected:
 
 public:
     GuiElement();
+    GuiElement(SDL::Rect rect);
     virtual void events(SDL::Event evt) = 0;
     virtual void render(SDL::Renderer &renderer) = 0;
 };
@@ -67,6 +74,21 @@ private:
 
 public:
     Button(SDL::Renderer &renderer, SDL::Rect rect, const std::string &text, SDL::Color backgroundColor, std::function<void()> callback);
+    void events(SDL::Event evt);
+    void render(SDL::Renderer &renderer);
+};
+
+class TileSetSelector : public GuiElement {
+    Tileset tileset;
+    bool isSet; //tileset has to be loaded manually
+    bool isHover;
+    bool isSelected;
+    SDL::Point selection; //selected tile
+    SDL::Point hover; //hovered tile
+public:
+    void setTileset(const Tileset &tileset);
+
+    TileSetSelector(SDL::Renderer &renderer, SDL::Point pos);
     void events(SDL::Event evt);
     void render(SDL::Renderer &renderer);
 };

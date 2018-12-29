@@ -139,10 +139,19 @@ void EntityEditorState::Init()
     rightMenuPanel = new Panel(renderer, SDL::Rect(0, winSize.y/2 + 25, rightPanelWidth,winSize.y/2), true);
 
     rightPanel->addGuiElement(tileSetSelectionPanel);
+
+    tileSetSelector = new TileSetSelector(renderer, SDL::Point(0,0)); //playerTileSet has not to be loaded at this moment
+    rightPanel->addGuiElement(tileSetSelector);
+
     rightPanel->addGuiElement(rightMenuPanel);
 
     handler.addGuiElement(leftPanel);
     handler.addGuiElement(rightPanel);
+
+    //debug
+    this->loadTileset("/home/simon/Desktop/Uni sortiert/Semester_5/WPP/MetalGame/sdl_game/assets/graphics/platformerPack_character.cfg");
+    tileSetSelector->setTileset(this->playerTileSet);
+
 }
 
 void EntityEditorState::Uninit()
@@ -173,17 +182,6 @@ void EntityEditorState::Render(const int frame, const float deltaT)
 {
     renderer.ClearColor(255,255,255);
     handler.render(renderer);
-
-    if(isTileSet)
-    {
-        for(int x = 0; x < playerTileSet.getSize().x; x++)
-        {
-            for(int y = 0; y < playerTileSet.getSize().y; y++)
-            {
-                this->playerTileSet.Draw(SDL::Point(tileSetSelectionPanel->getRect().x + x* playerTileSet.getRealSize().x , tileSetSelectionPanel->getRect().y + y*playerTileSet.getRealSize().y), SDL::Point(x, y));
-            }
-        }
-    }
 
     renderer.Present();
 }

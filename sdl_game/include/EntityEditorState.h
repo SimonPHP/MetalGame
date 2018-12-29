@@ -41,6 +41,8 @@ class EntityEditorState : public GameState
     Panel *tileSetSelectionPanel;
     Button *loadTileSetButton;
 
+    TileSetSelector *tileSetSelector;
+
     Panel *rightMenuPanel;
 
     bool isTileSet = false;
