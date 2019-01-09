@@ -11,7 +11,7 @@
 
 class Level {
 private:
-    char *name;
+    std::string name;
     uint32_t width, height;
 public:
     uint32_t getWidth() const;
@@ -40,8 +40,8 @@ public:
 
     //TODO: entitis layer und iter
 
-    Level(char *name);
-    bool loadLevel(char *name);
+    Level(std::string name);
+    bool loadLevel(std::string name);
     void processLevelwithTileset(Tileset set);
 };
 

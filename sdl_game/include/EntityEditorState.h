@@ -33,6 +33,10 @@ class EntityEditorState : public GameState
     Button *bSaveAt;
 
     Panel *stageViewPanel;
+
+    EntityStateShow *entityShow1; //debug
+    Player *craa; //debug
+
     Panel *stagePropsPanel;
 
     //right Panel

@@ -30,10 +30,10 @@ protected:
     SDL::Rect rect;
     Tileset tileset;
 
-    //animation überarbeiten
+    //animations überarbeiten
     std::vector<SDL::Point*> animation;
     std::vector<SDL::Point *>::iterator it;
-    int animationMaxTime = 12;  //eventuell noch mit ins animation array nehmen damit verschiedene sprites
+    int animationMaxTime = 12;  //eventuell noch mit ins animations array nehmen damit verschiedene sprites
                                 // unterschiedlich lang geladen bleiben können
     int animationTimer = 1;
 

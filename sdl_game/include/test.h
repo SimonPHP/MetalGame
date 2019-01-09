@@ -28,7 +28,7 @@ class TestState : public GameState
     Tileset tileSet;
     Tileset tileSetMap;
 
-    Player player = Player();
+    Player *player;
 
     InputhandlerKeyboard *inKey = new InputhandlerKeyboard();
 

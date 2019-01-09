@@ -24,9 +24,17 @@ private:
 
     bool col;
 
-
 public:
+
+    EntityState *tmpState;
+    Animation *tmpAnimation;
+    AnimationFrame *tmpFrame;
+
     Player();
+
+    ~Player();
+
+    Player(Tileset tileset);
 
     void events(SDL::Event evt);
 

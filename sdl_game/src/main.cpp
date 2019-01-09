@@ -19,7 +19,7 @@ public:
 		allStates[1] = new EditorState( *this, renderer );
         allStates[2] = new TestState( *this, renderer );
 		allStates[3] = new EntityEditorState( *this, renderer );
-		SetNextState( 3 );
+		SetNextState( 2 );
 	}
 
 	virtual ~MyGame()

@@ -7,12 +7,14 @@
 
 #include <SDL_types.h>
 
-Level::Level(char *name) : name(name) {
+Level::Level(std::string name) : name(name) {
     loadLevel(name);
 }
 
-bool Level::loadLevel(char *name) {
-    SDL::C::SDL_RWops *rw = SDL::C::SDL_RWFromFile("../assets/levels/0.map", "rb");
+bool Level::loadLevel(std::string name) {
+
+    std::string path = "../assets/levels/" + name;
+    SDL::C::SDL_RWops *rw = SDL::C::SDL_RWFromFile(path.c_str(), "rb");
 
     if(rw != NULL)
     {

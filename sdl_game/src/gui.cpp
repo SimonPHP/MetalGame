@@ -31,27 +31,18 @@ const Rect &GuiElement::getRect() const {
 
 void GuiElement::setRect(const Rect &rect) {
     GuiElement::rect = rect;
-    this->calcRealPos();
 }
 
-void GuiElement::calcRealPos() {
-    this->realPos = this->getParentPos();
+GuiElement *GuiElement::getParent() const {
+    return parent;
 }
 
-SDL::Point GuiElement::getParentPos() {
-    if(this->parent == nullptr)
-        return SDL::Point(this->rect.x, this->rect.y);
-    else
-        return SDL::Point(this->rect.x, this->rect.y) + this->parent->getParentPos();
-}
-
-GuiElement::GuiElement(SDL::Rect rect) {
-    font = TTF::Font("../assets/fonts/luximr.ttf", 16);
-    this->setRect(rect);
+void GuiElement::setParent(GuiElement *parent) {
+    GuiElement::parent = parent;
 }
 
 
-Panel::Panel(SDL::Renderer &renderer, SDL::Rect rect, bool border) : GuiElement(rect) {
+Panel::Panel(SDL::Renderer &renderer, SDL::Rect rect, bool border) : GuiElement() {
     this->rect = rect;
     this->border = border;
 }
@@ -61,6 +52,7 @@ void Panel::addGuiElement(GuiElement *element) {
     newRect.x += this->getRect().x;
     newRect.y += this->getRect().y;
     element->setRect(newRect);
+    element->setParent(this);
     elements.emplace_back(element);
 }
 
@@ -80,7 +72,7 @@ void Panel::render(SDL::Renderer &renderer) {
 }
 
 
-Button::Button(SDL::Renderer &renderer, SDL::Rect rect, const std::string &text, SDL::Color backgroundColor, std::function<void()> callback) : GuiElement(rect)
+Button::Button(SDL::Renderer &renderer, SDL::Rect rect, const std::string &text, SDL::Color backgroundColor, std::function<void()> callback) : GuiElement()
 {
     this->text = text;
     this->rect = rect;
@@ -99,7 +91,6 @@ Button::Button(SDL::Renderer &renderer, SDL::Rect rect, const std::string &text,
         this->texture = SDL::Texture(renderer, this->surface);
         this->texture.SetColorMod(Color(0, 0, 0));
     }
-
 }
 
 void Button::events(SDL::Event evt) {
@@ -141,14 +132,14 @@ void Button::render(SDL::Renderer &renderer) {
     SDL::C::SDL_RenderCopy(renderer, this->texture, NULL, &this->rect);
 }
 
-TileSetSelector::TileSetSelector(SDL::Renderer &renderer, SDL::Point pos) : GuiElement(SDL::Rect(pos.x, pos.y, 0, 0))
+TileSetSelector::TileSetSelector(SDL::Renderer &renderer, SDL::Point pos) : GuiElement()
 {
     this->rect = SDL::Rect(pos.x, pos.y, 0, 0);
 }
 
 void TileSetSelector::events(SDL::Event evt) {
     isHover = false;
-    isSelected = false;
+    //isSelected = false;
 
     switch(evt.type())
     {
@@ -158,18 +149,20 @@ void TileSetSelector::events(SDL::Event evt) {
             {
                 isHover = true;
                 SDL::Point tmpMouse = SDL::Point(evt.MouseMotion().x - this->rect.x, evt.MouseMotion().y - this->rect.y);
-                printf("tmpMouse x: %d, y: %d \n", tmpMouse.x, tmpMouse.y);
+                hover = SDL::Point(tmpMouse.x/tileset.getRealSize().x, tmpMouse.y/tileset.getRealSize().y); //transform into SDL::Point for right tile
             }
             break;
         }
         case SDL::Event::Type::MOUSEBUTTONDOWN:
+        {
             if(this->rect.ContainsPoint(SDL::Point(evt.MouseMotion().x, evt.MouseMotion().y)))
                 if(evt.MouseButton().clicks == 1) //1 => single click
                 {
-                    isSelected = true;
-                    //this->callback(); //set selection point
+                    selection = hover;
+                    isSelected = true; //mouse hover already did the real work
                 }
             break;
+        }
     }
 }
 
@@ -180,8 +173,19 @@ void TileSetSelector::render(SDL::Renderer &renderer) {
         {
             for(int y = 0; y < tileset.getSize().y; y++)
             {
-                renderer.DrawRect(SDL::Rect(this->getRect().x + x* tileset.getRealSize().x , this->getRect().y + y*tileset.getRealSize().y, tileset.getRealSize().x, tileset.getRealSize().y));
+                if(isHover)
+                    if(SDL::Point(x, y) == hover)
+                        renderer.DrawRect(SDL::Rect(this->getRect().x + x* tileset.getRealSize().x , this->getRect().y + y*tileset.getRealSize().y, tileset.getRealSize().x, tileset.getRealSize().y));
                 this->tileset.Draw(SDL::Point(this->getRect().x + x* tileset.getRealSize().x , this->getRect().y + y*tileset.getRealSize().y), SDL::Point(x, y));
+                if(isSelected)
+                {
+                    if(SDL::Point(x, y) == selection)
+                    {
+                        renderer.SetDrawColor(Color(255, 0, 0));
+                        renderer.DrawRect(SDL::Rect(this->getRect().x + x* tileset.getRealSize().x , this->getRect().y + y*tileset.getRealSize().y, tileset.getRealSize().x, tileset.getRealSize().y));
+                        renderer.SetDrawColor(Color(0, 0, 0));
+                    }
+                }
             }
         }
     }
@@ -189,5 +193,49 @@ void TileSetSelector::render(SDL::Renderer &renderer) {
 
 void TileSetSelector::setTileset(const Tileset &tileset) {
     TileSetSelector::tileset = tileset;
+    this->setRect(SDL::Rect(this->rect.x, this->rect.y, tileset.getSize().x * tileset.getRealSize().x, tileset.getSize().y * tileset.getRealSize().y));
     isSet = true;
+}
+
+
+EntityStateShow::EntityStateShow(SDL::Renderer &renderer, SDL::Rect rect, Entity *entity, bool isGrid) : GuiElement() {
+    this->rect = rect;
+    this->isGrid = isGrid;
+    this->entity = entity;
+
+    this->rows = this->rect.h / this->gridSize;
+    this->columns = this->rect.w / this->gridSize;
+}
+
+void EntityStateShow::toggleGrid() {
+    this->isGrid = !this->isGrid;
+}
+
+void EntityStateShow::events(SDL::Event evt) {
+    //hover effekte einbauen und alles
+}
+
+void EntityStateShow::render(SDL::Renderer &renderer) {
+    //draw outlines
+    renderer.SetDrawColor(Color(0, 0, 0));
+    renderer.DrawRect(this->rect);
+    //draw grid
+    if(this->isGrid)
+    {
+        for(int i = 0; i < rows; i++)
+        {
+            SDL::Point points[2];
+            points[0] = SDL::Point(this->rect.x, this->rect.y + (i * this->gridSize));
+            points[1] = SDL::Point(this->rect.x + this->rect.w, this->rect.y + (i * this->gridSize));
+            renderer.DrawLines(points, 2);
+        }
+
+        for(int j = 0; j< columns; j++)
+        {
+            SDL::Point points[2];
+            points[0] = SDL::Point(this->rect.x + (j * this->gridSize), this->rect.y);
+            points[1] = SDL::Point(this->rect.x + (j * this->gridSize), this->rect.y + this->rect.h);
+            renderer.DrawLines(points, 2);
+        }
+    }
 }

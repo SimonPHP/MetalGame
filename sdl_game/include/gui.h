@@ -12,6 +12,7 @@
 #include <SDL_render.hpp>
 #include <functional>
 #include "tileset.h"
+#include "Entity.h"
 
 class GuiElement;
 
@@ -29,13 +30,10 @@ public:
 class GuiElement {
 protected:
     SDL::Rect rect;
-    SDL::Point realPos;
     GuiElement *parent = nullptr;
-
-    void calcRealPos();
-    SDL::Point getParentPos();
-
 public:
+    GuiElement *getParent() const;
+    void setParent(GuiElement *parent);
     const Rect &getRect() const;
     void setRect(const Rect &rect);
 
@@ -44,7 +42,6 @@ protected:
 
 public:
     GuiElement();
-    GuiElement(SDL::Rect rect);
     virtual void events(SDL::Event evt) = 0;
     virtual void render(SDL::Renderer &renderer) = 0;
 };
@@ -89,6 +86,21 @@ public:
     void setTileset(const Tileset &tileset);
 
     TileSetSelector(SDL::Renderer &renderer, SDL::Point pos);
+    void events(SDL::Event evt);
+    void render(SDL::Renderer &renderer);
+};
+
+class EntityStateShow : public GuiElement {
+private:
+    int gridSize = 16;
+    bool isGrid;
+    bool isHover;
+    SDL::Point hover;
+    int rows, columns;
+    Entity *entity;
+public:
+    EntityStateShow(SDL::Renderer &renderer, SDL::Rect rect, Entity *entity, bool isGrid);
+    void toggleGrid();
     void events(SDL::Event evt);
     void render(SDL::Renderer &renderer);
 };

@@ -12,24 +12,25 @@
  * Eine Kiste muss nicht unbedingt geupdatet werden.
  * */
 
-
 #include "global.h"
 #include "Level.h"
+#include "EntityState.h"
 
 class Entity{
 protected:
+    //std::vector<EntityState *> stateSet;
+    //std::vector<EntityState *>::iterator currentState;
+
+    EntityState *stateSet;
+    uint32_t currentState = 0; //pos of currentState
+    uint32_t maxStates = 0;
+
     float x, y;
-    float w, h;
-    SDL::Rect *boundaries;
-    SDL::Rect *hitboxes;
-
-    uint32_t boundariesCount = 0;
-    uint32_t hitboxesCount = 0;
-
     struct {
         bool set, left, right, up, down;
     }collisionState;
 
+    //needed? maybe in EntityState //TODO check collision with EntityState checkPoints and put this in EntityState
     std::vector<SDL::Point> checkPoints;
     std::vector<SDL::Point>::iterator it;
 public:
@@ -38,48 +39,27 @@ public:
     void setCheckPoints(const std::vector<Point> &checkPoints);
 
 public:
-    virtual void render(SDL::Renderer &renderer, SDL::Point camera) = 0;
     virtual void checkCollision(Level &level) = 0;
+    virtual void update(const float deltaT) = 0;
+    virtual void render(SDL::Renderer &renderer, SDL::Point camera) = 0;
+
+    EntityState* addState(uint32_t w, uint32_t h);
+
+    EntityState* getCurrenState();
+    EntityState* getState(uint32_t i);
+
+    float getX() const;
+    void setX(float x);
+    float getY() const;
+    void setY(float y);
+
+    int getW() const; //from currentState
+    int getH() const; //from currentState
 
     void setCollisionLeft();
     void setCollisionRight();
     void setCollisionUp();
     void setCollisionDown();
-
-    void addBoundarie(SDL::Rect rect);
-    void addHitbox(SDL::Rect rect);
-
-    float getX() const {
-        return x;
-    }
-
-    void setX(float x) {
-        Entity::x = x;
-    }
-
-    float getY() const {
-        return y;
-    }
-
-    void setY(float y) {
-        Entity::y = y;
-    }
-
-    float getW() const {
-        return w;
-    }
-
-    void setW(float w) {
-        Entity::w = w;
-    }
-
-    float getH() const {
-        return h;
-    }
-
-    void setH(float h) {
-        Entity::h = h;
-    }
 };
 
 #endif //SDL_GAME_ENTITY_H

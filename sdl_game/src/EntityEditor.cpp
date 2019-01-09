@@ -112,6 +112,12 @@ void EntityEditorState::Init()
     leftPanel->addGuiElement(mainMenuPanelLeft);
 
     stageViewPanel = new Panel(renderer, SDL::Rect(0, 25, leftPanelWidth, winHeigth*4), true);
+
+    craa = new Player(); //debug
+    entityShow1 = new EntityStateShow(renderer, SDL::Rect(25, 25, 160, 256), craa, true); //debug
+
+    stageViewPanel->addGuiElement(entityShow1);
+
     stagePropsPanel = new Panel(renderer, SDL::Rect(0, winHeigth*4 + 25, leftPanelWidth, winHeigth), true);
 
     leftPanel->addGuiElement(stageViewPanel);
@@ -140,7 +146,7 @@ void EntityEditorState::Init()
 
     rightPanel->addGuiElement(tileSetSelectionPanel);
 
-    tileSetSelector = new TileSetSelector(renderer, SDL::Point(0,0)); //playerTileSet has not to be loaded at this moment
+    tileSetSelector = new TileSetSelector(renderer, SDL::Point(0,25)); //playerTileSet has not to be loaded at this moment
     rightPanel->addGuiElement(tileSetSelector);
 
     rightPanel->addGuiElement(rightMenuPanel);

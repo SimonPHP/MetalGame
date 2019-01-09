@@ -13,7 +13,7 @@ protected:
     float health;
 
 public:
-    virtual void update(const float deltaT) = 0;
+    Creature();
 };
 
 #endif //SDL_GAME_CREATURE_H

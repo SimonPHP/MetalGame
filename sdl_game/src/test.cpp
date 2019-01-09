@@ -13,10 +13,10 @@ void TestState::Init()
 {
     font = TTF::Font("../assets/fonts/RobotoSlab-Bold.ttf", 12);
 
-    tileSet = Tileset(IMG::LoadTexture( renderer, "../assets/graphics/platformerPack_character.png" ), SDL::Point(4,2));
+    tileSet = Tileset(IMG::LoadTexture( renderer, "../assets/graphics/platformerPack_character_scaled.png" ), SDL::Point(4,2));
     tileSetMap = Tileset(IMG::LoadTexture( renderer, "../assets/graphics/1.png" ), SDL::Point(16,38));
 
-    lev = new Level("0.map");
+    lev = new Level("2.map");
     lev->processLevelwithTileset(tileSetMap);
 
     SDL::Point spawn = SDL::Point(0, 0);
@@ -30,20 +30,14 @@ void TestState::Init()
         }
     }
 
-    player.setX((spawn.x+1) * TILESIZE);
-    player.setY((spawn.y+1) * TILESIZE);
-    player.setH(TILESIZE);
-    player.setW(TILESIZE);
+    player = new Player(tileSet);
 
-    //player.addBoundarie(SDL::Rect(0,0,16,32));
-    //player.addBoundarie(SDL::Rect(16,0,16,16));
-    //player.addBoundarie(SDL::Rect(16,16,64,16));
+    printf("tmpFrame nach Player in test.cpp %p\n", player->tmpFrame);
 
-    player.addHitbox(SDL::Rect(0,0,32,32));
-    player.addHitbox(SDL::Rect(0,128,32,32));
+    player->setX((spawn.x+1) * TILESIZE);
+    player->setY((spawn.y+1) * TILESIZE);
 
-    camera.y = 2500;
-
+    printf("tmpFrame nach Player und setSpawn in test.cpp %p\n", player->tmpFrame);
 }
 
 void TestState::Uninit()
@@ -56,7 +50,12 @@ void TestState::Events(const int frame, const float deltaT)
 {
     Event::Pump();
     Event evt;
-    player.events(evt);
+
+    printf("tmpFrame vor Events in test.cpp %p\n", player->tmpFrame);
+
+    player->events(evt);
+
+    printf("tmpFrame nach Events in test.cpp %p\n", player->tmpFrame);
 
     const SDL::Uint8 *state = SDL::C::SDL_GetKeyboardState(NULL);
 
@@ -103,27 +102,31 @@ void TestState::Events(const int frame, const float deltaT)
             camera.y += speed;
     }
 
-    player.checkCollision(*lev);
+    player->checkCollision(*lev);
 
 }
 
 void TestState::Update(const int frame, const float deltaT)
 {
+    //player.setX(mouseX); //only debug
+    //player.setY(mouseY);
 
-    player.setX(mouseX);
-    player.setY(mouseY);
+    int playerX = (int)player->getX()/TILESIZE;
+    int playerY = (int)player->getY()/TILESIZE;
 
-    int playerX = (int)player.getX()/TILESIZE;
-    int playerY = (int)player.getY()/TILESIZE;
+    printf("tmpFrame vor Update in test.cpp %p\n", player->tmpFrame);
 
     if(lev->ppointLayerAttributes[std::max(0,playerX)][std::max(0,playerY+1)] == 0)
-        player.setCollisionDown();
+        player->setCollisionDown();
 
-    player.update(deltaT);
+    player->update(deltaT);
+
+    printf("tmpFrame nach Update in test.cpp %p\n", player->tmpFrame);
 }
 
 void TestState::Render(const int frame, const float deltaT)
 {
+    printf("tmpFrame vor Render in test.cpp %p\n", player->tmpFrame);
     renderer.ClearColor(255,255,255);
     {
         image.Draw(Rect(0, 0, 1024, 768));
@@ -145,9 +148,9 @@ void TestState::Render(const int frame, const float deltaT)
 
     if(isLayerBG)
     {
-        for(uint32_t y = std::max(0, camera.y/TILESIZE); y < camera.y/TILESIZE + windowSize.y && y < lev->getHeigth(); y++)
+        for(uint32_t y = (uint32_t)std::max(0, camera.y/TILESIZE); y < (uint32_t)camera.y/TILESIZE + windowSize.y && y < lev->getHeigth(); y++)
         {
-            for(uint32_t x = std::max(0, camera.x/TILESIZE); x < camera.x/TILESIZE + windowSize.x && x < lev->getWidth(); x++)
+            for(uint32_t x = (uint32_t)std::max(0, camera.x/TILESIZE); x < (uint32_t)camera.x/TILESIZE + windowSize.x && x < lev->getWidth(); x++)
             {
                 if(lev->ppointLayerBG1[x][y].x < 65535)
                 {
@@ -165,13 +168,14 @@ void TestState::Render(const int frame, const float deltaT)
         }
     }
 
-    player.render(renderer, camera);
+    printf("tmpFrame vor playerRender in test.cpp %p\n", player->tmpFrame);
+    player->render(renderer, camera);
 
     if(isLayerFG)
     {
-        for(uint32_t y = std::max(0, camera.y/TILESIZE); y < camera.y/TILESIZE + windowSize.y && y < lev->getHeigth(); y++)
+        for(uint32_t y = (uint32_t)std::max(0, camera.y/TILESIZE); y < (uint32_t)camera.y/TILESIZE + windowSize.y && y < lev->getHeigth(); y++)
         {
-            for(uint32_t x = std::max(0, camera.x/TILESIZE); x < camera.x/TILESIZE + windowSize.x && x < lev->getWidth(); x++)
+            for(uint32_t x = (uint32_t)std::max(0, camera.x/TILESIZE); x < (uint32_t)camera.x/TILESIZE + windowSize.x && x < lev->getWidth(); x++)
             {
                 if(lev->ppointLayerFG1[x][y].x < 65535)
                 {
@@ -189,9 +193,9 @@ void TestState::Render(const int frame, const float deltaT)
     {
         int transp = 255/2;
 
-        for(uint32_t y = std::max(0, camera.y/TILESIZE); y < camera.y/TILESIZE + windowSize.y && y < lev->getHeigth(); y++)
+        for(uint32_t y = (uint32_t)std::max(0, camera.y/TILESIZE); y < (uint32_t)camera.y/TILESIZE + windowSize.y && y < lev->getHeigth(); y++)
         {
-            for(uint32_t x = std::max(0, camera.x/TILESIZE); x < camera.x/TILESIZE + windowSize.x && x < lev->getWidth(); x++)
+            for(uint32_t x = (uint32_t)std::max(0, camera.x/TILESIZE); x < (uint32_t)camera.x/TILESIZE + windowSize.x && x < lev->getWidth(); x++)
             {
                 bool drawAttr = true;
                 switch(lev->ppointLayerAttributes[x][y])
@@ -221,7 +225,7 @@ void TestState::Render(const int frame, const float deltaT)
     {
         windowSize = game.getWindowSize();
         renderer.SetDrawColor(255,0,0);
-        for(int i = 0; i < lev->getHeigth()+1; i++)
+        for(uint32_t i = 0; i < lev->getHeigth()+1; i++)
         {
             SDL::Point points[2];
             points[0] = SDL::Point(0, i*TILESIZE)-camera;
@@ -229,7 +233,7 @@ void TestState::Render(const int frame, const float deltaT)
             renderer.DrawLines(points, 2);
         }
 
-        for(int i = 0; i < lev->getWidth()+1; i++)
+        for(uint32_t i = 0; i < lev->getWidth()+1; i++)
         {
             SDL::Point points[2];
             points[0] = SDL::Point(i*TILESIZE, 0)-camera;
@@ -258,6 +262,6 @@ void TestState::Render(const int frame, const float deltaT)
             t2.Draw(p);
         }
     }
-
+    printf("tmpFrame nach Render in test.cpp %p\n", player->tmpFrame);
     renderer.Present();
 }
