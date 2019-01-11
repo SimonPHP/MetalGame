@@ -26,17 +26,10 @@ protected:
     uint32_t maxStates = 0;
 
     float x, y;
+
     struct {
         bool set, left, right, up, down;
     }collisionState;
-
-    //needed? maybe in EntityState //TODO check collision with EntityState checkPoints and put this in EntityState
-    std::vector<SDL::Point> checkPoints;
-    std::vector<SDL::Point>::iterator it;
-public:
-    const std::vector<Point> &getCheckPoints() const;
-
-    void setCheckPoints(const std::vector<Point> &checkPoints);
 
 public:
     virtual void checkCollision(Level &level) = 0;

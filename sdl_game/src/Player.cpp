@@ -6,8 +6,6 @@
 #include <inputhandlerKeyboard.h>
 #include <Player.h>
 
-#include "Player.h"
-
 Player::Player(){}
 
 Player::Player(Tileset tileset) {
@@ -17,38 +15,24 @@ Player::Player(Tileset tileset) {
     speed = 200;
     gravity = 100;
 
-    tmpState = this->addState(1, 1);
+    tmpState = this->addState(2, 2);
 
-    printf("tmpState at: %p\n", tmpState);
-
-    tmpAnimation = tmpState->createAnimation(tileset);
-
-    printf("tmpState Animation at: %p\n", tmpState->animation);
-
-    //tmpAnimation ist noch richtig aber im state gibt es diese Animation nicht mehr in der funktion in der das gesetzt wird schon
+    this->getCurrenState()->createAnimation(tileset);
 
     timeval t1;
 
     t1.tv_usec = 500*1000; //500ms
 
-    tmpFrame = tmpAnimation->addAnimationFrame(t1); //wieso geht das???
+    this->getCurrenState()->getAnimation()->addAnimationFrame(t1);
+    this->getCurrenState()->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(0,0), SDL::Point(0,0));
+    this->getCurrenState()->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(0,1), SDL::Point(0,1));
+    this->getCurrenState()->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(1,0), SDL::Point(1,0));
+    this->getCurrenState()->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(1,1), SDL::Point(1,1));
 
-    printf("tmpState Animation 2 at: %p\n", tmpState->animation);
-
-    printf("tmpState Animation &3 at: %p\n", &stateSet[currentState].animation);
-
-    printf("AnimationFrame created at: %p\n", tmpFrame);
-
-    tmpFrame->addSpritePoint(SDL::Point(0,0), SDL::Point(0,0));
-
-    std::cout << tmpFrame->sprites[0][0].x << ", " << tmpFrame->sprites[0][0].y << std::endl;
-
-
-    int asd = this->getCurrenState()->getW();
-    int asds = this->getCurrenState()->animation->animationCount;
-    int assdf = this->getCurrenState()->animation->animationFrames[0].sprites[0][0].x; //animationframe
-
-    printf("tmpFrame in Player %p\n", tmpFrame);
+    this->getCurrenState()->addHitbox(SDL::Point(0,0));
+    this->getCurrenState()->addHitbox(SDL::Point(0,1));
+    this->getCurrenState()->addHitbox(SDL::Point(1,0));
+    this->getCurrenState()->addHitbox(SDL::Point(1,1));
 }
 
 void Player::events(SDL::Event evt){
@@ -59,14 +43,17 @@ void Player::checkCollision(Level &level) {
 
     col = false;
 
-    for(it = checkPoints.begin(); it != checkPoints.end(); ++it)
+    SDL::Point *collisionPoints = this->getCurrenState()->getCollisionCheckPoints();
+    uint32_t collisionPointsCount = this->getCurrenState()->getCollisionCheckPointsCount();
+
+    for(uint32_t i = 0; i < collisionPointsCount; i++)
     {
-        int p_x = it->x + (int)(x/16); //spieler position muss noch mit auf die checkPoints gerechnet werden
-        int p_y = it->y + (int)(y/16);
-        if(level.ppointLayerAttributes[p_x][p_y] == 0
-           || level.ppointLayerAttributes[p_x - 1][p_y - 1] == 0
-           || level.ppointLayerAttributes[p_x][p_y - 1] == 0
-           || level.ppointLayerAttributes[p_x - 1][p_y] == 0
+        uint32_t p_x = (uint32_t)collisionPoints[i].x + (this->x/16);
+        uint32_t p_y = (uint32_t)collisionPoints[i].y + (this->y/16);
+        if(level.ppointLayerAttributes[p_x][p_y] == 0 //TODO kollision
+           //|| level.ppointLayerAttributes[p_x - 1][p_y - 1] == 0
+           //|| level.ppointLayerAttributes[p_x][p_y - 1] == 0
+           //|| level.ppointLayerAttributes[p_x - 1][p_y] == 0
                 )
             col = true;
     }
@@ -75,12 +62,12 @@ void Player::checkCollision(Level &level) {
 void Player::update(const float deltaT) {
     //(*this->currentState)->update();
 
-    if(!collisionState.down)
+    if(!col)
     {
         isFalling = true;
     }
 
-    if(collisionState.down)
+    if(col)
     {
         isFalling = false;
     }
@@ -96,6 +83,17 @@ void Player::update(const float deltaT) {
         currentAccY = 0;
     }
 
+
+    if(this->ih->input[Inputhandler::Type::LEFT] == 1)
+    {
+        this->x -= speed*deltaT;
+    }
+
+    if(this->ih->input[Inputhandler::Type::RIGHT] == 1)
+    {
+        this->x += speed*deltaT;
+    }
+
     //reset collision
     collisionState.set = false;
     collisionState.left = false;
@@ -106,48 +104,18 @@ void Player::update(const float deltaT) {
 
 void Player::render(SDL::Renderer &renderer, SDL::Point camera) {
 
-    printf("tmpFrame in Render player.cpp %p\n", this->tmpFrame);
-
     EntityState *state = this->getCurrenState();
-
-    this->getCurrenState()->draw(SDL::Point((int)x, (int)y)-camera);
-
-    //renderer.SetDrawColor(Color(255,128,128)); //only debug
-    //renderer.FillRect(SDL::Rect((int)x-camera.x, (int)y-camera.y, this->getW(), this->getH()));
-    //(*this->currentState)->getTileset()->Draw(SDL::Point((int)x-camera.x, (int)y-camera.y),(*this->currentState)->getAnimationTile());
-
-    /*renderer.SetDrawColor(SDL::Color(255, 163, 71));
-    for(uint32_t i = 0; i < boundariesCount; i++)
-    {
-        int x = boundaries[i].x;
-        int y = boundaries[i].y;
-        int w = boundaries[i].w;
-        int h = boundaries[i].h;
-        renderer.FillRect(SDL::Rect(this->x + x - camera.x, this->y + y - camera.y, w, h));
-    }
+    this->getCurrenState()->render(renderer, SDL::Point((int) x, (int) y) - camera);
 
     if(col)
         renderer.SetDrawColor(SDL::Color(255, 0, 0, 128));
     else
         renderer.SetDrawColor(SDL::Color(40, 107, 214, 128));
 
-    for(uint32_t i = 0; i < hitboxesCount; i++)
-    {
-        int x = hitboxes[i].x;
-        int y = hitboxes[i].y;
-        int w = hitboxes[i].w;
-        int h = hitboxes[i].h;
-        renderer.FillRect(SDL::Rect(this->x + x - camera.x, this->y + y - camera.y, w, h));
-    }
-     */
+    int w = this->getCurrenState()->getW();
+    int h = this->getCurrenState()->getH();
 
-
-    /*if(col)
-        renderer.SetDrawColor(SDL::Color(0, 97, 255));
-    else
-        renderer.SetDrawColor(SDL::Color(255, 163, 71));
-
-    renderer.FillRect(SDL::Rect(x-w - camera.x, y-h - camera.y, w, h));*/
+    renderer.FillRect(SDL::Rect(x - camera.x, y - camera.y, w*16, h*16));
 }
 
 Player::~Player() {

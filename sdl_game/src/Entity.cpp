@@ -20,7 +20,7 @@ EntityState *Entity::addState(uint32_t w, uint32_t h) {
     for(uint32_t i = 0; i < this->maxStates; i++)
         tmpStateSet[i] = this->stateSet[i]; //save old states
 
-    this->maxStates++;
+    this->maxStates++; //inc
     this->stateSet = new EntityState[this->maxStates];
 
     for(uint32_t i = 0; i < this->maxStates-1; i++)

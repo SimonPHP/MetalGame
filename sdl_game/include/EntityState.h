@@ -13,19 +13,30 @@ class EntityState
 {
 private:
     //Entity *parent;
-
+    Animation *animation;
     uint32_t w, h; //TODO const??
-    SDL::Rect *hitboxes; //TODO write
+    SDL::Point *hitboxes; //TODO write
     uint32_t hitboxesCount = 0;
+    //needed? maybe in EntityState //TODO check collision with EntityState checkPoints and put this in EntityState
+
+    SDL::Point *collisionCheckPoints;
+    uint32_t collisionCheckPointsCount = 0;
+
 public:
-    Animation *animation; //TODO in private schieben
+    Animation *getAnimation() const;
+
     EntityState();
     ~EntityState();
     EntityState(uint32_t w, uint32_t h);
     Tileset getTileset() const;
-    Animation* createAnimation(Tileset &tileset);
+    void createAnimation(Tileset &tileset);
+    void addHitbox(SDL::Point pos);
+
+    Point *getCollisionCheckPoints() const;
+    uint32_t getCollisionCheckPointsCount() const;
+
     void update();
-    void draw(SDL::Point pos);
+    void render(SDL::Renderer &renderer, SDL::Point pos);
     int getW() const;
     int getH() const;
 };

@@ -47,7 +47,6 @@ void Animation::update() {
  * @param pos
  */
 void Animation::draw(SDL::Point pos) {
-    printf("tmpFrame in Animation Render in animation.cpp %p\n", &this->animationFrames[0]);
     this->animationFrames[currentAnimation].draw(pos);
 }
 
@@ -71,6 +70,10 @@ AnimationFrame *Animation::addAnimationFrame(const timeval &time) {
 
 Animation::~Animation() {
     printf("kille nun animation %p\n", this);
+}
+
+AnimationFrame *Animation::getAnimationFrames() const {
+    return animationFrames;
 }
 
 
@@ -113,15 +116,6 @@ const timeval &AnimationFrame::getTime() const {
  */
 void AnimationFrame::addSpritePoint(SDL::Point gridPos, SDL::Point tilePos) {
     this->sprites[gridPos.x][gridPos.y] = tilePos;
-
-    printf("points added at: %p\n", this);
-
-    for(int i = 0; i < this->w; i++)
-        for(int j = 0; j < this->h; j++)
-            printf("animationFrames: %d,%d\n", sprites[i][j].x, sprites[i][j].y); //HIER GEHTS NOCH
-
-    //printf("%d, %d\n", this->sprites[gridPos.x][gridPos.y].x, this->sprites[gridPos.x][gridPos.y].y);
-    //printf("sprites von %p bei %p\n", this, (&this->sprites));
 }
 
 /*!
@@ -131,17 +125,10 @@ void AnimationFrame::addSpritePoint(SDL::Point gridPos, SDL::Point tilePos) {
 void AnimationFrame::draw(SDL::Point pos) {
     //TODO draw the entiere sprites[][] starting at the top left
 
-    for(int i = 0; i < this->w; i++) //HIER NICHT MEHR
-        for(int j = 0; j < this->h; j++)
-            printf("animationFrames: %d,%d\n", sprites[i][j].x, sprites[i][j].y);
-
-    printf("AnimationFrame drawed at: %p\n", this);
-
     for(int i = 0; i < (int)this->w; i++)
     {
         for(int j = 0; j < (int)this->h; j++)
         {
-            //printf("[%d,%d] = (%d, %d) \n", i, j, sprites[i][j].x, sprites[i][j].y); //TODO debug
             SDL::Point p = this->sprites[i][j];
             tileset.Draw(pos + SDL::Point(i * 16, j * 16), sprites[i][j]);
         }

@@ -29,20 +29,20 @@ private:
     Tileset tileset;
     uint32_t w, h;
 
+    AnimationFrame *animationFrames;
 
-
+    uint32_t animationCount = 0;
     uint32_t currentAnimation = 0;
 
     timeval nextAnimationTime; //just for an intern calc
     timeval curTime; //just for an intern calc
 public:
-    uint32_t animationCount = 0;
-    AnimationFrame *animationFrames; //eingentlich private debugging //TODO das wieder private machen
     Animation();
     ~Animation();
     Animation(Tileset &tileset, uint32_t w, uint32_t h);
     Tileset getTileset() const;
     AnimationFrame *addAnimationFrame(const timeval &time);
+    AnimationFrame *getAnimationFrames() const;
     void update();
     void draw(SDL::Point pos);
 };

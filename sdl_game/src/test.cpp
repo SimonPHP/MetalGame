@@ -32,12 +32,9 @@ void TestState::Init()
 
     player = new Player(tileSet);
 
-    printf("tmpFrame nach Player in test.cpp %p\n", player->tmpFrame);
-
     player->setX((spawn.x+1) * TILESIZE);
     player->setY((spawn.y+1) * TILESIZE);
 
-    printf("tmpFrame nach Player und setSpawn in test.cpp %p\n", player->tmpFrame);
 }
 
 void TestState::Uninit()
@@ -51,11 +48,8 @@ void TestState::Events(const int frame, const float deltaT)
     Event::Pump();
     Event evt;
 
-    printf("tmpFrame vor Events in test.cpp %p\n", player->tmpFrame);
-
     player->events(evt);
 
-    printf("tmpFrame nach Events in test.cpp %p\n", player->tmpFrame);
 
     const SDL::Uint8 *state = SDL::C::SDL_GetKeyboardState(NULL);
 
@@ -91,6 +85,7 @@ void TestState::Events(const int frame, const float deltaT)
             isShowHelp = !isShowHelp;
 
         //camera movement experimental only debug
+        /*
         if(state[SDL::C::SDL_SCANCODE_LEFT])
             camera.x -= speed;
         if(state[SDL::C::SDL_SCANCODE_RIGHT])
@@ -100,6 +95,7 @@ void TestState::Events(const int frame, const float deltaT)
             camera.y -= speed;
         if(state[SDL::C::SDL_SCANCODE_DOWN])
             camera.y += speed;
+            */
     }
 
     player->checkCollision(*lev);
@@ -108,25 +104,20 @@ void TestState::Events(const int frame, const float deltaT)
 
 void TestState::Update(const int frame, const float deltaT)
 {
-    //player.setX(mouseX); //only debug
-    //player.setY(mouseY);
+    //player->setX(mouseX); //only debug
+    //player->setY(mouseY);
 
     int playerX = (int)player->getX()/TILESIZE;
     int playerY = (int)player->getY()/TILESIZE;
-
-    printf("tmpFrame vor Update in test.cpp %p\n", player->tmpFrame);
-
-    if(lev->ppointLayerAttributes[std::max(0,playerX)][std::max(0,playerY+1)] == 0)
-        player->setCollisionDown();
-
     player->update(deltaT);
 
-    printf("tmpFrame nach Update in test.cpp %p\n", player->tmpFrame);
+    camera.x = player->getX() - 1920/2;
+    camera.y = player->getY() - 1080/2;
+
 }
 
 void TestState::Render(const int frame, const float deltaT)
 {
-    printf("tmpFrame vor Render in test.cpp %p\n", player->tmpFrame);
     renderer.ClearColor(255,255,255);
     {
         image.Draw(Rect(0, 0, 1024, 768));
@@ -168,7 +159,6 @@ void TestState::Render(const int frame, const float deltaT)
         }
     }
 
-    printf("tmpFrame vor playerRender in test.cpp %p\n", player->tmpFrame);
     player->render(renderer, camera);
 
     if(isLayerFG)
@@ -262,6 +252,5 @@ void TestState::Render(const int frame, const float deltaT)
             t2.Draw(p);
         }
     }
-    printf("tmpFrame nach Render in test.cpp %p\n", player->tmpFrame);
     renderer.Present();
 }

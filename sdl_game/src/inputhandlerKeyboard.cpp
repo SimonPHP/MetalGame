@@ -15,7 +15,7 @@ void InputhandlerKeyboard::setInput(SDL::Event evt) {
     input[InputhandlerKeyboard::Type::RIGHT] = state[SDL::C::SDL_SCANCODE_RIGHT];
     input[InputhandlerKeyboard::Type::SPACE] = state[SDL::C::SDL_SCANCODE_SPACE];
 
-    switch (evt.type()) {
+    switch (evt.type()) { //TODO needed?
         case SDL::Event::Type::KEYDOWN:
             break;
     }
