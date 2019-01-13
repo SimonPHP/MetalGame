@@ -61,7 +61,23 @@ Animation *EntityState::getAnimation() const {
     return animation;
 }
 
-void EntityState::addHitbox(SDL::Point pos) {
+
+void EntityState::addHitbox(SDL::Rect rect)
+{
+    SDL::Rect *oldHitboxes;
+    oldHitboxes = new SDL::Rect[this->hitboxesCount];
+    for(uint32_t i = 0; i < this->hitboxesCount; i++)
+        oldHitboxes[i] = this->hitboxes[i]; //save old hitboxes
+
+    this->hitboxesCount++;
+    this->hitboxes = new SDL::Rect[this->hitboxesCount];
+
+    for(uint32_t i = 0; i < this->hitboxesCount-1; i++)
+        this->hitboxes[i] = oldHitboxes[i]; //restore old hitboxes
+    this->hitboxes[this->hitboxesCount-1] = rect;
+}
+
+/*void EntityState::addHitbox(SDL::Point pos) {
     SDL::Point *oldHitboxes;
     oldHitboxes = new SDL::Point[this->hitboxesCount];
     for(uint32_t i = 0; i < this->hitboxesCount; i++)
@@ -90,7 +106,7 @@ void EntityState::addHitbox(SDL::Point pos) {
     this->collisionCheckPoints[this->collisionCheckPointsCount-3] = pos + SDL::Point(0, 1);
     this->collisionCheckPoints[this->collisionCheckPointsCount-2] = pos + SDL::Point(1, 0);
     this->collisionCheckPoints[this->collisionCheckPointsCount-1] = pos + SDL::Point(1, 1);
-}
+}*/
 
 Point *EntityState::getCollisionCheckPoints() const {
     return collisionCheckPoints;
@@ -98,4 +114,12 @@ Point *EntityState::getCollisionCheckPoints() const {
 
 uint32_t EntityState::getCollisionCheckPointsCount() const {
     return collisionCheckPointsCount;
+}
+
+Rect *EntityState::getHitboxes() const {
+    return hitboxes;
+}
+
+uint32_t EntityState::getHitboxesCount() const {
+    return hitboxesCount;
 }

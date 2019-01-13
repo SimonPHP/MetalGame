@@ -15,7 +15,7 @@ Player::Player(Tileset tileset) {
     ih = new InputhandlerKeyboard();
     currentAccY = 0;
     currentAccX = 0;
-    speed = 50;
+    speed = 500;
     gravity = 1000;
 
     tmpState = this->addState(2, 2);
@@ -34,18 +34,22 @@ Player::Player(Tileset tileset) {
     this->getCurrenState()->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(1,0), SDL::Point(1,7));
     this->getCurrenState()->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(1,1), SDL::Point(1,8));
 
-    this->getCurrenState()->addHitbox(SDL::Point(0,0));
+    this->getCurrenState()->addHitbox(SDL::Rect(0,0,32,32)); //relativ to player
+
+    /*this->getCurrenState()->addHitbox(SDL::Rect(0,0,16,16)); //relativ to player
+    this->getCurrenState()->addHitbox(SDL::Rect(16,0,16,16)); //relativ to player
+    this->getCurrenState()->addHitbox(SDL::Rect(0,16,16,16)); //relativ to player
+    this->getCurrenState()->addHitbox(SDL::Rect(16,16,16,16)); //relativ to player
+     */
+
+
+    /*this->getCurrenState()->addHitbox(SDL::Point(0,0));
     this->getCurrenState()->addHitbox(SDL::Point(0,1));
     this->getCurrenState()->addHitbox(SDL::Point(1,0));
-    this->getCurrenState()->addHitbox(SDL::Point(1,1));
+    this->getCurrenState()->addHitbox(SDL::Point(1,1));*/
 }
 
-void Player::events(SDL::Event evt){
-    ih->setInput(evt); //ih hat dan die ganzen states vom input
-}
-
-void Player::checkCollisionWithLevel(Level &level, float deltaT) {
-
+void Player::events(SDL::Event evt, const float deltaT) {
     //reset collision
     collisionState.set = false;
     collisionState.left = false;
@@ -53,8 +57,42 @@ void Player::checkCollisionWithLevel(Level &level, float deltaT) {
     collisionState.up = false;
     collisionState.down = false;
 
-    SDL::Point *collisionPoints = this->getCurrenState()->getCollisionCheckPoints();
-    uint32_t collisionPointsCount = this->getCurrenState()->getCollisionCheckPointsCount();
+    ih->setInput(evt); //ih hat dan die ganzen states vom input
+
+    walkLeft = false;
+    walkRight = false;
+    if(this->ih->input[Inputhandler::Type::LEFT] == 1)
+    {
+        if(currentAccX > 0) //reset speed by direction change
+            currentAccX = 0;
+        if(currentAccX > -(speed/2)) //start speed
+            currentAccX = -(speed/2);
+        if(currentAccX > (-speed))
+            currentAccX -= this->ih->input[Inputhandler::Type::LEFT]*speed*deltaT;
+        walkLeft = true;
+    }
+
+    if(this->ih->input[Inputhandler::Type::RIGHT] == 1)
+    {
+        if(currentAccX < 0) //reset speed by direction change
+            currentAccX = 0;
+        if(currentAccX < (speed/2)) //start speed
+            currentAccX = (speed/2);
+        if(currentAccX < speed)
+            currentAccX += this->ih->input[Inputhandler::Type::RIGHT]*speed*deltaT;
+        walkRight = true;
+    }
+
+    if(!walkLeft && !walkRight)
+        currentAccX = 0;
+
+    if(!this->collisionState.down)
+    {
+        this->currentAccY += gravity * deltaT;
+    }
+}
+
+void Player::checkCollisionWithLevel(Level &level, const float deltaT) {
 
     float moveX = this->currentAccX * deltaT;
     float moveY = this->currentAccY * deltaT;
@@ -68,117 +106,125 @@ void Player::checkCollisionWithLevel(Level &level, float deltaT) {
         printf("y: %f\n", moveY);
     }
 
-    uint32_t curX = (uint32_t)((this->x) /16);
-    uint32_t curY = (uint32_t)((this->y) /16);
-    uint32_t nextX = (uint32_t)((this->x + moveX) /16);
-    uint32_t nextY = (uint32_t)((this->y + moveY) /16);
+    uint32_t curX = (uint32_t)((this->x));
+    uint32_t curY = (uint32_t)((this->y));
+    uint32_t nextX = (uint32_t)((this->x + moveX));
+    uint32_t nextY = (uint32_t)((this->y + moveY));
 
-    for(uint32_t i = 0; i < collisionPointsCount; i++)
+    for(uint32_t i = 0; i < this->getCurrenState()->getHitboxesCount(); i++)
     {
-        uint32_t p_xCur = (uint32_t)collisionPoints[i].x + curX;
-        uint32_t p_yCur = (uint32_t)collisionPoints[i].y + curY;
-        uint32_t p_xNext = (uint32_t)collisionPoints[i].x + nextX;
-        uint32_t p_yNext = (uint32_t)collisionPoints[i].y + nextY;
+        SDL::Rect curHitbox = this->getCurrenState()->getHitboxes()[i];
 
-        if(level.ppointLayerAttributes[p_xCur][p_yNext] == 0) //only x
+        curHitbox.x += curX;
+        curHitbox.y += curY;
+        //curHitbox.w /= 16;
+        //curHitbox.h /= 16;
+
+        /*
+         * Hitbox
+         * pos1------pos2
+         * .            .
+         * .            .
+         * .            .
+         * .            .
+         * pos3------pos4
+         * */
+
+        SDL::Point pos1 = SDL::Point(curHitbox.x/16, curHitbox.y/16);
+        SDL::Point pos2 = SDL::Point((curHitbox.x + curHitbox.w)/16, curHitbox.y/16);
+        SDL::Point pos3 = SDL::Point(curHitbox.x/16, (curHitbox.y + curHitbox.h)/16);
+        SDL::Point pos4 = SDL::Point((curHitbox.x + curHitbox.w)/16, (curHitbox.y + curHitbox.h)/16);
+
+        bool pos1Col = false;
+        bool pos2Col = false;
+        bool pos3Col = false;
+        bool pos4Col = false;
+        pos1Col = (level.ppointLayerAttributes[pos1.x][pos1.y] == 0);
+        pos2Col = (level.ppointLayerAttributes[pos2.x][pos2.y] == 0);
+        pos3Col = (level.ppointLayerAttributes[pos3.x][pos3.y] == 0);
+        pos4Col = (level.ppointLayerAttributes[pos4.x][pos4.y] == 0);
+
+        if(pos1Col && (moveY < 0))
+            this->collisionState.up = true;
+        if(pos2Col && (moveY < 0))
+            this->collisionState.up = true;
+
+        if(pos3Col && (moveY > 0))
+            this->collisionState.down = true;
+        if(pos4Col && (moveY > 0))
+            this->collisionState.down = true;
+
+        if(this->collisionState.down)
         {
-            this->collisionState.set = true;
-            if(currentAccY < 0)
-            {
-                this->collisionState.up = true;
-            }
-            else if(currentAccY > 0)
-            {
-                this->collisionState.down = true;
-            }
+            //pos1Col = (level.ppointLayerAttributes[pos1.x][pos1.y+1] == 0);
+            //pos2Col = (level.ppointLayerAttributes[pos2.x][pos2.y+1] == 0);
+            pos3Col = (level.ppointLayerAttributes[pos3.x][pos3.y-1] == 0);
+            pos4Col = (level.ppointLayerAttributes[pos4.x][pos4.y-1] == 0);
         }
 
-        if(level.ppointLayerAttributes[p_xNext][p_yCur] == 0) //only y
-        {
-            this->collisionState.set = true;
-            if(currentAccX < 0)
-            {
-                this->collisionState.left = true;
-            }
-            else if(currentAccX > 0)
-            {
-                this->collisionState.right = true;
-            }
-        }
+        if(pos1Col && (moveX < 0))
+            this->collisionState.left = true;
+        if(pos3Col && (moveX < 0))
+            this->collisionState.left = true;
 
-        if(level.ppointLayerAttributes[p_xNext][p_yNext] == 0) //both
+        if(pos2Col && (moveX > 0))
+            this->collisionState.right = true;
+        if(pos4Col && (moveX > 0))
+            this->collisionState.right = true;
+
+
+        /*if((((int)this->y % 16) == 0))
         {
-            this->collisionState.set = true;
-            if(currentAccX < 0)
-            {
-                this->collisionState.left = true;
-            }
-            else if(currentAccX > 0)
-            {
-                this->collisionState.right = true;
-            }
-            if(currentAccY < 0)
-            {
-                this->collisionState.up = true;
-            }
-            else if(currentAccY > 0)
-            {
-                this->collisionState.down = true;
-            }
-        }
+            if(pos3Col && level.ppointLayerAttributes[pos3.x][pos3.y-1] != 0)
+                this->collisionState.left = false;
+            if(pos4Col && level.ppointLayerAttributes[pos4.x][pos4.y-1] != 0)
+                this->collisionState.right = false;
+        }*/
+
     }
 }
 
 void Player::update(const float deltaT) {
     this->getCurrenState()->update();
 
+    if(walkLeft && this->collisionState.left)
+    {
+        int cor = ((int)this->getX()%16);
+        if(cor > 14) //TODO schauen warum das so ne kacke ist
+            this->setX((int)this->getX() + cor);
+        //this->setX((int)this->getX() + ((int)this->getX()%16)); //korrigiert
+        currentAccX = 0;
+    }
+
+    if(walkRight && this->collisionState.right)
+    {
+        int cor = ((int)this->getX()%16);
+        if(cor > 14) //TODO hier auch was soll die kacke
+            this->setX((int)this->getX() - cor);
+        //this->setX((int)this->getX() - ((int)this->getX()%16)); //korrigiert
+        currentAccX = 0;
+    }
+
+
     isFalling = !this->collisionState.down; //wenn kollision mit boden dann nicht mehr falling
 
-    if(isFalling)
-    {
-        currentAccY += gravity * deltaT*deltaT;
-    }
-    else
+    if(!isFalling)
     {
         currentAccY = 0;
         isJumping = false;
         isDoubleJumping = false;
-        this->setY((int)this->getY() - ((int)this->getY()%16));
+        float cor = ((int)this->getY()%16);
+        if(cor < 14)
+            this->setY((int)this->getY() - cor);
     }
 
     if(this->collisionState.up)
     {
         currentAccY = 0;
-        this->setY((int)this->getY() + ((int)this->getY()%16)); //TODO durch die decke glitchen weil kollision point von oben ne kollision nach unten hat
+        float cor = ((int)this->getY()%16);
+        if(cor < 14)
+            this->setY((int)this->getY() + cor);
     }
-
-    walkLeft = false;
-    walkRight = false;
-    if(this->ih->input[Inputhandler::Type::LEFT] == 1 && !this->collisionState.left)
-    {
-        if(currentAccX > 0) //reset speed by direction change
-            currentAccX = 0;
-        if(currentAccX > -(speed/2)) //start speed
-            currentAccX = -(speed/2);
-        if(currentAccX > (-speed))
-            currentAccX -= speed*deltaT*deltaT;
-        walkLeft = true;
-    }
-
-    if(this->ih->input[Inputhandler::Type::RIGHT] == 1  && !this->collisionState.right)
-    {
-        if(currentAccX < 0) //reset speed by direction change
-            currentAccX = 0;
-        if(currentAccX < (speed/2)) //start speed
-            currentAccX = (speed/2);
-        if(currentAccX < speed)
-            currentAccX += speed*deltaT*deltaT;
-        walkLeft = true;
-    }
-
-    if(!walkLeft && !walkRight)
-        currentAccX = 0;
-
 
     if(this->ih->input[Inputhandler::Type::SPACE] == 1 && !this->collisionState.up)
     {
@@ -186,7 +232,7 @@ void Player::update(const float deltaT) {
         {
             if(!isJumping)
             {
-                this->currentAccY = -10;
+                this->currentAccY = -800;
                 this->isFalling = true;
                 this->isJumping = true;
             }
@@ -202,8 +248,8 @@ void Player::update(const float deltaT) {
         }
     }
 
-    this->x += currentAccX;
-    this->y += currentAccY;
+    this->x += currentAccX * deltaT;
+    this->y += currentAccY * deltaT;
 }
 
 void Player::render(SDL::Renderer &renderer, SDL::Point camera) {
@@ -211,7 +257,7 @@ void Player::render(SDL::Renderer &renderer, SDL::Point camera) {
     EntityState *state = this->getCurrenState();
     this->getCurrenState()->render(renderer, SDL::Point((int) x, (int) y) - camera);
 
-    if(this->collisionState.set)
+    if(this->collisionState.right || this->collisionState.left)
         renderer.SetDrawColor(SDL::Color(255, 0, 0, 128));
     else
         renderer.SetDrawColor(SDL::Color(40, 107, 214, 128));

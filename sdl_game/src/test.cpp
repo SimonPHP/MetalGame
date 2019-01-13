@@ -20,7 +20,7 @@ void TestState::handleConsole(){
 
     bool run = true;
 
-    while (run)
+    while (run) //TODO mehr befehle einbauen eventuell auch besseres parsing und mit parametern und so nem shit (eventuell müssen noch getter und setter implementiert werden)
     {
         std::cin >> command;
 
@@ -66,7 +66,7 @@ void TestState::Init()
     tileSetMap = Tileset(tex, SDL::Point(16,100));
     //TODO an jan schicken
 
-    lev = new Level("0.map");
+    lev = new Level("2.map");
     lev->processLevelwithTileset(tileSetMap);
 
     SDL::Point spawn = SDL::Point(0, 0);
@@ -100,8 +100,7 @@ void TestState::Events(const int frame, const float deltaT)
     Event::Pump();
     Event evt;
 
-    player->events(evt);
-
+    player->events(evt, deltaT);
 
     const SDL::Uint8 *state = SDL::C::SDL_GetKeyboardState(NULL);
 
@@ -152,7 +151,6 @@ void TestState::Events(const int frame, const float deltaT)
     }
 
     player->checkCollisionWithLevel(*lev, deltaT);
-
 }
 
 void TestState::Update(const int frame, const float deltaT)

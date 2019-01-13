@@ -33,7 +33,7 @@ public:
         bool set, left, right, up, down;
     }collisionState;
 
-    virtual void checkCollisionWithLevel(Level &level, float deltaT) = 0;
+    virtual void checkCollisionWithLevel(Level &level, const float deltaT) = 0;
     virtual void update(const float deltaT) = 0;
     virtual void render(SDL::Renderer &renderer, SDL::Point camera) = 0;
 

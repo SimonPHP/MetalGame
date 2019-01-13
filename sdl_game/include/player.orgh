@@ -45,7 +45,7 @@ public:
 
     void setMaxJump(int maxJump);
 
-    void events(SDL::Event evt);
+    void events(SDL::Event evt, const float deltaT);
 
     void update(const int frame, const float deltaT);
 };

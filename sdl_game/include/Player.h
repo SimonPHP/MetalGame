@@ -52,9 +52,9 @@ public:
 
     Player(Tileset tileset);
 
-    void events(SDL::Event evt);
+    void events(SDL::Event evt, const float deltaT);
 
-    void checkCollisionWithLevel(Level &level, float deltaT);
+    void checkCollisionWithLevel(Level &level, const float deltaT);
 
     void update(const float deltaT) override;
 
