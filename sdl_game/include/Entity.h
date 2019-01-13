@@ -27,11 +27,12 @@ protected:
 
     float x, y;
 
+public:
+
     struct {
         bool set, left, right, up, down;
     }collisionState;
 
-public:
     virtual void checkCollisionWithLevel(Level &level, float deltaT) = 0;
     virtual void update(const float deltaT) = 0;
     virtual void render(SDL::Renderer &renderer, SDL::Point camera) = 0;
@@ -45,6 +46,8 @@ public:
     void setX(float x);
     float getY() const;
     void setY(float y);
+
+    struct collisionState getCollisionState();
 
     int getW() const; //from currentState
     int getH() const; //from currentState

@@ -4,12 +4,52 @@
 
 #include <global.h>
 
+#include <thread>
+
 #include <Entity.h>
 #include "test.h"
 
 #include "Level.h"
 
 #define TILESIZE 16
+
+void TestState::handleConsole(){
+    std::cout << "DEV CONSOLE" << std::endl;
+
+    std::string command;
+
+    bool run = true;
+
+    while (run)
+    {
+        std::cin >> command;
+
+        if(command == "exit")
+            run = false;
+        else if(command == "player")
+        {
+            std::cout << "x: " << this->player->getX() << " y: " << this->player->getY() << std::endl;
+        }
+        else if(command == "collide")
+        {
+            std::cout << "set: " << this->player->collisionState.set << std::endl;
+            std::cout << "left: " << this->player->collisionState.left << std::endl;
+            std::cout << "right: " << this->player->collisionState.right << std::endl;
+            std::cout << "up: " << this->player->collisionState.up << std::endl;
+            std::cout << "down: " << this->player->collisionState.down << std::endl;
+        }
+        else if(command == "setspeed")
+        {
+            float newSpeed;
+            std::cin >> newSpeed;
+            this->player->setSpeed(newSpeed);
+            std::cout << "new player speed: " << this->player->getSpeed() << std::endl;
+        }
+        else
+            printf("unknown command: %s", command.c_str());
+    }
+    std::printf("EXIT DEV CONSOLE\n");
+}
 
 void TestState::Init()
 {
@@ -44,12 +84,15 @@ void TestState::Init()
 
     player->setX((spawn.x+1) * TILESIZE);
     player->setY((spawn.y+1) * TILESIZE);
+
+    t1 = std::thread(&TestState::handleConsole, this);
 }
 
 void TestState::Uninit()
 {
     font = TTF::Font();
     image = SDL::Texture();
+    t1.join();
 }
 
 void TestState::Events(const int frame, const float deltaT)

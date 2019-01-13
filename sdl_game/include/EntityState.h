@@ -12,12 +12,10 @@
 class EntityState
 {
 private:
-    //Entity *parent;
     Animation *animation;
     uint32_t w, h; //TODO const??
-    SDL::Point *hitboxes; //TODO write
+    SDL::Point *hitboxes;
     uint32_t hitboxesCount = 0;
-    //needed? maybe in EntityState //TODO check collision with EntityState checkPoints and put this in EntityState
 
     SDL::Point *collisionCheckPoints;
     uint32_t collisionCheckPointsCount = 0;

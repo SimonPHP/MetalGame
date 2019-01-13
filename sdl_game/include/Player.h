@@ -22,10 +22,11 @@ private:
     bool isFalling;
     float gravity;
 
-    bool col;
-
     bool isJumping = false;
     bool isDoubleJumping = false;
+
+    bool walkLeft = false;
+    bool walkRight = false;
 
     timeval doubleJumpTimerTime;
     timeval curTime;
@@ -36,6 +37,14 @@ public:
     EntityState *tmpState;
     Animation *tmpAnimation;
     AnimationFrame *tmpFrame;
+
+    float getSpeed() const;
+
+    void setSpeed(float speed);
+
+    float getGravity() const;
+
+    void setGravity(float gravity);
 
     Player();
 

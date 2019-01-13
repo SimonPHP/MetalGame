@@ -14,6 +14,8 @@
 #include "Player.h"
 #include "Level.h"
 
+#include <thread>
+
 #include <iostream>
 #include <SDL_types.h>
 
@@ -48,7 +50,12 @@ class TestState : public GameState
     SDL::C::Sint32 mouseX;
     SDL::C::Sint32 mouseY;
 
+    std::thread t1;
+
 public:
+
+    void handleConsole();
+
     virtual void Init() override;
 
 
