@@ -105,7 +105,7 @@ void Level::processLevelwithTileset(Tileset set) {
         for (uint32_t x = 0; x < this->width; x++) {
             if (this->layerBG1[x][y] < 65535)
             {
-                this->ppointLayerBG1[x][y] = SDL::Point(layerBG1[x][y] % set.getSize().x, layerBG1[x][y] / set.getSize().y);
+                this->ppointLayerBG1[x][y] = SDL::Point(layerBG1[x][y] % set.getSize().x, layerBG1[x][y] / set.getSize().x);
             }
             else
             {
@@ -116,9 +116,9 @@ void Level::processLevelwithTileset(Tileset set) {
 
     for (uint32_t y = 0; y < this->height; y++) {
         for (uint32_t x = 0; x < this->width; x++) {
-            if (this->layerBG1[x][y] < 65535)
+            if (this->layerBG2[x][y] < 65535)
             {
-                this->ppointLayerBG2[x][y] = SDL::Point(layerBG2[x][y] % set.getSize().x, layerBG2[x][y] / set.getSize().y);
+                this->ppointLayerBG2[x][y] = SDL::Point(layerBG2[x][y] % set.getSize().x, layerBG2[x][y] / set.getSize().x);
             }
             else
             {
@@ -131,7 +131,7 @@ void Level::processLevelwithTileset(Tileset set) {
         for (uint32_t x = 0; x < this->width; x++) {
             if (this->layerBG3[x][y] < 65535)
             {
-                this->ppointLayerBG3[x][y] = SDL::Point(layerBG3[x][y] % set.getSize().x, layerBG3[x][y] / set.getSize().y);
+                this->ppointLayerBG3[x][y] = SDL::Point(layerBG3[x][y] % set.getSize().x, layerBG3[x][y] / set.getSize().x);
             }
             else
             {
@@ -144,7 +144,7 @@ void Level::processLevelwithTileset(Tileset set) {
         for (uint32_t x = 0; x < this->width; x++) {
             if (this->layerFG1[x][y] < 65535)
             {
-                this->ppointLayerFG1[x][y] = SDL::Point(layerFG1[x][y] % set.getSize().x, layerFG1[x][y] / set.getSize().y);
+                this->ppointLayerFG1[x][y] = SDL::Point(layerFG1[x][y] % set.getSize().x, layerFG1[x][y] / set.getSize().x);
             }
             else
             {
@@ -170,7 +170,7 @@ void Level::processLevelwithTileset(Tileset set) {
         for (uint32_t x = 0; x < this->width; x++) {
             if (this->layerFG2[x][y] < 65535)
             {
-                this->ppointLayerFG2[x][y] = SDL::Point(layerFG2[x][y] % set.getSize().x, layerFG2[x][y] / set.getSize().y);
+                this->ppointLayerFG2[x][y] = SDL::Point(layerFG2[x][y] % set.getSize().x, layerFG2[x][y] / set.getSize().x);
             }
             else
             {

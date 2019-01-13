@@ -24,6 +24,13 @@ private:
 
     bool col;
 
+    bool isJumping = false;
+    bool isDoubleJumping = false;
+
+    timeval doubleJumpTimerTime;
+    timeval curTime;
+    timeval doubleJumpTimer;
+
 public:
 
     EntityState *tmpState;
@@ -38,7 +45,7 @@ public:
 
     void events(SDL::Event evt);
 
-    void checkCollision(Level &level);
+    void checkCollisionWithLevel(Level &level, float deltaT);
 
     void update(const float deltaT) override;
 

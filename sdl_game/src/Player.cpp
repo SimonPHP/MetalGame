@@ -5,6 +5,7 @@
 #include <Entity.h>
 #include <inputhandlerKeyboard.h>
 #include <Player.h>
+#include <sys/time.h>
 
 Player::Player(){}
 
@@ -12,7 +13,7 @@ Player::Player(Tileset tileset) {
     ih = new InputhandlerKeyboard();
     currentAccY = 0;
     currentAccX = 0;
-    speed = 200;
+    speed = 2000;
     gravity = 100;
 
     tmpState = this->addState(2, 2);
@@ -23,11 +24,13 @@ Player::Player(Tileset tileset) {
 
     t1.tv_usec = 500*1000; //500ms
 
+    this->doubleJumpTimerTime.tv_usec = 50*1000; //50ms
+
     this->getCurrenState()->getAnimation()->addAnimationFrame(t1);
-    this->getCurrenState()->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(0,0), SDL::Point(0,0));
-    this->getCurrenState()->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(0,1), SDL::Point(0,1));
-    this->getCurrenState()->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(1,0), SDL::Point(1,0));
-    this->getCurrenState()->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(1,1), SDL::Point(1,1));
+    this->getCurrenState()->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(0,0), SDL::Point(0,7));
+    this->getCurrenState()->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(0,1), SDL::Point(0,8));
+    this->getCurrenState()->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(1,0), SDL::Point(1,7));
+    this->getCurrenState()->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(1,1), SDL::Point(1,8));
 
     this->getCurrenState()->addHitbox(SDL::Point(0,0));
     this->getCurrenState()->addHitbox(SDL::Point(0,1));
@@ -39,7 +42,7 @@ void Player::events(SDL::Event evt){
     ih->setInput(evt); //ih hat dan die ganzen states vom input
 }
 
-void Player::checkCollision(Level &level) {
+void Player::checkCollisionWithLevel(Level &level, float deltaT) {
 
     col = false;
 
@@ -48,19 +51,29 @@ void Player::checkCollision(Level &level) {
 
     for(uint32_t i = 0; i < collisionPointsCount; i++)
     {
-        uint32_t p_x = (uint32_t)collisionPoints[i].x + (this->x/16);
-        uint32_t p_y = (uint32_t)collisionPoints[i].y + (this->y/16);
-        if(level.ppointLayerAttributes[p_x][p_y] == 0 //TODO kollision
+        uint32_t p_x = (uint32_t)collisionPoints[i].x + ((this->x + this->currentAccX * deltaT) /16);
+        uint32_t p_y = (uint32_t)collisionPoints[i].y + ((this->y + this->currentAccY * deltaT) /16);
+        if(level.ppointLayerAttributes[p_x][p_y] == 0 //TODO kollision zu viele checkPoints???
            //|| level.ppointLayerAttributes[p_x - 1][p_y - 1] == 0
            //|| level.ppointLayerAttributes[p_x][p_y - 1] == 0
            //|| level.ppointLayerAttributes[p_x - 1][p_y] == 0
+                )
+            col = true;
+
+        //TODO this is shit
+        p_x = (uint32_t)collisionPoints[i].x + ((this->x + this->currentAccX * deltaT/3) /16);
+        p_y = (uint32_t)collisionPoints[i].y + ((this->y + this->currentAccY * deltaT/3) /16);
+        if(level.ppointLayerAttributes[p_x][p_y] == 0 //TODO kollision zu viele checkPoints???
+            //|| level.ppointLayerAttributes[p_x - 1][p_y - 1] == 0
+            //|| level.ppointLayerAttributes[p_x][p_y - 1] == 0
+            //|| level.ppointLayerAttributes[p_x - 1][p_y] == 0
                 )
             col = true;
     }
 }
 
 void Player::update(const float deltaT) {
-    //(*this->currentState)->update();
+    this->getCurrenState()->update();
 
     if(!col)
     {
@@ -70,6 +83,9 @@ void Player::update(const float deltaT) {
     if(col)
     {
         isFalling = false;
+        isJumping = false;
+        isDoubleJumping = false;
+        this->setY(this->getY() - (int)this->getY()%16);
     }
 
     if(isFalling)
@@ -83,15 +99,48 @@ void Player::update(const float deltaT) {
         currentAccY = 0;
     }
 
-
     if(this->ih->input[Inputhandler::Type::LEFT] == 1)
     {
-        this->x -= speed*deltaT;
+        if(currentAccX > 0) //reset speed by direction change
+            currentAccX = 0;
+        if(currentAccX > -150) //start speed
+            currentAccX = -150;
+        if(currentAccX > (-speed))
+            currentAccX -= speed*deltaT/10;
+        this->x += currentAccX*deltaT;
     }
 
     if(this->ih->input[Inputhandler::Type::RIGHT] == 1)
     {
-        this->x += speed*deltaT;
+        if(currentAccX < 0) //reset speed by direction change
+            currentAccX = 0;
+        if(currentAccX < 150) //start speed
+            currentAccX = 150;
+        if(currentAccX < speed)
+            currentAccX += speed*deltaT/10;
+        this->x += currentAccX*deltaT;
+    }
+
+    if(this->ih->input[Inputhandler::Type::SPACE] == 1)
+    {
+        if(!isDoubleJumping)
+        {
+            if(!isJumping)
+            {
+                this->currentAccY = -32;
+                this->isFalling = true;
+                this->isJumping = true;
+            }
+            else
+            {
+                gettimeofday(&this->curTime, NULL);
+                if(timercmp(&this->curTime, &this->doubleJumpTimer, >)) //wenn currenttime > doubleJumpTimer
+                {
+                    this->isDoubleJumping = true;
+                    timeradd(&this->curTime, &this->doubleJumpTimerTime, &this->doubleJumpTimer); //calc next Frame time
+                }
+            }
+        }
     }
 
     //reset collision

@@ -32,7 +32,7 @@ protected:
     }collisionState;
 
 public:
-    virtual void checkCollision(Level &level) = 0;
+    virtual void checkCollisionWithLevel(Level &level, float deltaT) = 0;
     virtual void update(const float deltaT) = 0;
     virtual void render(SDL::Renderer &renderer, SDL::Point camera) = 0;
 

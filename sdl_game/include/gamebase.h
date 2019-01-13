@@ -58,7 +58,7 @@ public:
 		return p;
 	}
 
-	Game(SDL::Rect windowSize = SDL::Rect(1024, 768), bool vSync = true)
+	Game(SDL::Rect windowSize = SDL::Rect(WINDOW_X, WINDOW_Y), bool vSync = true)
 	{
 		init.initialize(SDL::Init::Flags::EVERYTHING);
 		initTTF.initialize();
@@ -75,6 +75,9 @@ public:
 			SDL::Window::Flags::SHOWN
 		);
 
+		//TODO fullscreen??
+		//SDL::C::SDL_SetWindowFullscreen(window, SDL::C::SDL_WINDOW_FULLSCREEN);
+
 		// Check that the window was successfully created
 		if (!window)
 		{
@@ -90,7 +93,7 @@ public:
 			(SDL::Renderer::Flags::NONE)
 		);
 
-		renderer.SetDrawBlendMode(SDL::BlendMode::BLEND); // transparentz
+		renderer.SetDrawBlendMode(SDL::BlendMode::BLEND); // transparenz
 
 		std::fill( allStates.begin(), allStates.end(), nullptr );
 	}

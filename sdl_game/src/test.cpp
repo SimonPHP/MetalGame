@@ -2,6 +2,8 @@
 // Created by simon on 30.11.18.
 //
 
+#include <global.h>
+
 #include <Entity.h>
 #include "test.h"
 
@@ -14,9 +16,17 @@ void TestState::Init()
     font = TTF::Font("../assets/fonts/RobotoSlab-Bold.ttf", 12);
 
     tileSet = Tileset(IMG::LoadTexture( renderer, "../assets/graphics/platformerPack_character_scaled.png" ), SDL::Point(4,2));
-    tileSetMap = Tileset(IMG::LoadTexture( renderer, "../assets/graphics/1.png" ), SDL::Point(16,38));
+    //tileSetMap = Tileset(IMG::LoadTexture( renderer, "../assets/graphics/tilesetmetall.png" ), SDL::Point(16,100));
+    //tileSetMap = Tileset(IMG::LoadTexture( renderer, "../assets/graphics/1.png" ), SDL::Point(16,38));
 
-    lev = new Level("2.map");
+    //TODO in wrapper überführen
+    SDL::C::SDL_Surface *surf = SDL::C::IMG_Load("../assets/graphics/tilesetmetall.png");
+    SDL::C::SDL_SetColorKey(surf, SDL::C::SDL_TRUE, 0);
+    Texture tex = Texture(renderer, SDL::C::SDL_CreateTextureFromSurface(renderer, surf));
+    tileSetMap = Tileset(tex, SDL::Point(16,100));
+    //TODO an jan schicken
+
+    lev = new Level("0.map");
     lev->processLevelwithTileset(tileSetMap);
 
     SDL::Point spawn = SDL::Point(0, 0);
@@ -30,11 +40,10 @@ void TestState::Init()
         }
     }
 
-    player = new Player(tileSet);
+    player = new Player(tileSetMap);
 
     player->setX((spawn.x+1) * TILESIZE);
     player->setY((spawn.y+1) * TILESIZE);
-
 }
 
 void TestState::Uninit()
@@ -85,7 +94,8 @@ void TestState::Events(const int frame, const float deltaT)
             isShowHelp = !isShowHelp;
 
         //camera movement experimental only debug
-        /*
+
+/*
         if(state[SDL::C::SDL_SCANCODE_LEFT])
             camera.x -= speed;
         if(state[SDL::C::SDL_SCANCODE_RIGHT])
@@ -95,24 +105,24 @@ void TestState::Events(const int frame, const float deltaT)
             camera.y -= speed;
         if(state[SDL::C::SDL_SCANCODE_DOWN])
             camera.y += speed;
-            */
+*/
     }
 
-    player->checkCollision(*lev);
+    player->checkCollisionWithLevel(*lev, deltaT);
 
 }
 
 void TestState::Update(const int frame, const float deltaT)
 {
-    //player->setX(mouseX); //only debug
-    //player->setY(mouseY);
-
     int playerX = (int)player->getX()/TILESIZE;
     int playerY = (int)player->getY()/TILESIZE;
     player->update(deltaT);
 
-    camera.x = player->getX() - 1920/2;
-    camera.y = player->getY() - 1080/2;
+    //player->setX(mouseX); //only debug
+    //player->setY(mouseY);
+
+    camera.x = player->getX() - WINDOW_X/2;
+    camera.y = player->getY() - WINDOW_Y/2;
 
 }
 
@@ -120,7 +130,7 @@ void TestState::Render(const int frame, const float deltaT)
 {
     renderer.ClearColor(255,255,255);
     {
-        image.Draw(Rect(0, 0, 1024, 768));
+        image.Draw(Rect(0, 0, WINDOW_X, WINDOW_Y));
         blendedText.SetColorMod(Color(0, 0, 0));
         const Point p(32, 50);
         for (const Point& pd : { Point(-1, -1), Point(1, -1), Point(-1, 1), Point(1, 1), Point(0, 2), Point(2, 0), Point(0, -2), Point(-2, 0) })
