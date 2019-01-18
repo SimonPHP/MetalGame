@@ -20,7 +20,7 @@ public:
 
 public:
     Tileset();
-    Tileset(const SDL::Texture &tileset, const SDL::Point &size);
+    Tileset(const SDL::Texture &tileset);
     void Draw(SDL::Point pos, SDL::Point tile);
     void Draw(SDL::Point pos, int tile);
     const Point &getSize() const;

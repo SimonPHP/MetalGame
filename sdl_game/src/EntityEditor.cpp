@@ -47,7 +47,7 @@ void EntityEditorState::loadTileset(std::string tileSetPathConfig)
         _y = atoi(y.c_str());
 
         myfile.close();
-        this->playerTileSet = Tileset(IMG::LoadTexture( this->renderer, (tileSetPath + "/" + tileSetName).c_str() ), SDL::Point(_x, _y));
+        this->playerTileSet = Tileset(IMG::LoadTexture( this->renderer, (tileSetPath + "/" + tileSetName).c_str() ));
         this->isTileSet = true;
     }
 }

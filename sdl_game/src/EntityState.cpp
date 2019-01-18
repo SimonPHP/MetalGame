@@ -42,7 +42,7 @@ void EntityState::render(SDL::Renderer &renderer, SDL::Point pos) {
 
     renderer.SetDrawColor(Color(74, 168, 114, 128));
 
-    for(int i = 0; i < hitboxesCount; i++)
+    for(uint32_t i = 0; i < hitboxesCount; i++)
         renderer.FillRect(SDL::Rect( pos.x + 16*hitboxes[i].x, pos.y + 16*hitboxes[i].y, 16, 16));
 
     this->animation->draw(pos);
@@ -76,37 +76,6 @@ void EntityState::addHitbox(SDL::Rect rect)
         this->hitboxes[i] = oldHitboxes[i]; //restore old hitboxes
     this->hitboxes[this->hitboxesCount-1] = rect;
 }
-
-/*void EntityState::addHitbox(SDL::Point pos) {
-    SDL::Point *oldHitboxes;
-    oldHitboxes = new SDL::Point[this->hitboxesCount];
-    for(uint32_t i = 0; i < this->hitboxesCount; i++)
-        oldHitboxes[i] = this->hitboxes[i]; //save old hitboxes
-
-    this->hitboxesCount++;
-    this->hitboxes = new SDL::Point[this->hitboxesCount];
-
-    for(uint32_t i = 0; i < this->hitboxesCount-1; i++)
-        this->hitboxes[i] = oldHitboxes[i]; //restore old hitboxes
-    this->hitboxes[this->hitboxesCount-1] = pos;
-
-
-    SDL::Point *oldcollisionCheckPoints;
-    oldcollisionCheckPoints = new SDL::Point[this->collisionCheckPointsCount];
-    for(uint32_t i = 0; i < this->collisionCheckPointsCount; i++)
-        oldcollisionCheckPoints[i] = this->collisionCheckPoints[i]; //save old collisionCheckPoints
-
-    this->collisionCheckPointsCount += 4;
-    this->collisionCheckPoints = new SDL::Point[this->collisionCheckPointsCount];
-
-    for(uint32_t i = 0; i < this->collisionCheckPointsCount-1; i++)
-        this->collisionCheckPoints[i] = oldcollisionCheckPoints[i]; //restore old collisionCheckPoints
-
-    this->collisionCheckPoints[this->collisionCheckPointsCount-4] = pos;
-    this->collisionCheckPoints[this->collisionCheckPointsCount-3] = pos + SDL::Point(0, 1);
-    this->collisionCheckPoints[this->collisionCheckPointsCount-2] = pos + SDL::Point(1, 0);
-    this->collisionCheckPoints[this->collisionCheckPointsCount-1] = pos + SDL::Point(1, 1);
-}*/
 
 Point *EntityState::getCollisionCheckPoints() const {
     return collisionCheckPoints;

@@ -10,6 +10,7 @@
 #include "test.h"
 
 #include "Level.h"
+#include <mlh.h>
 
 #define TILESIZE 16
 
@@ -20,37 +21,25 @@ void TestState::handleConsole(){
 
     bool run = true;
 
-    while (run) //TODO mehr befehle einbauen eventuell auch besseres parsing und mit parametern und so nem shit (eventuell müssen noch getter und setter implementiert werden)
+    while (run) //TODO mehr befehle einbauen
     {
-        std::cin >> command;
+        std::getline(std::cin, command);
+        std::vector<std::string> commands = mlh::split(command, ' ');
 
-        if(command == "exit")
+        if(commands[0] == "exit")
             run = false;
-        else if(command == "player")
+        else if(commands[0] == "set")
         {
-            std::cout << "x: " << this->player->getX() << " y: " << this->player->getY() << std::endl;
-        }
-        else if(command == "collide")
-        {
-            std::cout << "set: " << this->player->collisionState.set << std::endl;
-            std::cout << "left: " << this->player->collisionState.left << std::endl;
-            std::cout << "right: " << this->player->collisionState.right << std::endl;
-            std::cout << "up: " << this->player->collisionState.up << std::endl;
-            std::cout << "down: " << this->player->collisionState.down << std::endl;
-        }
-        else if(command == "setspeed")
-        {
-            float newSpeed;
-            std::cin >> newSpeed;
-            this->player->setSpeed(newSpeed);
-            std::cout << "new player speed: " << this->player->getSpeed() << std::endl;
-        }
-        else if(command == "setjump")
-        {
-            float newJump;
-            std::cin >> newJump;
-            this->player->setJumpHeight(newJump);
-            std::cout << "new player jump Height: " << this->player->getJumpHeight() << std::endl;
+            if( commands.size() < 2 )
+                std::cout << "zu wenig parameter" << std::endl;
+            else if(commands[1] == "speed")
+            {
+                this->player->setSpeed(stoi(commands[2]));
+            }
+            else if(commands[1] == "jump")
+            {
+                this->player->setJumpHeight(stoi(commands[2]));
+            }
         }
         else
             printf("unknown command: %s", command.c_str());
@@ -62,16 +51,14 @@ void TestState::Init()
 {
     font = TTF::Font("../assets/fonts/RobotoSlab-Bold.ttf", 12);
 
-    tileSet = Tileset(IMG::LoadTexture( renderer, "../assets/graphics/platformerPack_character_scaled.png" ), SDL::Point(4,2));
+    tileSet = Tileset(IMG::LoadTexture( renderer, "../assets/graphics/platformerPack_character_scaled.png" ));
     //tileSetMap = Tileset(IMG::LoadTexture( renderer, "../assets/graphics/tilesetmetall.png" ), SDL::Point(16,100));
     //tileSetMap = Tileset(IMG::LoadTexture( renderer, "../assets/graphics/1.png" ), SDL::Point(16,38));
 
-    //TODO in wrapper überführen
     SDL::C::SDL_Surface *surf = SDL::C::IMG_Load("../assets/graphics/tilesetmetallneu.png");
     SDL::C::SDL_SetColorKey(surf, SDL::C::SDL_TRUE, 0);
     Texture tex = Texture(renderer, SDL::C::SDL_CreateTextureFromSurface(renderer, surf));
-    tileSetMap = Tileset(tex, SDL::Point(16,100));
-    //TODO an jan schicken
+    tileSetMap = Tileset(tex);
 
     lev = new Level("8.map");
     lev->processLevelwithTileset(tileSetMap);
