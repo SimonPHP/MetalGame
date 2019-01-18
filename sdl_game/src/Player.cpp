@@ -19,73 +19,70 @@ Player::Player(Tileset tileset) {
     gravity = 1000;
     jumpHeight = -800;
 
-    this->addState(2, 2);
-    this->getCurrenState()->createAnimation(tileset);
+    this->addState(2, 2); //state 0 //groesse des Spielers.
+    this->addState(2, 2); //state 1
 
     unsigned int t1;
 
     t1 = 500; //500ms
 
-    this->getCurrenState()->getAnimation()->addAnimationFrame(t1);
-    this->getCurrenState()->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(0,0), SDL::Point(0,7));
-    this->getCurrenState()->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(0,1), SDL::Point(0,8));
-    this->getCurrenState()->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(1,0), SDL::Point(1,7));
-    this->getCurrenState()->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(1,1), SDL::Point(1,8));
+    this->getState(0)->createAnimation(tileset); //animation mit tileset erstellen
 
-    this->getCurrenState()->getAnimation()->addAnimationFrame(t1);
-    this->getCurrenState()->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(0,0), SDL::Point(2,7));
-    this->getCurrenState()->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(0,1), SDL::Point(2,8));
-    this->getCurrenState()->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(1,0), SDL::Point(3,7));
-    this->getCurrenState()->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(1,1), SDL::Point(3,8));
+    this->getState(0)->getAnimation()->addAnimationFrame(t1); //einen animationsframe hinzufügen
+    this->getState(0)->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(0,0), SDL::Point(0,7)); //ersten teil des animationsframes
+    this->getState(0)->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(0,1), SDL::Point(0,8));
+    this->getState(0)->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(1,0), SDL::Point(1,7));
+    this->getState(0)->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(1,1), SDL::Point(1,8));
 
-    this->getCurrenState()->getAnimation()->addAnimationFrame(t1);
-    this->getCurrenState()->getAnimation()->getAnimationFrames()[2].addSpritePoint(SDL::Point(0,0), SDL::Point(4,7));
-    this->getCurrenState()->getAnimation()->getAnimationFrames()[2].addSpritePoint(SDL::Point(0,1), SDL::Point(4,8));
-    this->getCurrenState()->getAnimation()->getAnimationFrames()[2].addSpritePoint(SDL::Point(1,0), SDL::Point(5,7));
-    this->getCurrenState()->getAnimation()->getAnimationFrames()[2].addSpritePoint(SDL::Point(1,1), SDL::Point(5,8));
+    this->getState(0)->getAnimation()->addAnimationFrame(t1);
+    this->getState(0)->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(0,0), SDL::Point(2,7));
+    this->getState(0)->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(0,1), SDL::Point(2,8));
+    this->getState(0)->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(1,0), SDL::Point(3,7));
+    this->getState(0)->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(1,1), SDL::Point(3,8));
 
-    this->getCurrenState()->getAnimation()->addAnimationFrame(t1);
-    this->getCurrenState()->getAnimation()->getAnimationFrames()[3].addSpritePoint(SDL::Point(0,0), SDL::Point(2,7));
-    this->getCurrenState()->getAnimation()->getAnimationFrames()[3].addSpritePoint(SDL::Point(0,1), SDL::Point(2,8));
-    this->getCurrenState()->getAnimation()->getAnimationFrames()[3].addSpritePoint(SDL::Point(1,0), SDL::Point(3,7));
-    this->getCurrenState()->getAnimation()->getAnimationFrames()[3].addSpritePoint(SDL::Point(1,1), SDL::Point(3,8));
+    this->getState(0)->getAnimation()->addAnimationFrame(t1);
+    this->getState(0)->getAnimation()->getAnimationFrames()[2].addSpritePoint(SDL::Point(0,0), SDL::Point(4,7));
+    this->getState(0)->getAnimation()->getAnimationFrames()[2].addSpritePoint(SDL::Point(0,1), SDL::Point(4,8));
+    this->getState(0)->getAnimation()->getAnimationFrames()[2].addSpritePoint(SDL::Point(1,0), SDL::Point(5,7));
+    this->getState(0)->getAnimation()->getAnimationFrames()[2].addSpritePoint(SDL::Point(1,1), SDL::Point(5,8));
 
-    //this->getCurrenState()->addHitbox(SDL::Rect(0,0,32,32)); //relativ to player
-    this->getCurrenState()->addHitbox(SDL::Rect(0,0,16,16));
-    this->getCurrenState()->addHitbox(SDL::Rect(16,0,16,16));
-    this->getCurrenState()->addHitbox(SDL::Rect(0,16,16,16));
-    this->getCurrenState()->addHitbox(SDL::Rect(16,16,16,16));
+    this->getState(0)->getAnimation()->addAnimationFrame(t1);
+    this->getState(0)->getAnimation()->getAnimationFrames()[3].addSpritePoint(SDL::Point(0,0), SDL::Point(2,7));
+    this->getState(0)->getAnimation()->getAnimationFrames()[3].addSpritePoint(SDL::Point(0,1), SDL::Point(2,8));
+    this->getState(0)->getAnimation()->getAnimationFrames()[3].addSpritePoint(SDL::Point(1,0), SDL::Point(3,7));
+    this->getState(0)->getAnimation()->getAnimationFrames()[3].addSpritePoint(SDL::Point(1,1), SDL::Point(3,8));
+
+    this->getState(0)->addHitbox(SDL::Rect(0,0,16,16)); //hitboxen sind nicht ans grid gebunden
+    this->getState(0)->addHitbox(SDL::Rect(16,0,16,16));
+    this->getState(0)->addHitbox(SDL::Rect(0,16,16,16));
+    this->getState(0)->addHitbox(SDL::Rect(16,16,16,16));
 
     //next state
-    this->addState(2,2);
-    this->setCurrentState(1);
+    this->getState(1)->createAnimation(tileset);
 
-    this->getCurrenState()->createAnimation(tileset);
+    this->getState(1)->getAnimation()->addAnimationFrame(t1);
+    this->getState(1)->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(0,0), SDL::Point(0,9));
+    this->getState(1)->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(0,1), SDL::Point(0,10));
+    this->getState(1)->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(1,0), SDL::Point(1,9));
+    this->getState(1)->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(1,1), SDL::Point(1,10));
 
-    this->getCurrenState()->getAnimation()->addAnimationFrame(t1);
-    this->getCurrenState()->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(0,0), SDL::Point(0,9));
-    this->getCurrenState()->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(0,1), SDL::Point(0,10));
-    this->getCurrenState()->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(1,0), SDL::Point(1,9));
-    this->getCurrenState()->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(1,1), SDL::Point(1,10));
+    this->getState(1)->getAnimation()->addAnimationFrame(t1);
+    this->getState(1)->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(0,0), SDL::Point(2,9));
+    this->getState(1)->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(0,1), SDL::Point(2,10));
+    this->getState(1)->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(1,0), SDL::Point(3,9));
+    this->getState(1)->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(1,1), SDL::Point(3,10));
 
-    this->getCurrenState()->getAnimation()->addAnimationFrame(t1);
-    this->getCurrenState()->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(0,0), SDL::Point(2,9));
-    this->getCurrenState()->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(0,1), SDL::Point(2,10));
-    this->getCurrenState()->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(1,0), SDL::Point(3,9));
-    this->getCurrenState()->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(1,1), SDL::Point(3,10));
+    this->getState(1)->getAnimation()->addAnimationFrame(t1);
+    this->getState(1)->getAnimation()->getAnimationFrames()[2].addSpritePoint(SDL::Point(0,0), SDL::Point(4,9));
+    this->getState(1)->getAnimation()->getAnimationFrames()[2].addSpritePoint(SDL::Point(0,1), SDL::Point(4,10));
+    this->getState(1)->getAnimation()->getAnimationFrames()[2].addSpritePoint(SDL::Point(1,0), SDL::Point(5,9));
+    this->getState(1)->getAnimation()->getAnimationFrames()[2].addSpritePoint(SDL::Point(1,1), SDL::Point(5,10));
 
-    this->getCurrenState()->getAnimation()->addAnimationFrame(t1);
-    this->getCurrenState()->getAnimation()->getAnimationFrames()[2].addSpritePoint(SDL::Point(0,0), SDL::Point(4,9));
-    this->getCurrenState()->getAnimation()->getAnimationFrames()[2].addSpritePoint(SDL::Point(0,1), SDL::Point(4,10));
-    this->getCurrenState()->getAnimation()->getAnimationFrames()[2].addSpritePoint(SDL::Point(1,0), SDL::Point(5,9));
-    this->getCurrenState()->getAnimation()->getAnimationFrames()[2].addSpritePoint(SDL::Point(1,1), SDL::Point(5,10));
-
-    this->getCurrenState()->addHitbox(SDL::Rect(0,0,16,16));
-    this->getCurrenState()->addHitbox(SDL::Rect(16,0,16,16));
-    this->getCurrenState()->addHitbox(SDL::Rect(0,16,16,16));
-    this->getCurrenState()->addHitbox(SDL::Rect(16,16,16,16));
-
-    this->setCurrentState(0);
+    this->getState(1)->addHitbox(SDL::Rect(0,0,16,16));
+    this->getState(1)->addHitbox(SDL::Rect(16,0,16,16));
+    this->getState(1)->addHitbox(SDL::Rect(0,16,16,16));
+    this->getState(1)->addHitbox(SDL::Rect(16,16,16,16));
+    
 }
 
 void Player::events(SDL::Event evt, const float deltaT) {
@@ -150,9 +147,9 @@ void Player::checkCollisionWithLevel(Level &level, const float deltaT) {
     uint32_t nextX = (uint32_t)((this->x + moveX));
     uint32_t nextY = (uint32_t)((this->y + moveY));
 
-    for(uint32_t i = 0; i < this->getCurrenState()->getHitboxesCount(); i++)
+    for(uint32_t i = 0; i < this->getCurrentState()->getHitboxesCount(); i++)
     {
-        SDL::Rect curHitbox = this->getCurrenState()->getHitboxes()[i];
+        SDL::Rect curHitbox = this->getCurrentState()->getHitboxes()[i];
 
         curHitbox.x += curX;
         curHitbox.y += curY;
@@ -224,7 +221,7 @@ void Player::checkCollisionWithLevel(Level &level, const float deltaT) {
 }
 
 void Player::update(const float deltaT) {
-    this->getCurrenState()->update();
+    this->getCurrentState()->update();
 
     if(walkLeft)
     {
@@ -302,16 +299,16 @@ void Player::update(const float deltaT) {
 
 void Player::render(SDL::Renderer &renderer, SDL::Point camera) {
 
-    EntityState *state = this->getCurrenState();
-    this->getCurrenState()->render(renderer, SDL::Point((int) x, (int) y) - camera);
+    EntityState *state = this->getCurrentState();
+    this->getCurrentState()->render(renderer, SDL::Point((int) x, (int) y) - camera);
 
     if(this->collisionState.right || this->collisionState.left)
         renderer.SetDrawColor(SDL::Color(255, 0, 0, 128));
     else
         renderer.SetDrawColor(SDL::Color(40, 107, 214, 128));
 
-    int w = this->getCurrenState()->getW();
-    int h = this->getCurrenState()->getH();
+    int w = this->getCurrentState()->getW();
+    int h = this->getCurrentState()->getH();
 
     renderer.FillRect(SDL::Rect(x - camera.x, y - camera.y, w*16, h*16));
 }

@@ -45,7 +45,7 @@ public:
 
     EntityState* addState(uint32_t w, uint32_t h);
 
-    EntityState* getCurrenState();
+    EntityState* getCurrentState();
     EntityState* getState(uint32_t i);
 
     float getX() const;

@@ -34,7 +34,7 @@ EntityState *Entity::addState(uint32_t w, uint32_t h) {
  * returns the current entityState
  * @return EntityState
  */
-EntityState *Entity::getCurrenState() {
+EntityState *Entity::getCurrentState() {
     return &(this->stateSet[currentState]);
 }
 

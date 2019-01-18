@@ -79,6 +79,7 @@ void TestState::Init()
     player->setX((spawn.x+1) * TILESIZE);
     player->setY((spawn.y+1) * TILESIZE);
 
+
     t1 = std::thread(&TestState::handleConsole, this);
 }
 
@@ -163,6 +164,11 @@ void TestState::Update(const int frame, const float deltaT)
 
 void TestState::Render(const int frame, const float deltaT)
 {
+    SDL::Texture *tex = new SDL::Texture(renderer); //neue textur auf die gerendert werden soll
+    tex->createBlank(WINDOW_X, WINDOW_Y); //größe bestimmen
+    tex->setAsRenderTarget(); //als target setzten
+    //hier sollte man normal rendern können
+
     renderer.ClearColor(255,255,255);
     {
         image.Draw(Rect(0, 0, WINDOW_X, WINDOW_Y));
@@ -297,5 +303,10 @@ void TestState::Render(const int frame, const float deltaT)
             t2.Draw(p);
         }
     }
+
+    renderer.setRenderTargetDefault(); //reset draw target
+
+    tex->Draw(SDL::Point(0,0), 9); //die textur mit 9 fachem zoom drawen zum testen
+
     renderer.Present();
 }
