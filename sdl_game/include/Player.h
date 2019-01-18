@@ -13,8 +13,18 @@ class Player : public Creature
 {
 private:
     Inputhandler *ih;
+public:
+    int getJumpHeight() const;
+
+private:
 
     float speed;
+
+    int jumpHeight;
+public:
+    void setJumpHeight(int jumpHeight);
+
+private:
 
     float currentAccX;
     float currentAccY;

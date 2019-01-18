@@ -24,6 +24,12 @@ protected:
     EntityState *stateSet;
     uint32_t currentState = 0; //pos of currentState
     uint32_t maxStates = 0;
+public:
+    uint32_t getCurrentState() const;
+
+    void setCurrentState(uint32_t currentState);
+
+protected:
 
     float x, y;
 

@@ -34,11 +34,13 @@ Tileset Animation::getTileset() const {
  * If its reach the last animation it just start over again
  */
 void Animation::update() {
-    gettimeofday(&curTime, NULL);
-    if(timercmp(&curTime, &nextAnimationTime, >)) //wenn currenttime > nextAnimationTime
+
+    curTime = SDL::C::SDL_GetTicks();
+
+    if(curTime > nextAnimationTime) //wenn currenttime > nextAnimationTime
     {
         this->currentAnimation = (this->currentAnimation + 1) % this->animationCount; //loop the animationFrames
-        timeradd(&curTime, (&this->animationFrames[this->currentAnimation].getTime()), &nextAnimationTime); //calc next Frame time
+        nextAnimationTime = curTime+this->getAnimationFrames()[currentAnimation].getTime();
     }
 }
 
@@ -50,7 +52,7 @@ void Animation::draw(SDL::Point pos) {
     this->animationFrames[currentAnimation].draw(pos);
 }
 
-AnimationFrame *Animation::addAnimationFrame(const timeval &time) {
+AnimationFrame *Animation::addAnimationFrame(unsigned int time) {
 
     AnimationFrame *newAnimationFrame = new AnimationFrame(this->tileset, this->w, this->h, time);
 
@@ -95,18 +97,10 @@ AnimationFrame::AnimationFrame() {}
  * @param h
  * @param time
  */
-AnimationFrame::AnimationFrame(Tileset &tileset, uint32_t w, uint32_t h, const timeval &time) : tileset(tileset), w(w), h(h), time(time) {
+AnimationFrame::AnimationFrame(Tileset &tileset, uint32_t w, uint32_t h, unsigned int time) : tileset(tileset), w(w), h(h), time(time) {
     this->sprites = new SDL::Point*[this->w];
     for(uint32_t i = 0; i < this->w; ++i)
         this->sprites[i] = new SDL::Point[this->h]; //init dynamic array
-}
-
-/*!
- * Returns the duration from the AnimationFrame
- * @return timeval
- */
-const timeval &AnimationFrame::getTime() const {
-    return time;
 }
 
 /*!
@@ -137,6 +131,10 @@ void AnimationFrame::draw(SDL::Point pos) {
 
 AnimationFrame::~AnimationFrame() {
     printf("kille nun animationframe %p\n", this);
+}
+
+unsigned int AnimationFrame::getTime() const {
+    return time;
 }
 
 

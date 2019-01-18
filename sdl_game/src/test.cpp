@@ -45,6 +45,13 @@ void TestState::handleConsole(){
             this->player->setSpeed(newSpeed);
             std::cout << "new player speed: " << this->player->getSpeed() << std::endl;
         }
+        else if(command == "setjump")
+        {
+            float newJump;
+            std::cin >> newJump;
+            this->player->setJumpHeight(newJump);
+            std::cout << "new player jump Height: " << this->player->getJumpHeight() << std::endl;
+        }
         else
             printf("unknown command: %s", command.c_str());
     }
@@ -60,13 +67,13 @@ void TestState::Init()
     //tileSetMap = Tileset(IMG::LoadTexture( renderer, "../assets/graphics/1.png" ), SDL::Point(16,38));
 
     //TODO in wrapper überführen
-    SDL::C::SDL_Surface *surf = SDL::C::IMG_Load("../assets/graphics/tilesetmetall.png");
+    SDL::C::SDL_Surface *surf = SDL::C::IMG_Load("../assets/graphics/tilesetmetallneu.png");
     SDL::C::SDL_SetColorKey(surf, SDL::C::SDL_TRUE, 0);
     Texture tex = Texture(renderer, SDL::C::SDL_CreateTextureFromSurface(renderer, surf));
     tileSetMap = Tileset(tex, SDL::Point(16,100));
     //TODO an jan schicken
 
-    lev = new Level("2.map");
+    lev = new Level("8.map");
     lev->processLevelwithTileset(tileSetMap);
 
     SDL::Point spawn = SDL::Point(0, 0);

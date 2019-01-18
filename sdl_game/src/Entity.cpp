@@ -35,7 +35,6 @@ EntityState *Entity::addState(uint32_t w, uint32_t h) {
  * @return EntityState
  */
 EntityState *Entity::getCurrenState() {
-    int cur = 0; //debug point line delete after debugging //TODO debbuging delete
     return &(this->stateSet[currentState]);
 }
 
@@ -102,6 +101,14 @@ float Entity::getY() const {
 
 void Entity::setY(float y) {
     Entity::y = y;
+}
+
+uint32_t Entity::getCurrentState() const {
+    return currentState;
+}
+
+void Entity::setCurrentState(uint32_t currentState) {
+    Entity::currentState = currentState;
 }
 
 

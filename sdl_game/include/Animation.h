@@ -12,15 +12,17 @@ class AnimationFrame {
 private:
     Tileset tileset;
 
-    timeval time;
+    unsigned int time;
     uint32_t w, h; //points size divided by TILESIZE(16) 16 = 1; 32 = 2; etc...
 public:
     SDL::Point **sprites;
     AnimationFrame();
     ~AnimationFrame();
-    AnimationFrame(Tileset &tileset, uint32_t w, uint32_t h, const timeval &time);
+    AnimationFrame(Tileset &tileset, uint32_t w, uint32_t h, unsigned int time);
     void addSpritePoint(SDL::Point gridPos, SDL::Point tilePos);
-    const timeval &getTime() const;
+
+    unsigned int getTime() const;
+
     void draw(SDL::Point pos);
 };
 
@@ -34,14 +36,14 @@ private:
     uint32_t animationCount = 0;
     uint32_t currentAnimation = 0;
 
-    timeval nextAnimationTime; //just for an intern calc
-    timeval curTime; //just for an intern calc
+    unsigned int nextAnimationTime; //just for an intern calc
+    unsigned int curTime; //just for an intern calc
 public:
     Animation();
     ~Animation();
     Animation(Tileset &tileset, uint32_t w, uint32_t h);
     Tileset getTileset() const;
-    AnimationFrame *addAnimationFrame(const timeval &time);
+    AnimationFrame *addAnimationFrame(unsigned int time);
     AnimationFrame *getAnimationFrames() const;
     void update();
     void draw(SDL::Point pos);

@@ -17,16 +17,14 @@ Player::Player(Tileset tileset) {
     currentAccX = 0;
     speed = 500;
     gravity = 1000;
+    jumpHeight = -800;
 
-    tmpState = this->addState(2, 2);
-
+    this->addState(2, 2);
     this->getCurrenState()->createAnimation(tileset);
 
-    timeval t1;
+    unsigned int t1;
 
-    t1.tv_usec = 500*1000; //500ms
-
-    this->doubleJumpTimerTime.tv_usec = 50*1000; //50ms
+    t1 = 500; //500ms
 
     this->getCurrenState()->getAnimation()->addAnimationFrame(t1);
     this->getCurrenState()->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(0,0), SDL::Point(0,7));
@@ -34,19 +32,60 @@ Player::Player(Tileset tileset) {
     this->getCurrenState()->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(1,0), SDL::Point(1,7));
     this->getCurrenState()->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(1,1), SDL::Point(1,8));
 
-    this->getCurrenState()->addHitbox(SDL::Rect(0,0,32,32)); //relativ to player
+    this->getCurrenState()->getAnimation()->addAnimationFrame(t1);
+    this->getCurrenState()->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(0,0), SDL::Point(2,7));
+    this->getCurrenState()->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(0,1), SDL::Point(2,8));
+    this->getCurrenState()->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(1,0), SDL::Point(3,7));
+    this->getCurrenState()->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(1,1), SDL::Point(3,8));
 
-    /*this->getCurrenState()->addHitbox(SDL::Rect(0,0,16,16)); //relativ to player
-    this->getCurrenState()->addHitbox(SDL::Rect(16,0,16,16)); //relativ to player
-    this->getCurrenState()->addHitbox(SDL::Rect(0,16,16,16)); //relativ to player
-    this->getCurrenState()->addHitbox(SDL::Rect(16,16,16,16)); //relativ to player
-     */
+    this->getCurrenState()->getAnimation()->addAnimationFrame(t1);
+    this->getCurrenState()->getAnimation()->getAnimationFrames()[2].addSpritePoint(SDL::Point(0,0), SDL::Point(4,7));
+    this->getCurrenState()->getAnimation()->getAnimationFrames()[2].addSpritePoint(SDL::Point(0,1), SDL::Point(4,8));
+    this->getCurrenState()->getAnimation()->getAnimationFrames()[2].addSpritePoint(SDL::Point(1,0), SDL::Point(5,7));
+    this->getCurrenState()->getAnimation()->getAnimationFrames()[2].addSpritePoint(SDL::Point(1,1), SDL::Point(5,8));
 
+    this->getCurrenState()->getAnimation()->addAnimationFrame(t1);
+    this->getCurrenState()->getAnimation()->getAnimationFrames()[3].addSpritePoint(SDL::Point(0,0), SDL::Point(2,7));
+    this->getCurrenState()->getAnimation()->getAnimationFrames()[3].addSpritePoint(SDL::Point(0,1), SDL::Point(2,8));
+    this->getCurrenState()->getAnimation()->getAnimationFrames()[3].addSpritePoint(SDL::Point(1,0), SDL::Point(3,7));
+    this->getCurrenState()->getAnimation()->getAnimationFrames()[3].addSpritePoint(SDL::Point(1,1), SDL::Point(3,8));
 
-    /*this->getCurrenState()->addHitbox(SDL::Point(0,0));
-    this->getCurrenState()->addHitbox(SDL::Point(0,1));
-    this->getCurrenState()->addHitbox(SDL::Point(1,0));
-    this->getCurrenState()->addHitbox(SDL::Point(1,1));*/
+    //this->getCurrenState()->addHitbox(SDL::Rect(0,0,32,32)); //relativ to player
+    this->getCurrenState()->addHitbox(SDL::Rect(0,0,16,16));
+    this->getCurrenState()->addHitbox(SDL::Rect(16,0,16,16));
+    this->getCurrenState()->addHitbox(SDL::Rect(0,16,16,16));
+    this->getCurrenState()->addHitbox(SDL::Rect(16,16,16,16));
+
+    //next state
+    this->addState(2,2);
+    this->setCurrentState(1);
+
+    this->getCurrenState()->createAnimation(tileset);
+
+    this->getCurrenState()->getAnimation()->addAnimationFrame(t1);
+    this->getCurrenState()->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(0,0), SDL::Point(0,9));
+    this->getCurrenState()->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(0,1), SDL::Point(0,10));
+    this->getCurrenState()->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(1,0), SDL::Point(1,9));
+    this->getCurrenState()->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(1,1), SDL::Point(1,10));
+
+    this->getCurrenState()->getAnimation()->addAnimationFrame(t1);
+    this->getCurrenState()->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(0,0), SDL::Point(2,9));
+    this->getCurrenState()->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(0,1), SDL::Point(2,10));
+    this->getCurrenState()->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(1,0), SDL::Point(3,9));
+    this->getCurrenState()->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(1,1), SDL::Point(3,10));
+
+    this->getCurrenState()->getAnimation()->addAnimationFrame(t1);
+    this->getCurrenState()->getAnimation()->getAnimationFrames()[2].addSpritePoint(SDL::Point(0,0), SDL::Point(4,9));
+    this->getCurrenState()->getAnimation()->getAnimationFrames()[2].addSpritePoint(SDL::Point(0,1), SDL::Point(4,10));
+    this->getCurrenState()->getAnimation()->getAnimationFrames()[2].addSpritePoint(SDL::Point(1,0), SDL::Point(5,9));
+    this->getCurrenState()->getAnimation()->getAnimationFrames()[2].addSpritePoint(SDL::Point(1,1), SDL::Point(5,10));
+
+    this->getCurrenState()->addHitbox(SDL::Rect(0,0,16,16));
+    this->getCurrenState()->addHitbox(SDL::Rect(16,0,16,16));
+    this->getCurrenState()->addHitbox(SDL::Rect(0,16,16,16));
+    this->getCurrenState()->addHitbox(SDL::Rect(16,16,16,16));
+
+    this->setCurrentState(0);
 }
 
 void Player::events(SDL::Event evt, const float deltaT) {
@@ -187,6 +226,15 @@ void Player::checkCollisionWithLevel(Level &level, const float deltaT) {
 void Player::update(const float deltaT) {
     this->getCurrenState()->update();
 
+    if(walkLeft)
+    {
+        this->setCurrentState(0);
+    }
+    if(walkRight)
+    {
+        this->setCurrentState(1);
+    }
+
     if(walkLeft && this->collisionState.left)
     {
         int cor = ((int)this->getX()%16);
@@ -232,7 +280,7 @@ void Player::update(const float deltaT) {
         {
             if(!isJumping)
             {
-                this->currentAccY = -800;
+                this->currentAccY = jumpHeight;
                 this->isFalling = true;
                 this->isJumping = true;
             }
@@ -286,4 +334,12 @@ float Player::getGravity() const {
 
 void Player::setGravity(float gravity) {
     Player::gravity = gravity;
+}
+
+void Player::setJumpHeight(int jumpHeight) {
+    Player::jumpHeight = jumpHeight;
+}
+
+int Player::getJumpHeight() const {
+    return jumpHeight;
 }
