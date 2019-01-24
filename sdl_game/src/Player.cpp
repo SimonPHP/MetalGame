@@ -22,9 +22,7 @@ Player::Player(Tileset tileset) {
     this->addState(2, 2); //state 0 //groesse des Spielers.
     this->addState(2, 2); //state 1
 
-    unsigned int t1;
-
-    t1 = 500; //500ms
+    unsigned int t1 = 500; //500ms
 
     this->getState(0)->createAnimation(tileset); //animation mit tileset erstellen
 
@@ -315,22 +313,6 @@ void Player::render(SDL::Renderer &renderer, SDL::Point camera) {
 
 Player::~Player() {
     printf("kille nun player %p\n", this);
-}
-
-float Player::getSpeed() const {
-    return speed;
-}
-
-void Player::setSpeed(float speed) {
-    Player::speed = speed;
-}
-
-float Player::getGravity() const {
-    return gravity;
-}
-
-void Player::setGravity(float gravity) {
-    Player::gravity = gravity;
 }
 
 void Player::setJumpHeight(int jumpHeight) {

@@ -79,6 +79,10 @@ void TestState::Init()
     player->setX((spawn.x+1) * TILESIZE);
     player->setY((spawn.y+1) * TILESIZE);
 
+    enemy = new Enemy(tileSetMap);
+
+    enemy->setX(100);
+    enemy->setY(3000);
 
     t1 = std::thread(&TestState::handleConsole, this);
 }
@@ -153,6 +157,15 @@ void TestState::Update(const int frame, const float deltaT)
     int playerX = (int)player->getX()/TILESIZE;
     int playerY = (int)player->getY()/TILESIZE;
     player->update(deltaT);
+    enemy->update(deltaT);
+
+    SDL::Rect p = SDL::Rect(player->getCurrentState()->getHitboxes()[0].x + player->getX(), player->getCurrentState()->getHitboxes()[0].y + player->getY(), player->getCurrentState()->getHitboxes()[0].w, player->getCurrentState()->getHitboxes()[0].h);
+    SDL::Rect e = SDL::Rect(enemy->getCurrentState()->getHitboxes()[0].x + enemy->getX(), enemy->getCurrentState()->getHitboxes()[0].y + player->getY(), enemy->getCurrentState()->getHitboxes()[0].w, enemy->getCurrentState()->getHitboxes()[0].h);
+
+    if(p.CollidesWith(e))
+    {
+        printf("KOLLISION\n");
+    }
 
     //player->setX(mouseX); //only debug
     //player->setY(mouseY);
@@ -211,6 +224,7 @@ void TestState::Render(const int frame, const float deltaT)
     }
 
     player->render(renderer, camera);
+    enemy->render(renderer, camera);
 
     if(isLayerFG)
     {

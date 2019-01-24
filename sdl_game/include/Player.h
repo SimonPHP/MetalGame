@@ -18,16 +18,11 @@ public:
 
 private:
 
-    float speed;
-
     int jumpHeight;
 public:
     void setJumpHeight(int jumpHeight);
 
 private:
-
-    float currentAccX;
-    float currentAccY;
 
     bool isFalling;
     float gravity;
@@ -47,14 +42,6 @@ public:
     EntityState *tmpState;
     Animation *tmpAnimation;
     AnimationFrame *tmpFrame;
-
-    float getSpeed() const;
-
-    void setSpeed(float speed);
-
-    float getGravity() const;
-
-    void setGravity(float gravity);
 
     Player();
 

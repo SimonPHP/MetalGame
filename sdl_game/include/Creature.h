@@ -11,6 +11,25 @@ class Creature : public Entity
 {
 protected:
     float health;
+    float speed;
+    float currentAccX;
+    float currentAccY;
+public:
+    float getHealth() const;
+
+    void setHealth(float health);
+
+    float getSpeed() const;
+
+    void setSpeed(float speed);
+
+    float getCurrentAccX() const;
+
+    void setCurrentAccX(float currentAccX);
+
+    float getCurrentAccY() const;
+
+    void setCurrentAccY(float currentAccY);
 
 public:
     Creature();

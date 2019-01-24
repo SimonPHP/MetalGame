@@ -13,6 +13,7 @@
 #include "Animation.h"
 #include "Player.h"
 #include "Level.h"
+#include "Enemy.h"
 
 #include <thread>
 
@@ -31,6 +32,7 @@ class TestState : public GameState
     Tileset tileSetMap;
 
     Player *player;
+    Enemy *enemy;
 
     InputhandlerKeyboard *inKey = new InputhandlerKeyboard();
 
