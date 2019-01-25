@@ -34,7 +34,6 @@ protected:
     float x, y;
 
 public:
-
     struct {
         bool set, left, right, up, down;
     }collisionState;

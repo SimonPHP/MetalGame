@@ -111,4 +111,3 @@ void Entity::setCurrentState(uint32_t currentState) {
     Entity::currentState = currentState;
 }
 
-

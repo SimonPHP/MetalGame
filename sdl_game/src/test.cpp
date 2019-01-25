@@ -11,6 +11,7 @@
 
 #include "Level.h"
 #include <mlh.h>
+#include <math.h>
 
 #define TILESIZE 16
 
@@ -55,7 +56,7 @@ void TestState::Init()
     //tileSetMap = Tileset(IMG::LoadTexture( renderer, "../assets/graphics/tilesetmetall.png" ), SDL::Point(16,100));
     //tileSetMap = Tileset(IMG::LoadTexture( renderer, "../assets/graphics/1.png" ), SDL::Point(16,38));
 
-    SDL::C::SDL_Surface *surf = SDL::C::IMG_Load("../assets/graphics/tilesetmetallneu.png");
+    SDL::C::SDL_Surface *surf = SDL::C::IMG_Load("../assets/graphics/tilesetmetall.png");
     SDL::C::SDL_SetColorKey(surf, SDL::C::SDL_TRUE, 0);
     Texture tex = Texture(renderer, SDL::C::SDL_CreateTextureFromSurface(renderer, surf));
     tileSetMap = Tileset(tex);
@@ -80,9 +81,28 @@ void TestState::Init()
     player->setY((spawn.y+1) * TILESIZE);
 
     enemy = new Enemy(tileSetMap);
+    enemy2 = new Enemy(tileSetMap);
+    enemy3 = new Enemy(tileSetMap);
+
+    enemy->setPlayer(player);
+    enemy2->setPlayer(player);
+    enemy3->setPlayer(player);
+
+    this->manager = new EntityManager();
+
+    this->manager->addEntity(player);
+    this->manager->addEntity(enemy);
+    this->manager->addEntity(enemy2);
+    this->manager->addEntity(enemy3);
 
     enemy->setX(100);
     enemy->setY(3000);
+
+    enemy2->setX(100);
+    enemy2->setY(3100);
+
+    enemy3->setX(100);
+    enemy3->setY(3200);
 
     t1 = std::thread(&TestState::handleConsole, this);
 }
@@ -156,16 +176,16 @@ void TestState::Update(const int frame, const float deltaT)
 {
     int playerX = (int)player->getX()/TILESIZE;
     int playerY = (int)player->getY()/TILESIZE;
-    player->update(deltaT);
-    enemy->update(deltaT);
 
-    SDL::Rect p = SDL::Rect(player->getCurrentState()->getHitboxes()[0].x + player->getX(), player->getCurrentState()->getHitboxes()[0].y + player->getY(), player->getCurrentState()->getHitboxes()[0].w, player->getCurrentState()->getHitboxes()[0].h);
+    this->manager->update(deltaT);
+
+    /*SDL::Rect p = SDL::Rect(player->getCurrentState()->getHitboxes()[0].x + player->getX(), player->getCurrentState()->getHitboxes()[0].y + player->getY(), player->getCurrentState()->getHitboxes()[0].w, player->getCurrentState()->getHitboxes()[0].h);
     SDL::Rect e = SDL::Rect(enemy->getCurrentState()->getHitboxes()[0].x + enemy->getX(), enemy->getCurrentState()->getHitboxes()[0].y + player->getY(), enemy->getCurrentState()->getHitboxes()[0].w, enemy->getCurrentState()->getHitboxes()[0].h);
 
     if(p.CollidesWith(e))
     {
         printf("KOLLISION\n");
-    }
+    }*/
 
     //player->setX(mouseX); //only debug
     //player->setY(mouseY);
@@ -177,9 +197,9 @@ void TestState::Update(const int frame, const float deltaT)
 
 void TestState::Render(const int frame, const float deltaT)
 {
-    SDL::Texture *tex = new SDL::Texture(renderer); //neue textur auf die gerendert werden soll
-    tex->createBlank(WINDOW_X, WINDOW_Y); //größe bestimmen
-    tex->setAsRenderTarget(); //als target setzten
+    //SDL::Texture *tex = new SDL::Texture(renderer); //neue textur auf die gerendert werden soll
+    //tex->createBlank(WINDOW_X, WINDOW_Y); //größe bestimmen
+    //tex->setAsRenderTarget(); //als target setzten
     //hier sollte man normal rendern können
 
     renderer.ClearColor(255,255,255);
@@ -223,8 +243,7 @@ void TestState::Render(const int frame, const float deltaT)
         }
     }
 
-    player->render(renderer, camera);
-    enemy->render(renderer, camera);
+    this->manager->render(renderer, camera);
 
     if(isLayerFG)
     {
@@ -318,9 +337,9 @@ void TestState::Render(const int frame, const float deltaT)
         }
     }
 
-    renderer.setRenderTargetDefault(); //reset draw target
+    //renderer.setRenderTargetDefault(); //reset draw target
 
-    tex->Draw(SDL::Point(0,0), 9); //die textur mit 9 fachem zoom drawen zum testen
+    //tex->Draw(SDL::Point(0,0), 9); //die textur mit 9 fachem zoom drawen zum testen
 
     renderer.Present();
 }

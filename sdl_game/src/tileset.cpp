@@ -20,7 +20,7 @@ void Tileset::Draw(SDL::Point pos, SDL::Point tile)
 
 void Tileset::Draw(SDL::Point pos, int tile)
 {
-    this->Draw(pos, SDL::Point(tile % size.x, tile / size.y));
+    this->Draw(pos, SDL::Point(tile % size.x, tile / size.x));
 }
 
 const Point &Tileset::getSize() const {

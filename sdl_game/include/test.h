@@ -14,6 +14,7 @@
 #include "Player.h"
 #include "Level.h"
 #include "Enemy.h"
+#include <EntityManager.h>
 
 #include <thread>
 
@@ -31,8 +32,12 @@ class TestState : public GameState
     Tileset tileSet;
     Tileset tileSetMap;
 
+    EntityManager *manager;
+
     Player *player;
     Enemy *enemy;
+    Enemy *enemy2;
+    Enemy *enemy3;
 
     InputhandlerKeyboard *inKey = new InputhandlerKeyboard();
 

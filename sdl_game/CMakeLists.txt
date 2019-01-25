@@ -9,7 +9,7 @@ file(GLOB sdl_game_SRC
         "src/*.cpp"
         )
 
-add_executable(sdl_game ${sdl_game_SRC})
+add_executable(sdl_game ${sdl_game_SRC} include/EntityManager.h src/EntityManager.cpp)
 
 include(FindPkgConfig)
 
