@@ -15,6 +15,11 @@
 namespace TTF = SDL::TTF;
 namespace IMG = SDL::IMG;
 
+namespace SDL {
+    namespace C {
+        #include <SDL_mixer.h>
+    }}
+
 using uint = unsigned int;
 using i32 = int32_t;
 using u32 = uint32_t;

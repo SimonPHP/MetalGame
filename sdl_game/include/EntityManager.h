@@ -10,8 +10,7 @@
 
 class EntityManager {
 private:
-    Entity **entityList;
-    int entityCount = 0;
+    std::vector<Entity*> entityList;
 public:
     EntityManager();
     void addEntity(Entity *ent);

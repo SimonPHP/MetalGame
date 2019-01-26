@@ -3,12 +3,9 @@
 //
 
 #include <global.h>
-
 #include <thread>
-
 #include <Entity.h>
 #include "test.h"
-
 #include "Level.h"
 #include <mlh.h>
 #include <math.h>
@@ -50,9 +47,16 @@ void TestState::handleConsole(){
 
 void TestState::Init()
 {
+    this->tex = new SDL::Texture(renderer);
+    this->tex->createBlank(WINDOW_X, WINDOW_Y); //größe bestimmen
+
+    SDL::C::Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
+    this->mus = SDL::C::Mix_LoadMUS("../assets/music/ichtudirweh.mp3");
+    SDL::C::Mix_PlayMusic(this->mus, -1);
+
     font = TTF::Font("../assets/fonts/RobotoSlab-Bold.ttf", 12);
 
-    tileSet = Tileset(IMG::LoadTexture( renderer, "../assets/graphics/platformerPack_character_scaled.png" ));
+    //tileSet = Tileset(IMG::LoadTexture( renderer, "../assets/graphics/platformerPack_character_scaled.png" ));
     //tileSetMap = Tileset(IMG::LoadTexture( renderer, "../assets/graphics/tilesetmetall.png" ), SDL::Point(16,100));
     //tileSetMap = Tileset(IMG::LoadTexture( renderer, "../assets/graphics/1.png" ), SDL::Point(16,38));
 
@@ -80,29 +84,19 @@ void TestState::Init()
     player->setX((spawn.x+1) * TILESIZE);
     player->setY((spawn.y+1) * TILESIZE);
 
-    enemy = new Enemy(tileSetMap);
-    enemy2 = new Enemy(tileSetMap);
-    enemy3 = new Enemy(tileSetMap);
-
-    enemy->setPlayer(player);
-    enemy2->setPlayer(player);
-    enemy3->setPlayer(player);
 
     this->manager = new EntityManager();
 
+    for(int i = 0; i < this->enemyVec.size(); i++)
+    {
+        this->enemyVec[i] = new Enemy(tileSetMap);
+        this->enemyVec[i]->setX(200 + rand()%2000);
+        this->enemyVec[i]->setY(2500 + rand()%500);
+        this->enemyVec[i]->setPlayer(player);
+        this->manager->addEntity(this->enemyVec[i]);
+    }
+
     this->manager->addEntity(player);
-    this->manager->addEntity(enemy);
-    this->manager->addEntity(enemy2);
-    this->manager->addEntity(enemy3);
-
-    enemy->setX(100);
-    enemy->setY(3000);
-
-    enemy2->setX(100);
-    enemy2->setY(3100);
-
-    enemy3->setX(100);
-    enemy3->setY(3200);
 
     t1 = std::thread(&TestState::handleConsole, this);
 }
@@ -112,6 +106,7 @@ void TestState::Uninit()
     font = TTF::Font();
     image = SDL::Texture();
     t1.join();
+    //SDL::C::Mix_Close();
 }
 
 void TestState::Events(const int frame, const float deltaT)
@@ -179,6 +174,29 @@ void TestState::Update(const int frame, const float deltaT)
 
     this->manager->update(deltaT);
 
+    if(player->getCurrentsStateNumber() == 1)
+    {
+        for(int i = 0; i < this->enemyVec.size(); i++)
+        {
+            if(player->checkCollisionWithEntity(*enemyVec[i]))
+            {
+                enemyVec[i]->setX(10000);
+            }
+        }
+    } else
+    {
+        for(int i = 0; i < this->enemyVec.size(); i++)
+        {
+            if(player->checkCollisionWithEntity(*enemyVec[i]))
+            {
+                player->setX(100);
+                player->setY(500);
+            }
+        }
+    }
+
+
+
     /*SDL::Rect p = SDL::Rect(player->getCurrentState()->getHitboxes()[0].x + player->getX(), player->getCurrentState()->getHitboxes()[0].y + player->getY(), player->getCurrentState()->getHitboxes()[0].w, player->getCurrentState()->getHitboxes()[0].h);
     SDL::Rect e = SDL::Rect(enemy->getCurrentState()->getHitboxes()[0].x + enemy->getX(), enemy->getCurrentState()->getHitboxes()[0].y + player->getY(), enemy->getCurrentState()->getHitboxes()[0].w, enemy->getCurrentState()->getHitboxes()[0].h);
 
@@ -197,9 +215,7 @@ void TestState::Update(const int frame, const float deltaT)
 
 void TestState::Render(const int frame, const float deltaT)
 {
-    //SDL::Texture *tex = new SDL::Texture(renderer); //neue textur auf die gerendert werden soll
-    //tex->createBlank(WINDOW_X, WINDOW_Y); //größe bestimmen
-    //tex->setAsRenderTarget(); //als target setzten
+    tex->setAsRenderTarget(); //als target setzten
     //hier sollte man normal rendern können
 
     renderer.ClearColor(255,255,255);
@@ -337,9 +353,7 @@ void TestState::Render(const int frame, const float deltaT)
         }
     }
 
-    //renderer.setRenderTargetDefault(); //reset draw target
-
-    //tex->Draw(SDL::Point(0,0), 9); //die textur mit 9 fachem zoom drawen zum testen
-
+    renderer.setRenderTargetDefault(); //reset draw target
+    tex->Draw(SDL::Point(0,0));
     renderer.Present();
 }

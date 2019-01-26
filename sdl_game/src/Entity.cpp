@@ -12,22 +12,10 @@
  * @param h
  * @return EntityState*
  */
-EntityState *Entity::addState(uint32_t w, uint32_t h) {
-
+uint32_t Entity::addState(uint32_t w, uint32_t h) {
     EntityState *newState = new EntityState(w, h);
-
-    EntityState *tmpStateSet = new EntityState[this->maxStates];
-    for(uint32_t i = 0; i < this->maxStates; i++)
-        tmpStateSet[i] = this->stateSet[i]; //save old states
-
-    this->maxStates++; //inc
-    this->stateSet = new EntityState[this->maxStates];
-
-    for(uint32_t i = 0; i < this->maxStates-1; i++)
-        this->stateSet[i] = tmpStateSet[i]; //restore states
-    this->stateSet[this->maxStates-1] = *newState; //plus new state
-
-    return newState;
+    stateSet.emplace_back(newState);
+    return (uint32_t)(stateSet.size()-1);
 }
 
 /*!
@@ -35,19 +23,17 @@ EntityState *Entity::addState(uint32_t w, uint32_t h) {
  * @return EntityState
  */
 EntityState *Entity::getCurrentState() {
-    return &(this->stateSet[currentState]);
+    return this->stateSet[currentState];
 }
 
 /*!
  * returns the entityState on the given index
  * @param i
  * @return EntityState
- * @throw out of bounds error
+ * @throw std::out_of_range
  */
-EntityState *Entity::getState(uint32_t i) {
-    if(i < this->maxStates)
-        return &(this->stateSet[i]);
-    throw std::invalid_argument("out of bounds in stateSet");
+EntityState *Entity::getStateAt(uint32_t i) {
+    return (this->stateSet.at(i));
 }
 
 /*!
@@ -55,7 +41,7 @@ EntityState *Entity::getState(uint32_t i) {
  * @return w
  */
 int Entity::getW() const {
-    return this->stateSet[currentState].getW();
+    return this->stateSet[currentState]->getW();
 }
 
 /*!
@@ -63,7 +49,7 @@ int Entity::getW() const {
  * @return h
  */
 int Entity::getH() const {
-    return this->stateSet[currentState].getH();
+    return this->stateSet[currentState]->getH();
 }
 
 //TODO overthink collision
@@ -103,11 +89,11 @@ void Entity::setY(float y) {
     Entity::y = y;
 }
 
-uint32_t Entity::getCurrentState() const {
-    return currentState;
-}
-
 void Entity::setCurrentState(uint32_t currentState) {
     Entity::currentState = currentState;
+}
+
+uint32_t Entity::getCurrentsStateNumber() const {
+    return currentState;
 }
 

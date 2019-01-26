@@ -21,33 +21,16 @@ Enemy::Enemy(Tileset tileset) {
 
     unsigned int t1 = 500; //500ms
 
-    this->getState(0)->createAnimation(tileset);
-
-    this->getState(0)->getAnimation()->addAnimationFrame(t1);
-    this->getState(0)->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(0,0), SDL::Point(7,13));
-    this->getState(0)->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(1,0), SDL::Point(8,13));
-    this->getState(0)->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(2,0), SDL::Point(9,13));
-
-    this->getState(0)->getAnimation()->addAnimationFrame(t1);
-    this->getState(0)->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(0,0), SDL::Point(10,13));
-    this->getState(0)->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(1,0), SDL::Point(11,13));
-    this->getState(0)->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(2,0), SDL::Point(12,13));
+    this->getStateAt(0)->createAnimation(tileset);
+    this->getStateAt(0)->getAnimation()->addAnimation(SDL::Point(0,0), SDL::Point(7,13), t1, 2);
 
     t1 = 100;
 
-    this->getState(1)->createAnimation(tileset);
+    this->getStateAt(1)->createAnimation(tileset);
+    this->getStateAt(1)->getAnimation()->addAnimation(SDL::Point(0,0), SDL::Point(7,13), t1, 2);
 
-    this->getState(1)->getAnimation()->addAnimationFrame(t1);
-    this->getState(1)->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(0,0), SDL::Point(7,13));
-    this->getState(1)->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(1,0), SDL::Point(8,13));
-    this->getState(1)->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(2,0), SDL::Point(9,13));
 
-    this->getState(1)->getAnimation()->addAnimationFrame(t1);
-    this->getState(1)->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(0,0), SDL::Point(10,13));
-    this->getState(1)->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(1,0), SDL::Point(11,13));
-    this->getState(1)->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(2,0), SDL::Point(12,13));
-
-    this->getState(1)->addHitbox(SDL::Rect(0,0,48,16));
+    this->getStateAt(1)->addHitbox(SDL::Rect(0,0,48,16));
 }
 
 
@@ -63,45 +46,46 @@ void Enemy::render(SDL::Renderer &renderer, SDL::Point camera) {
 void Enemy::update(const float deltaT) {
     this->getCurrentState()->update();
 
-    double maxAbstand = 300;
+    switch(this->currentState){
+        case 0:
+        {
+            double maxAbstand = 300;
+            double abstand = sqrt(pow((this->p->getX() - this->getX()), 2) + pow((this->p->getY() - this->getY()), 2));
+            if(abstand < maxAbstand)
+                this->setCurrentState(1);
 
-    double abstand = sqrt(pow((this->p->getX() - this->getX()), 2) + pow((this->p->getY() - this->getY()), 2));
-
-    if((this->currentState != 1) && (abstand < maxAbstand))
-    {
-        //this->currentAccX += (((abstand*abstand)/2000) + 20);
-        //this->currentAccY += (((abstand*abstand)/2000) + 20);
-        this->setCurrentState(1);
-    }
-
-    if(this->currentState == 1)
-    {
-        this->currentAccX -= (this->getX()-this->getPlayer()->getX())*deltaT;
-        this->currentAccY -= (this->getY()-this->getPlayer()->getY())*deltaT;
-    }
-    else {
-        if (walkRight) {
-            if (this->currentAccX < 120) {
-                this->currentAccX += speed * deltaT;
-            } else {
-                walkLeft = true;
-                walkRight = false;
+            if (walkRight) {
+                if (this->currentAccX < 120) {
+                    this->currentAccX += speed * deltaT;
+                    this->currentAccY = sin(this->currentAccX)*speed;
+                } else {
+                    walkLeft = true;
+                    walkRight = false;
+                }
             }
-        }
-        if (walkLeft) {
-            if (this->currentAccX > -120) {
-                this->currentAccX -= speed * deltaT;
-            } else {
-                walkLeft = false;
-                walkRight = true;
+            if (walkLeft) {
+                if (this->currentAccX > -120) {
+                    this->currentAccX -= speed * deltaT;
+                    this->currentAccY = sin(this->currentAccX)*speed;
+                } else {
+                    walkLeft = false;
+                    walkRight = true;
+                }
             }
+            break;
+        }
+        case 1:
+        {
+            this->currentAccX -= (this->getX()-this->getPlayer()->getX())*deltaT;
+            this->currentAccY -= (this->getY()-this->getPlayer()->getY())*deltaT;
+
+            if( abs(currentAccX) > 200)
+                currentAccX = (std::signbit(currentAccX)?-1:1)*200;
+            if( abs(currentAccY) > 200)
+                currentAccY = (std::signbit(currentAccY)?-1:1) *200;
+            break;
         }
     }
-
-    if( abs(currentAccX) > 200)
-        currentAccX = (std::signbit(currentAccX)?-1:1)*200;
-    if( abs(currentAccY) > 200)
-        currentAccY = (std::signbit(currentAccY)?-1:1) *200;
 
     this->x += currentAccX * deltaT;
     this->y += currentAccY * deltaT;

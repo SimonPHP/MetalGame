@@ -149,7 +149,7 @@ void TileSetSelector::events(SDL::Event evt) {
             {
                 isHover = true;
                 SDL::Point tmpMouse = SDL::Point(evt.MouseMotion().x - this->rect.x, evt.MouseMotion().y - this->rect.y);
-                hover = SDL::Point(tmpMouse.x/tileset.getRealSize().x, tmpMouse.y/tileset.getRealSize().y); //transform into SDL::Point for right tile
+                //hover = SDL::Point(tmpMouse.x/tileset.getRealSize().x, tmpMouse.y/tileset.getRealSize().y); //transform into SDL::Point for right tile
             }
             break;
         }
@@ -175,14 +175,14 @@ void TileSetSelector::render(SDL::Renderer &renderer) {
             {
                 if(isHover)
                     if(SDL::Point(x, y) == hover)
-                        renderer.DrawRect(SDL::Rect(this->getRect().x + x* tileset.getRealSize().x , this->getRect().y + y*tileset.getRealSize().y, tileset.getRealSize().x, tileset.getRealSize().y));
-                this->tileset.Draw(SDL::Point(this->getRect().x + x* tileset.getRealSize().x , this->getRect().y + y*tileset.getRealSize().y), SDL::Point(x, y));
+                        //renderer.DrawRect(SDL::Rect(this->getRect().x + x* tileset.getRealSize().x , this->getRect().y + y*tileset.getRealSize().y, tileset.getRealSize().x, tileset.getRealSize().y));
+                //this->tileset.Draw(SDL::Point(this->getRect().x + x* tileset.getRealSize().x , this->getRect().y + y*tileset.getRealSize().y), SDL::Point(x, y));
                 if(isSelected)
                 {
                     if(SDL::Point(x, y) == selection)
                     {
                         renderer.SetDrawColor(Color(255, 0, 0));
-                        renderer.DrawRect(SDL::Rect(this->getRect().x + x* tileset.getRealSize().x , this->getRect().y + y*tileset.getRealSize().y, tileset.getRealSize().x, tileset.getRealSize().y));
+                  //      renderer.DrawRect(SDL::Rect(this->getRect().x + x* tileset.getRealSize().x , this->getRect().y + y*tileset.getRealSize().y, tileset.getRealSize().x, tileset.getRealSize().y));
                         renderer.SetDrawColor(Color(0, 0, 0));
                     }
                 }
@@ -193,7 +193,7 @@ void TileSetSelector::render(SDL::Renderer &renderer) {
 
 void TileSetSelector::setTileset(const Tileset &tileset) {
     TileSetSelector::tileset = tileset;
-    this->setRect(SDL::Rect(this->rect.x, this->rect.y, tileset.getSize().x * tileset.getRealSize().x, tileset.getSize().y * tileset.getRealSize().y));
+    //this->setRect(SDL::Rect(this->rect.x, this->rect.y, tileset.getSize().x * tileset.getRealSize().x, tileset.getSize().y * tileset.getRealSize().y));
     isSet = true;
 }
 

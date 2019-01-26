@@ -19,68 +19,57 @@ Player::Player(Tileset tileset) {
     gravity = 1000;
     jumpHeight = -800;
 
-    this->addState(2, 2); //state 0 //groesse des Spielers.
-    this->addState(2, 2); //state 1
+    collidedWithEntity = false;
+
+    this->addState(2, 2); //state 0 stehen
+    this->addState(2, 2); //state 1 rechts laufen
+    this->addState(2, 2); //state 2 links laufen
+    this->addState(2, 2); //state 3 springen
+    this->addState(2, 2); //state 4 kicken
 
     unsigned int t1 = 500; //500ms
 
-    this->getState(0)->createAnimation(tileset); //animation mit tileset erstellen
+    this->getStateAt(0)->createAnimation(tileset);
+    this->getStateAt(0)->getAnimation()->addAnimation(SDL::Point(0,0), SDL::Point(0,9), t1, 3);
 
-    this->getState(0)->getAnimation()->addAnimationFrame(t1); //einen animationsframe hinzufügen
-    this->getState(0)->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(0,0), SDL::Point(0,7)); //ersten teil des animationsframes
-    this->getState(0)->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(0,1), SDL::Point(0,8));
-    this->getState(0)->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(1,0), SDL::Point(1,7));
-    this->getState(0)->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(1,1), SDL::Point(1,8));
+    this->getStateAt(1)->createAnimation(tileset);
+    this->getStateAt(1)->getAnimation()->addAnimation(SDL::Point(0,0), SDL::Point(0,11), t1, 6);
 
-    this->getState(0)->getAnimation()->addAnimationFrame(t1);
-    this->getState(0)->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(0,0), SDL::Point(2,7));
-    this->getState(0)->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(0,1), SDL::Point(2,8));
-    this->getState(0)->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(1,0), SDL::Point(3,7));
-    this->getState(0)->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(1,1), SDL::Point(3,8));
+    this->getStateAt(2)->createAnimation(tileset);
+    this->getStateAt(2)->getAnimation()->addAnimation(SDL::Point(0,0), SDL::Point(0,17), t1, 6);
 
-    this->getState(0)->getAnimation()->addAnimationFrame(t1);
-    this->getState(0)->getAnimation()->getAnimationFrames()[2].addSpritePoint(SDL::Point(0,0), SDL::Point(4,7));
-    this->getState(0)->getAnimation()->getAnimationFrames()[2].addSpritePoint(SDL::Point(0,1), SDL::Point(4,8));
-    this->getState(0)->getAnimation()->getAnimationFrames()[2].addSpritePoint(SDL::Point(1,0), SDL::Point(5,7));
-    this->getState(0)->getAnimation()->getAnimationFrames()[2].addSpritePoint(SDL::Point(1,1), SDL::Point(5,8));
+    this->getStateAt(3)->createAnimation(tileset);
+    this->getStateAt(3)->getAnimation()->addAnimation(SDL::Point(0,0), SDL::Point(0,19), t1, 6);
 
-    this->getState(0)->getAnimation()->addAnimationFrame(t1);
-    this->getState(0)->getAnimation()->getAnimationFrames()[3].addSpritePoint(SDL::Point(0,0), SDL::Point(2,7));
-    this->getState(0)->getAnimation()->getAnimationFrames()[3].addSpritePoint(SDL::Point(0,1), SDL::Point(2,8));
-    this->getState(0)->getAnimation()->getAnimationFrames()[3].addSpritePoint(SDL::Point(1,0), SDL::Point(3,7));
-    this->getState(0)->getAnimation()->getAnimationFrames()[3].addSpritePoint(SDL::Point(1,1), SDL::Point(3,8));
+    this->getStateAt(4)->createAnimation(tileset); //animation mit tileset erstellen
+    this->getStateAt(4)->getAnimation()->addAnimation(SDL::Point(0,0), SDL::Point(0,7), t1, 3);
+    int a = this->getStateAt(4)->getAnimation()->addAnimationFrame(t1);
+    this->getStateAt(4)->getAnimation()->getAnimationFrame(a).addSprites(SDL::Point(0,0), SDL::Point(2,7)); //extra frame
 
-    this->getState(0)->addHitbox(SDL::Rect(0,0,16,16)); //hitboxen sind nicht ans grid gebunden
-    this->getState(0)->addHitbox(SDL::Rect(16,0,16,16));
-    this->getState(0)->addHitbox(SDL::Rect(0,16,16,16));
-    this->getState(0)->addHitbox(SDL::Rect(16,16,16,16));
+    this->getStateAt(0)->addHitbox(SDL::Rect(0,0,16,16)); //hitboxen sind nicht ans grid gebunden
+    this->getStateAt(0)->addHitbox(SDL::Rect(16,0,16,16));
+    this->getStateAt(0)->addHitbox(SDL::Rect(0,16,16,16));
+    this->getStateAt(0)->addHitbox(SDL::Rect(16,16,16,16));
 
-    //next state
-    this->getState(1)->createAnimation(tileset);
+    this->getStateAt(1)->addHitbox(SDL::Rect(0,0,16,16));
+    this->getStateAt(1)->addHitbox(SDL::Rect(16,0,16,16));
+    this->getStateAt(1)->addHitbox(SDL::Rect(0,16,16,16));
+    this->getStateAt(1)->addHitbox(SDL::Rect(16,16,16,16));
 
-    this->getState(1)->getAnimation()->addAnimationFrame(t1);
-    this->getState(1)->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(0,0), SDL::Point(0,9));
-    this->getState(1)->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(0,1), SDL::Point(0,10));
-    this->getState(1)->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(1,0), SDL::Point(1,9));
-    this->getState(1)->getAnimation()->getAnimationFrames()[0].addSpritePoint(SDL::Point(1,1), SDL::Point(1,10));
+    this->getStateAt(2)->addHitbox(SDL::Rect(0,0,16,16));
+    this->getStateAt(2)->addHitbox(SDL::Rect(16,0,16,16));
+    this->getStateAt(2)->addHitbox(SDL::Rect(0,16,16,16));
+    this->getStateAt(2)->addHitbox(SDL::Rect(16,16,16,16));
 
-    this->getState(1)->getAnimation()->addAnimationFrame(t1);
-    this->getState(1)->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(0,0), SDL::Point(2,9));
-    this->getState(1)->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(0,1), SDL::Point(2,10));
-    this->getState(1)->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(1,0), SDL::Point(3,9));
-    this->getState(1)->getAnimation()->getAnimationFrames()[1].addSpritePoint(SDL::Point(1,1), SDL::Point(3,10));
+    this->getStateAt(3)->addHitbox(SDL::Rect(0,0,16,16));
+    this->getStateAt(3)->addHitbox(SDL::Rect(16,0,16,16));
+    this->getStateAt(3)->addHitbox(SDL::Rect(0,16,16,16));
+    this->getStateAt(3)->addHitbox(SDL::Rect(16,16,16,16));
 
-    this->getState(1)->getAnimation()->addAnimationFrame(t1);
-    this->getState(1)->getAnimation()->getAnimationFrames()[2].addSpritePoint(SDL::Point(0,0), SDL::Point(4,9));
-    this->getState(1)->getAnimation()->getAnimationFrames()[2].addSpritePoint(SDL::Point(0,1), SDL::Point(4,10));
-    this->getState(1)->getAnimation()->getAnimationFrames()[2].addSpritePoint(SDL::Point(1,0), SDL::Point(5,9));
-    this->getState(1)->getAnimation()->getAnimationFrames()[2].addSpritePoint(SDL::Point(1,1), SDL::Point(5,10));
-
-    this->getState(1)->addHitbox(SDL::Rect(0,0,16,16));
-    this->getState(1)->addHitbox(SDL::Rect(16,0,16,16));
-    this->getState(1)->addHitbox(SDL::Rect(0,16,16,16));
-    this->getState(1)->addHitbox(SDL::Rect(16,16,16,16));
-    
+    this->getStateAt(4)->addHitbox(SDL::Rect(0,0,16,16));
+    this->getStateAt(4)->addHitbox(SDL::Rect(16,0,16,16));
+    this->getStateAt(4)->addHitbox(SDL::Rect(0,16,16,16));
+    this->getStateAt(4)->addHitbox(SDL::Rect(16,16,16,16));
 }
 
 void Player::events(SDL::Event evt, const float deltaT) {
@@ -145,7 +134,7 @@ void Player::checkCollisionWithLevel(Level &level, const float deltaT) {
     uint32_t nextX = (uint32_t)((this->x + moveX));
     uint32_t nextY = (uint32_t)((this->y + moveY));
 
-    for(uint32_t i = 0; i < this->getCurrentState()->getHitboxesCount(); i++)
+    for(uint32_t i = 0; i < this->getCurrentState()->getHitboxes().size(); i++)
     {
         SDL::Rect curHitbox = this->getCurrentState()->getHitboxes()[i];
 
@@ -205,17 +194,28 @@ void Player::checkCollisionWithLevel(Level &level, const float deltaT) {
             this->collisionState.right = true;
         if(pos4Col && (moveX > 0))
             this->collisionState.right = true;
-
-
-        /*if((((int)this->y % 16) == 0))
-        {
-            if(pos3Col && level.ppointLayerAttributes[pos3.x][pos3.y-1] != 0)
-                this->collisionState.left = false;
-            if(pos4Col && level.ppointLayerAttributes[pos4.x][pos4.y-1] != 0)
-                this->collisionState.right = false;
-        }*/
-
     }
+}
+
+bool Player::checkCollisionWithEntity(Entity &entity)
+{
+    for(int i = 0; i < this->getCurrentState()->getHitboxes().size(); i++)
+    {
+        this->getCurrentState()->getRelhitboxes()[i].x = this->getCurrentState()->getHitboxes()[i].x + this->getX();
+        this->getCurrentState()->getRelhitboxes()[i].y = this->getCurrentState()->getHitboxes()[i].y + this->getY();
+    }
+
+    int c = 0;
+    for(int i = 0; i < this->getCurrentState()->getHitboxes().size(); i++)
+    {
+        for(int j = 0; j < entity.getCurrentState()->getHitboxes().size(); j++)
+        {
+            SDL::Rect ent = SDL::Rect(entity.getCurrentState()->getHitboxes()[j].x + entity.getX(), entity.getCurrentState()->getHitboxes()[j].y + entity.getY(), entity.getCurrentState()->getHitboxes()[j].w, entity.getCurrentState()->getHitboxes()[j].h);
+            c += this->getCurrentState()->getRelhitboxes()[i].CollidesWith(ent);
+        }
+    }
+    this->collidedWithEntity = (c > 0);
+    return (c > 0);
 }
 
 void Player::update(const float deltaT) {
@@ -223,11 +223,19 @@ void Player::update(const float deltaT) {
 
     if(walkLeft)
     {
-        this->setCurrentState(0);
+        this->setCurrentState(2);
     }
     if(walkRight)
     {
         this->setCurrentState(1);
+    }
+
+    switch(this->currentState)
+    {
+        case 0:
+        {
+            break;
+        }
     }
 
     if(walkLeft && this->collisionState.left)
@@ -282,7 +290,7 @@ void Player::update(const float deltaT) {
             else
             {
                 gettimeofday(&this->curTime, NULL);
-                if(timercmp(&this->curTime, &this->doubleJumpTimer, >)) //wenn currenttime > doubleJumpTimer
+                if(timercmp(&this->curTime, &this->doubleJumpTimer, >)) //wenn currenttime > doubleJumpTimer //TODO auf SDL TICK umbauen
                 {
                     this->isDoubleJumping = true;
                     timeradd(&this->curTime, &this->doubleJumpTimerTime, &this->doubleJumpTimer); //calc next Frame time

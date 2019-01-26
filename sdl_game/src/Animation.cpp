@@ -3,7 +3,6 @@
 //
 
 #include <Animation.h>
-#include <sys/time.h>
 
 #include "Animation.h"
 
@@ -39,8 +38,8 @@ void Animation::update() {
 
     if(curTime > nextAnimationTime) //wenn currenttime > nextAnimationTime
     {
-        this->currentAnimation = (this->currentAnimation + 1) % this->animationCount; //loop the animationFrames
-        nextAnimationTime = curTime+this->getAnimationFrames()[currentAnimation].getTime();
+        this->currentAnimation = (this->currentAnimation + 1) % (this->animationFrames.size()); //loop the animationFrames
+        nextAnimationTime = curTime+this->getAnimationFrame(currentAnimation).getTime();
     }
 }
 
@@ -49,39 +48,41 @@ void Animation::update() {
  * @param pos
  */
 void Animation::draw(SDL::Point pos) {
-    this->animationFrames[currentAnimation].draw(pos);
+    this->getAnimationFrame(currentAnimation).draw(pos);
 }
 
-AnimationFrame *Animation::addAnimationFrame(unsigned int time) {
-
+uint32_t Animation::addAnimationFrame(unsigned int time) {
     AnimationFrame *newAnimationFrame = new AnimationFrame(this->tileset, this->w, this->h, time);
-
-    AnimationFrame *tmpAnimationFrameSet = new AnimationFrame[this->animationCount];
-    for(uint32_t i = 0; i < this->animationCount; i++)
-        tmpAnimationFrameSet[i] = this->animationFrames[i]; //save old states
-
-    this->animationCount++;
-    this->animationFrames = new AnimationFrame[this->animationCount]; //new array
-
-    for(uint32_t i = 0; i < this->animationCount-1; i++)
-        this->animationFrames[i] = tmpAnimationFrameSet[i]; //restore states
-    this->animationFrames[this->animationCount-1] = *newAnimationFrame; //plus new state
-
-    return newAnimationFrame;
+    this->animationFrames.emplace_back(newAnimationFrame);
+    return (uint32_t)(this->animationFrames.size()-1);
 }
 
 Animation::~Animation() {
     printf("kille nun animation %p\n", this);
 }
 
-AnimationFrame *Animation::getAnimationFrames() const {
+const std::vector<AnimationFrame *> &Animation::getAnimationFrames() const {
     return animationFrames;
+}
+
+void Animation::addAnimation(SDL::Point gridPos, SDL::Point tilePos, int time, int count) {
+
+    for(int i = tilePos.x, currentAnim = 0; i < tilePos.x + (w*count); i+= w, currentAnim++)
+    {
+        this->addAnimationFrame(time);
+        this->getAnimationFrame(currentAnim).addSprites(SDL::Point(gridPos.x,gridPos.y), SDL::Point(i, tilePos.y));
+        //printf("%d\n", tilePos.x); //wegen dieser ausgabe bewegt sich der spieler überhaupt im state wtf???
+    }
 }
 
 
 //AnimationFrame Class
 
 AnimationFrame::AnimationFrame() {}
+
+AnimationFrame &Animation::getAnimationFrame(uint32_t frame) const {
+    return *animationFrames[frame];
+}
 
 /*!
  * Alloc memory for the sprites[][] the Player ist represented with
@@ -98,18 +99,16 @@ AnimationFrame::AnimationFrame() {}
  * @param time
  */
 AnimationFrame::AnimationFrame(Tileset &tileset, uint32_t w, uint32_t h, unsigned int time) : tileset(tileset), w(w), h(h), time(time) {
-    this->sprites = new SDL::Point*[this->w];
-    for(uint32_t i = 0; i < this->w; ++i)
-        this->sprites[i] = new SDL::Point[this->h]; //init dynamic array
+    this->sprites.resize(w, std::vector<SDL::Point>(h, SDL::Point(0,0)));
 }
-
 /*!
- * Adds an SDL::Point in the sprites[][] Array
+ * Adds an SDL::Point in the sprites[][] Vector
  * @param gridPos
  * @param tilePos
  */
 void AnimationFrame::addSpritePoint(SDL::Point gridPos, SDL::Point tilePos) {
     this->sprites[gridPos.x][gridPos.y] = tilePos;
+    //printf("");
 }
 
 /*!
@@ -117,24 +116,27 @@ void AnimationFrame::addSpritePoint(SDL::Point gridPos, SDL::Point tilePos) {
  * @param pos
  */
 void AnimationFrame::draw(SDL::Point pos) {
-    //TODO draw the entiere sprites[][] starting at the top left
-
     for(int i = 0; i < (int)this->w; i++)
     {
         for(int j = 0; j < (int)this->h; j++)
         {
-            SDL::Point p = this->sprites[i][j];
             tileset.Draw(pos + SDL::Point(i * 16, j * 16), sprites[i][j]);
         }
     }
 }
 
-AnimationFrame::~AnimationFrame() {
-    printf("kille nun animationframe %p\n", this);
-}
+AnimationFrame::~AnimationFrame() {}
 
 unsigned int AnimationFrame::getTime() const {
     return time;
+}
+
+void AnimationFrame::addSprites(SDL::Point gridPos, SDL::Point tilePos) {
+    for(int i = gridPos.x, Ti = tilePos.x; i < gridPos.x + w; i++, Ti++)
+    {
+        for(int j = gridPos.y, Tj = tilePos.y; j < gridPos.y + h; j++, Tj++)
+            this->addSpritePoint(SDL::Point(i,j), SDL::Point(Ti, Tj));
+    }
 }
 
 

@@ -39,12 +39,9 @@ int EntityState::getH() const {
  * @param pos
  */
 void EntityState::render(SDL::Renderer &renderer, SDL::Point pos) {
-
     renderer.SetDrawColor(Color(74, 168, 114, 128));
-
-    for(uint32_t i = 0; i < hitboxesCount; i++)
-        renderer.FillRect(SDL::Rect( pos.x + 16*hitboxes[i].x, pos.y + 16*hitboxes[i].y, 16, 16));
-
+    for(uint32_t i = 0; i < this->hitboxes.size(); i++)
+        renderer.FillRect(SDL::Rect( pos.x + hitboxes[i].x, pos.y + hitboxes[i].y, hitboxes[i].w, hitboxes[i].h));
     this->animation->draw(pos);
 }
 
@@ -64,17 +61,8 @@ Animation *EntityState::getAnimation() const {
 
 void EntityState::addHitbox(SDL::Rect rect)
 {
-    SDL::Rect *oldHitboxes;
-    oldHitboxes = new SDL::Rect[this->hitboxesCount];
-    for(uint32_t i = 0; i < this->hitboxesCount; i++)
-        oldHitboxes[i] = this->hitboxes[i]; //save old hitboxes
-
-    this->hitboxesCount++;
-    this->hitboxes = new SDL::Rect[this->hitboxesCount];
-
-    for(uint32_t i = 0; i < this->hitboxesCount-1; i++)
-        this->hitboxes[i] = oldHitboxes[i]; //restore old hitboxes
-    this->hitboxes[this->hitboxesCount-1] = rect;
+    hitboxes.emplace_back(rect);
+    relhitboxes.emplace_back(rect);
 }
 
 Point *EntityState::getCollisionCheckPoints() const {
@@ -85,10 +73,10 @@ uint32_t EntityState::getCollisionCheckPointsCount() const {
     return collisionCheckPointsCount;
 }
 
-Rect *EntityState::getHitboxes() const {
+const std::vector<Rect> &EntityState::getHitboxes() const {
     return hitboxes;
 }
 
-uint32_t EntityState::getHitboxesCount() const {
-    return hitboxesCount;
+std::vector<Rect> &EntityState::getRelhitboxes() {
+    return relhitboxes;
 }

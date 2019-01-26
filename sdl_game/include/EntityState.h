@@ -14,8 +14,11 @@ class EntityState
 private:
     Animation *animation;
     uint32_t w, h; //TODO const??
-    SDL::Rect *hitboxes;
-    uint32_t hitboxesCount = 0;
+
+    std::vector<SDL::Rect> hitboxes;
+    std::vector<SDL::Rect> relhitboxes;
+
+private:
 
     SDL::Point *collisionCheckPoints; //TODO needed??
     uint32_t collisionCheckPointsCount = 0; //TODO needed??
@@ -23,9 +26,8 @@ private:
 public:
     Animation *getAnimation() const;
 
-    Rect *getHitboxes() const;
-
-    uint32_t getHitboxesCount() const;
+    const std::vector<Rect> &getHitboxes() const;
+    std::vector<Rect> &getRelhitboxes();
 
     EntityState();
     ~EntityState();

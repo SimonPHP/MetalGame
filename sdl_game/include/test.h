@@ -21,6 +21,7 @@
 #include <iostream>
 #include <SDL_types.h>
 
+
 class TestState : public GameState
 {
     using GameState::GameState;
@@ -32,16 +33,18 @@ class TestState : public GameState
     Tileset tileSet;
     Tileset tileSetMap;
 
+    SDL::C::Mix_Music* mus = NULL;
+
     EntityManager *manager;
 
     Player *player;
-    Enemy *enemy;
-    Enemy *enemy2;
-    Enemy *enemy3;
+
+    std::vector<Enemy*> enemyVec = std::vector<Enemy*>(300);
 
     InputhandlerKeyboard *inKey = new InputhandlerKeyboard();
 
     Level *lev;
+    SDL::Texture *tex;
 
     SDL::Point camera = SDL::Point(0,0);
 
@@ -60,6 +63,8 @@ class TestState : public GameState
     std::thread t1;
 
 public:
+
+
 
     void handleConsole();
 

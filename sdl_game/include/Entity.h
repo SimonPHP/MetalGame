@@ -18,44 +18,31 @@
 
 class Entity{
 protected:
-    //std::vector<EntityState *> stateSet;
-    //std::vector<EntityState *>::iterator currentState;
-
-    EntityState *stateSet;
-    uint32_t currentState = 0; //pos of currentState
-    uint32_t maxStates = 0;
+    std::vector<EntityState*> stateSet;
+    uint32_t currentState = 0;
+    float x, y;
 public:
-    uint32_t getCurrentState() const;
-
+    uint32_t addState(uint32_t w, uint32_t h);
+    uint32_t getCurrentsStateNumber() const;
     void setCurrentState(uint32_t currentState);
 
-protected:
-
-    float x, y;
-
-public:
-    struct {
-        bool set, left, right, up, down;
-    }collisionState;
-
-    virtual void checkCollisionWithLevel(Level &level, const float deltaT) = 0;
     virtual void update(const float deltaT) = 0;
     virtual void render(SDL::Renderer &renderer, SDL::Point camera) = 0;
 
-    EntityState* addState(uint32_t w, uint32_t h);
-
     EntityState* getCurrentState();
-    EntityState* getState(uint32_t i);
+    EntityState* getStateAt(uint32_t i);
+
+    int getW() const; //from currentState
+    int getH() const; //from currentState
 
     float getX() const;
     void setX(float x);
     float getY() const;
     void setY(float y);
 
-    struct collisionState getCollisionState();
-
-    int getW() const; //from currentState
-    int getH() const; //from currentState
+    struct {
+        bool set, left, right, up, down;
+    }collisionState;
 
     void setCollisionLeft();
     void setCollisionRight();

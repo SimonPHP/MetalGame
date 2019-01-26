@@ -42,6 +42,11 @@ public:
     EntityState *tmpState;
     Animation *tmpAnimation;
     AnimationFrame *tmpFrame;
+    std::vector<Entity*> collidedWith = std::vector<Entity*>(1000);
+    std::vector<Entity*>::iterator it;
+    bool collidedWithEntity;
+
+    bool checkCollisionWithEntity(Entity &entity);
 
     Player();
 
