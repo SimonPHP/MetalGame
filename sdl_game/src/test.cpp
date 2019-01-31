@@ -11,6 +11,7 @@
 #include <math.h>
 
 #define TILESIZE 16
+#define ZOOM 1.2
 
 void TestState::handleConsole(){
     std::cout << "DEV CONSOLE" << std::endl;
@@ -65,7 +66,7 @@ void TestState::Init()
     Texture tex = Texture(renderer, SDL::C::SDL_CreateTextureFromSurface(renderer, surf));
     tileSetMap = Tileset(tex);
 
-    lev = new Level("8.map");
+    lev = new Level("9.map");
     lev->processLevelwithTileset(tileSetMap);
 
     SDL::Point spawn = SDL::Point(0, 0);
@@ -74,26 +75,40 @@ void TestState::Init()
     {
         for(uint32_t x = 0; x < lev->getWidth(); x++)
         {
-            if (lev->ppointLayerAttributes[x][y] == 1)
+            if (lev->ppointLayerAttributes[x][y] == 3)
                 spawn = SDL::Point(x, y);
         }
     }
 
     player = new Player(tileSetMap);
 
+    player->setLevel(*lev);
+
     player->setX((spawn.x+1) * TILESIZE);
     player->setY((spawn.y+1) * TILESIZE);
-
 
     this->manager = new EntityManager();
 
     for(int i = 0; i < this->enemyVec.size(); i++)
     {
         this->enemyVec[i] = new Enemy(tileSetMap);
-        this->enemyVec[i]->setX(200 + rand()%2000);
-        this->enemyVec[i]->setY(2500 + rand()%500);
+        this->enemyVec[i]->setX(20000);
+        this->enemyVec[i]->setY(50000);
         this->enemyVec[i]->setPlayer(player);
         this->manager->addEntity(this->enemyVec[i]);
+    }
+
+    for(uint32_t y = 0; y < lev->getHeigth(); y++)
+    {
+        for(uint32_t x = 0; x < lev->getWidth(); x++)
+        {
+            if (lev->ppointLayerAttributes[x][y] == 1)
+            {
+                this->enemyVec[curEnemyPos]->setX(x*16);
+                this->enemyVec[curEnemyPos]->setY(y*16);
+                curEnemyPos++;
+            }
+        }
     }
 
     this->manager->addEntity(player);
@@ -164,7 +179,7 @@ void TestState::Events(const int frame, const float deltaT)
 */
     }
 
-    player->checkCollisionWithLevel(*lev, deltaT);
+    //player->checkCollisionWithLevel(*lev, deltaT);
 }
 
 void TestState::Update(const int frame, const float deltaT)
@@ -174,13 +189,14 @@ void TestState::Update(const int frame, const float deltaT)
 
     this->manager->update(deltaT);
 
-    if(player->getCurrentsStateNumber() == 1)
+    if(player->getCurrentsStateNumber() == 4)
     {
         for(int i = 0; i < this->enemyVec.size(); i++)
         {
             if(player->checkCollisionWithEntity(*enemyVec[i]))
             {
                 enemyVec[i]->setX(10000);
+                player->exp++;
             }
         }
     } else
@@ -189,8 +205,15 @@ void TestState::Update(const int frame, const float deltaT)
         {
             if(player->checkCollisionWithEntity(*enemyVec[i]))
             {
-                player->setX(100);
-                player->setY(500);
+                player->setHealth(player->getHealth()-1);
+
+                if(player->getHealth() == 0)
+                {
+                    player->setX(100);
+                    player->setY(500);
+                    player->setHealth(100);
+                }
+
             }
         }
     }
@@ -208,8 +231,8 @@ void TestState::Update(const int frame, const float deltaT)
     //player->setX(mouseX); //only debug
     //player->setY(mouseY);
 
-    camera.x = player->getX() - WINDOW_X/2;
-    camera.y = player->getY() - WINDOW_Y/2;
+    camera.x = player->getX() - WINDOW_X/(ZOOM*2);
+    camera.y = player->getY() - WINDOW_Y/(ZOOM*2);
 
 }
 
@@ -354,6 +377,6 @@ void TestState::Render(const int frame, const float deltaT)
     }
 
     renderer.setRenderTargetDefault(); //reset draw target
-    tex->Draw(SDL::Point(0,0));
+    tex->Draw(SDL::Point(0,0), ZOOM);
     renderer.Present();
 }

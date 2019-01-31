@@ -39,7 +39,8 @@ class TestState : public GameState
 
     Player *player;
 
-    std::vector<Enemy*> enemyVec = std::vector<Enemy*>(300);
+    std::vector<Enemy*> enemyVec = std::vector<Enemy*>(100);
+    int curEnemyPos = 0;
 
     InputhandlerKeyboard *inKey = new InputhandlerKeyboard();
 

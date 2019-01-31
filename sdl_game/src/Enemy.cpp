@@ -22,12 +22,12 @@ Enemy::Enemy(Tileset tileset) {
     unsigned int t1 = 500; //500ms
 
     this->getStateAt(0)->createAnimation(tileset);
-    this->getStateAt(0)->getAnimation()->addAnimation(SDL::Point(0,0), SDL::Point(7,13), t1, 2);
+    this->getStateAt(0)->getAnimation()->addAnimation(SDL::Point(0,0), SDL::Point(0,26), t1, 2);
 
     t1 = 100;
 
     this->getStateAt(1)->createAnimation(tileset);
-    this->getStateAt(1)->getAnimation()->addAnimation(SDL::Point(0,0), SDL::Point(7,13), t1, 2);
+    this->getStateAt(1)->getAnimation()->addAnimation(SDL::Point(0,0), SDL::Point(0,26), t1, 2);
 
 
     this->getStateAt(1)->addHitbox(SDL::Rect(0,0,48,16));

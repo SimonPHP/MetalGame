@@ -28,25 +28,31 @@ private:
     float gravity;
 
     bool isJumping = false;
-    bool isDoubleJumping = false;
 
     bool walkLeft = false;
     bool walkRight = false;
+    bool willJump = false;
+    bool willAttack = false;
 
-    timeval doubleJumpTimerTime;
-    timeval curTime;
-    timeval doubleJumpTimer;
+    unsigned long kickTimer = 1500;
+    unsigned long nextStateAfterKick;
+    bool isAttacking;
+
 
 public:
-
+    float exp = 0;
     EntityState *tmpState;
     Animation *tmpAnimation;
     AnimationFrame *tmpFrame;
-    std::vector<Entity*> collidedWith = std::vector<Entity*>(1000);
+    std::vector<Entity*> collidedWith = std::vector<Entity*>(50);
     std::vector<Entity*>::iterator it;
     bool collidedWithEntity;
 
     bool checkCollisionWithEntity(Entity &entity);
+
+    Level *level;
+
+    void setLevel(Level &level);
 
     Player();
 

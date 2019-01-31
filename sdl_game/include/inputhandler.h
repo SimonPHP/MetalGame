@@ -15,7 +15,9 @@ public:
     enum class Type : int {
         LEFT       = 0,
         RIGHT      = 1,
-        SPACE      = 2,
+        UP         = 2,
+        DOWN       = 3,
+        SPACE      = 4,
     };
 
     std::map<Inputhandler::Type, float> input;

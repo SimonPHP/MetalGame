@@ -9,8 +9,8 @@
 #include <SDL_ttf.hpp>
 #include <SDL_image.hpp>
 
-#define WINDOW_X 1024
-#define WINDOW_Y 600
+#define WINDOW_X 1680
+#define WINDOW_Y 900
 
 namespace TTF = SDL::TTF;
 namespace IMG = SDL::IMG;

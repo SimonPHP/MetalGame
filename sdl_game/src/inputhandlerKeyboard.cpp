@@ -13,6 +13,8 @@ void InputhandlerKeyboard::setInput(SDL::Event evt) {
 
     input[InputhandlerKeyboard::Type::LEFT] = state[SDL::C::SDL_SCANCODE_LEFT];
     input[InputhandlerKeyboard::Type::RIGHT] = state[SDL::C::SDL_SCANCODE_RIGHT];
+    input[InputhandlerKeyboard::Type::UP] = state[SDL::C::SDL_SCANCODE_UP];
+    input[InputhandlerKeyboard::Type::DOWN] = state[SDL::C::SDL_SCANCODE_DOWN];
     input[InputhandlerKeyboard::Type::SPACE] = state[SDL::C::SDL_SCANCODE_SPACE];
 
     switch (evt.type()) { //TODO needed?
