@@ -44,6 +44,10 @@
 #*.png   binary
 #*.gif   binary
 
+*.map   binary
+*.wav   binary
+*.mp3   binary
+
 ###############################################################################
 # diff behavior for common document formats
 # 
