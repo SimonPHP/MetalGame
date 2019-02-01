@@ -21,13 +21,15 @@ Enemy::Enemy(Tileset tileset) {
 
     unsigned int t1 = 500; //500ms
 
+    int rT = rand()%5;
+
     this->getStateAt(0)->createAnimation(tileset);
-    this->getStateAt(0)->getAnimation()->addAnimation(SDL::Point(0,0), SDL::Point(0,26), t1, 2);
+    this->getStateAt(0)->getAnimation()->addAnimation(SDL::Point(0,0), SDL::Point(0,26+rT), t1, 2);
 
     t1 = 100;
 
     this->getStateAt(1)->createAnimation(tileset);
-    this->getStateAt(1)->getAnimation()->addAnimation(SDL::Point(0,0), SDL::Point(0,26), t1, 2);
+    this->getStateAt(1)->getAnimation()->addAnimation(SDL::Point(0,0), SDL::Point(0,26+rT), t1, 2);
 
 
     this->getStateAt(1)->addHitbox(SDL::Rect(0,0,48,16));
@@ -35,11 +37,11 @@ Enemy::Enemy(Tileset tileset) {
 
 
 void Enemy::render(SDL::Renderer &renderer, SDL::Point camera) {
-    if(this->currentState == 1)
+    /*if(this->currentState == 1)
     {
         renderer.SetDrawColor(Color(255,0,0));
         renderer.FillRect(SDL::Rect(this->getX()-camera.x, this->getY()-camera.y, 48, 16));
-    }
+    }*/
     this->getCurrentState()->render(renderer, SDL::Point((int) x, (int) y) - camera);
 }
 

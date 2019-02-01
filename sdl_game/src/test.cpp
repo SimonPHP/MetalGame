@@ -66,7 +66,9 @@ void TestState::Init()
     Texture tex = Texture(renderer, SDL::C::SDL_CreateTextureFromSurface(renderer, surf));
     tileSetMap = Tileset(tex);
 
-    lev = new Level("9.map");
+    backTex = IMG::LoadTexture(renderer, "../assets/graphics/back.jpg");
+
+    lev = new Level("11.map");
     lev->processLevelwithTileset(tileSetMap);
 
     SDL::Point spawn = SDL::Point(0, 0);
@@ -75,7 +77,7 @@ void TestState::Init()
     {
         for(uint32_t x = 0; x < lev->getWidth(); x++)
         {
-            if (lev->ppointLayerAttributes[x][y] == 3)
+            if (lev->ppointLayerEntities[x][y] == 3)
                 spawn = SDL::Point(x, y);
         }
     }
@@ -102,7 +104,7 @@ void TestState::Init()
     {
         for(uint32_t x = 0; x < lev->getWidth(); x++)
         {
-            if (lev->ppointLayerAttributes[x][y] == 1)
+            if (lev->ppointLayerEntities[x][y] == 1)
             {
                 this->enemyVec[curEnemyPos]->setX(x*16);
                 this->enemyVec[curEnemyPos]->setY(y*16);
@@ -242,6 +244,10 @@ void TestState::Render(const int frame, const float deltaT)
     //hier sollte man normal rendern können
 
     renderer.ClearColor(255,255,255);
+
+    backTex.Draw(SDL::Rect(0,0,WINDOW_X,WINDOW_Y));
+
+
     {
         image.Draw(Rect(0, 0, WINDOW_X, WINDOW_Y));
         blendedText.SetColorMod(Color(0, 0, 0));

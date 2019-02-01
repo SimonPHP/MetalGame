@@ -16,7 +16,7 @@ Player::Player(Tileset tileset) {
     currentAccX = 0;
     speed = 500;
     gravity = 1000;
-    jumpHeight = -800;
+    jumpHeight = -550;
     health = 100;
 
     collidedWithEntity = false;
@@ -29,22 +29,24 @@ Player::Player(Tileset tileset) {
 
     unsigned int t1 = 500; //500ms
 
+    int offset = 25;
+
     this->getStateAt(0)->createAnimation(tileset);
-    this->getStateAt(0)->getAnimation()->addAnimation(SDL::Point(0,0), SDL::Point(0,9), t1, 3);
+    this->getStateAt(0)->getAnimation()->addAnimation(SDL::Point(0,0), SDL::Point(0,9+offset), t1, 3);
 
     this->getStateAt(1)->createAnimation(tileset);
-    this->getStateAt(1)->getAnimation()->addAnimation(SDL::Point(0,0), SDL::Point(4,11), t1, 4);
+    this->getStateAt(1)->getAnimation()->addAnimation(SDL::Point(0,0), SDL::Point(4,11+offset), t1, 4);
 
     this->getStateAt(2)->createAnimation(tileset);
-    this->getStateAt(2)->getAnimation()->addAnimation(SDL::Point(0,0), SDL::Point(0,17), t1, 4);
+    this->getStateAt(2)->getAnimation()->addAnimation(SDL::Point(0,0), SDL::Point(0,17+offset), t1, 4);
 
     this->getStateAt(3)->createAnimation(tileset);
-    this->getStateAt(3)->getAnimation()->addAnimation(SDL::Point(0,0), SDL::Point(0,19), t1, 6);
+    this->getStateAt(3)->getAnimation()->addAnimation(SDL::Point(0,0), SDL::Point(0,19+offset), t1, 6);
 
     this->getStateAt(4)->createAnimation(tileset); //animation mit tileset erstellen
-    this->getStateAt(4)->getAnimation()->addAnimation(SDL::Point(0,0), SDL::Point(0,7), t1, 3);
+    this->getStateAt(4)->getAnimation()->addAnimation(SDL::Point(0,0), SDL::Point(0,7+offset), t1, 3);
     int a = this->getStateAt(4)->getAnimation()->addAnimationFrame(t1);
-    this->getStateAt(4)->getAnimation()->getAnimationFrame(a).addSprites(SDL::Point(0,0), SDL::Point(2,7)); //extra frame
+    this->getStateAt(4)->getAnimation()->getAnimationFrame(a).addSprites(SDL::Point(0,0), SDL::Point(2,7+offset)); //extra frame
 
     this->getStateAt(0)->addHitbox(SDL::Rect(0,0,15,15)); //hitboxen sind nicht ans grid gebunden
     this->getStateAt(0)->addHitbox(SDL::Rect(16,0,15,15));
@@ -365,7 +367,11 @@ void Player::update(const float deltaT) {
                 if(std::signbit(this->currentAccY)) //true if negativ //aka wenns nach oben geht
                     this->collisionState.up = true;
                 else
+                {
                     this->collisionState.down = true;
+                    isFalling = false;
+                    //this->health -= this->currentAccY/2000;
+                }
             }
         }
     }
@@ -405,12 +411,12 @@ void Player::render(SDL::Renderer &renderer, SDL::Point camera) {
     this->getCurrentState()->render(renderer, SDL::Point((int) x, (int) y) - camera);
 
     renderer.SetDrawColor(SDL::Color(255, 0, 0));
-    renderer.FillRect(SDL::Rect(20, WINDOW_Y-200, 160*(this->health/100),25));
+    renderer.FillRect(SDL::Rect(20, WINDOW_Y-150, 160*(this->health/100),25));
 
     renderer.SetDrawColor(SDL::Color(0, 255, 0));
-    renderer.FillRect(SDL::Rect(200, WINDOW_Y-200, exp,25));
+    renderer.FillRect(SDL::Rect(200, WINDOW_Y-150, exp*25,25));
 
-    renderer.SetDrawColor(SDL::Color(0, 255, 0, 128));
+    /*renderer.SetDrawColor(SDL::Color(0, 255, 0, 128));
     renderer.FillRect(SDL::Rect(100,250,16,16));
     renderer.FillRect(SDL::Rect(80,250,16,16));
     renderer.FillRect(SDL::Rect(90,230,16,16));
@@ -424,7 +430,7 @@ void Player::render(SDL::Renderer &renderer, SDL::Point camera) {
     if(this->collisionState.up)
         renderer.FillRect(SDL::Rect(90,230,16,16));
     if(this->collisionState.down)
-        renderer.FillRect(SDL::Rect(90,270,16,16));
+        renderer.FillRect(SDL::Rect(90,270,16,16));*/
 }
 
 Player::~Player() {

@@ -29,6 +29,7 @@ class TestState : public GameState
     TTF::Font font;
     SDL::Texture image;
     SDL::Texture blendedText;
+    SDL::Texture backTex;
 
     Tileset tileSet;
     Tileset tileSetMap;

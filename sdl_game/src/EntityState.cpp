@@ -40,9 +40,9 @@ int EntityState::getH() const {
  */
 void EntityState::render(SDL::Renderer &renderer, SDL::Point pos) {
     renderer.SetDrawColor(Color(74, 168, 114, 128));
-    for(uint32_t i = 0; i < this->hitboxes.size(); i++)
+    /*for(uint32_t i = 0; i < this->hitboxes.size(); i++)
         renderer.FillRect(SDL::Rect( pos.x + hitboxes[i].x, pos.y + hitboxes[i].y, hitboxes[i].w, hitboxes[i].h));
-    this->animation->draw(pos);
+    */this->animation->draw(pos);
 }
 
 void EntityState::createAnimation(Tileset &tileset) {
